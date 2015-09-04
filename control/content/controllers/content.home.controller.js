@@ -56,7 +56,7 @@
          * */
         var saveDataWithDelay = function (newObj) {
           if (newObj) {
-            if (isUnchanged(newObj) && newObj.content.description !== '<p><br data-mce-bogus="1"></p>') {
+            if (isUnchanged(newObj)) {
               return;
             }
             if (tmrDelay) {
@@ -74,19 +74,26 @@
         var init = function () {
           var success = function (result) {
               console.info('Init success result:', result);
-              ContentHome.data = result.data;
-              if (!ContentHome.data.content.carouselImages) {
+              if (Object.keys(result.data).length > 0) {
+                ContentHome.data = result.data;
+              }
+              if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
                 editor.loadItems([]);
               }
               else {
                 editor.loadItems(ContentHome.data.content.carouselImages);
               }
               updateMasterItem(ContentHome.data);
-              if (tmrDelay){clearTimeout(tmrDelay)};
+              if (tmrDelay) {
+                clearTimeout(tmrDelay)
+              }
             }
             , error = function (err) {
               console.error('Error while getting data', err);
-              if (tmrDelay){clearTimeout(tmrDelay)};
+              if (tmrDelay) {
+                clearTimeout(tmrDelay)
+              }
+
             };
           DataStore.get(TAG_NAMES.RSS_FEED_INFO).then(success, error);
         };
