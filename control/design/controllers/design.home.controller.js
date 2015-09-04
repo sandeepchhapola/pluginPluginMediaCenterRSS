@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginDesign')
-    .controller('DesignHomeCtrl', ['$scope', 'DataStore', 'TAG_NAMES', 'LAYOUTS',
-      function ($scope, DataStore, TAG_NAMES, LAYOUTS) {
+    .controller('DesignHomeCtrl', ['$scope', 'DataStore', 'ImageLibrary', 'TAG_NAMES', 'LAYOUTS',
+      function ($scope, DataStore, ImageLibrary, TAG_NAMES, LAYOUTS) {
 
         var DesignHome = this
           , _data = {
@@ -103,6 +103,22 @@
           DesignHome.data.design.itemDetailsLayout = layout;
         };
 
+        DesignHome.addItemListBackgroundImage = function () {
+          var options = {showIcons: false, multiSelection: false};
+          var success = function (result) {
+              DesignHome.data.design.itemListBgImage = result.selectedFiles && result.selectedFiles[0] || null;
+              if (tmrDelay)clearTimeout(tmrDelay);
+            }
+            , error = function (err) {
+              console.error('Error while selecting item list background image from ImageLibrary', err);
+              if (tmrDelay)clearTimeout(tmrDelay);
+            };
+          ImageLibrary.showDialog(options).then(success, error);
+        };
+
+        DesignHome.removeItemListBackgroundImage = function () {
+          DesignHome.data.design.itemListBgImage = null;
+        };
 
         /*
          * Watch for changes in data and trigger the saveDataWithDelay function on change
