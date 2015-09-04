@@ -1,0 +1,48 @@
+<div class="item clearfix row">
+  <div class="labels col-md-3 padding-right-zero pull-left">
+    <span>RSS URL</span>
+  </div>
+  <div class="main pull-right col-md-9 padding-left-zero row">
+    <div class="pull-left col-md-8 padding-zero">
+      <input type="text" class="form-control" placeholder="Enter your RSS URL">
+    </div>
+    <div class="col-md-4 pull-right">
+      <a class="btn btn-primary pull-right stretch">Validate</a>
+    </div>
+  </div>
+</div>
+<hr class="none">
+<div class="item clearfix row">
+  <div class="main pull-right col-md-9">
+    <div class="alert alert-success alert-sm text-center"
+         ng-show="ContentHome.isValidUrl">Feed successfully validated
+    </div>
+    <div class="alert alert-danger alert-sm text-center"
+         ng-show="ContentHome.isInValidUrl">Error. Please check and try again
+    </div>
+  </div>
+</div>
+<br>
+<div class="item clearfix row">
+  <div class="main pull-right col-md-9">
+    <p>Having problems with your feed? Ensure that it is a valid feed by running it through the
+      RSS feed validator <a href="https://validator.w3.org/feed" target="_blank">HERE</a></p>
+  </div>
+</div>
+<hr>
+<div id="carousel"></div>
+<hr>
+<div class="item clearfix row">
+  <div class="labels col-md-3 padding-right-zero pull-left">
+    <span>Content</span>
+  </div>
+</div>
+<hr class="none">
+<div class="item clearfix row">
+  <div class="main col-md-12 pull-right">
+    <textarea id="text" rows="5" width="100%" class="form-control"
+              ui-tinymce="ContentHome.descriptionWYSIWYGOptions"
+              ng-model="ContentHome.data.content.description"
+              placeholder="WYSIWYG"></textarea>
+  </div>
+</div>
