@@ -71,6 +71,9 @@
               if (DesignHome.data && DesignHome.data.design && !DesignHome.data.design.itemListLayout) {
                 DesignHome.data.design.itemListLayout = DesignHome.layouts.itemListLayouts[0].name;
               }
+              if (DesignHome.data && DesignHome.data.design && !DesignHome.data.design.itemDetailsLayout) {
+                DesignHome.data.design.itemDetailsLayout = DesignHome.layouts.itemDetailsLayouts[0].name;
+              }
               updateMasterItem(DesignHome.data);
               if (tmrDelay)clearTimeout(tmrDelay);
             }
@@ -94,6 +97,10 @@
 
         DesignHome.changeListLayout = function (layout) {
           DesignHome.data.design.itemListLayout = layout;
+        };
+
+        DesignHome.changeItemDetailsLayout = function (layout) {
+          DesignHome.data.design.itemDetailsLayout = layout;
         };
 
 

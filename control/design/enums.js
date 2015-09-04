@@ -28,8 +28,8 @@
         {name: "List_Layout_4"}
       ],
       itemDetailsLayouts: [
-        {name: "FEED_Layout_1"},
-        {name: "FEED_Layout_2"}
+        {name: "Feed_Layout_1"},
+        {name: "Feed_Layout_2"}
       ]
     });
 })(window.angular);
