@@ -120,6 +120,23 @@
           DesignHome.data.design.itemListBgImage = null;
         };
 
+        DesignHome.addItemDetailsBackgroundImage = function () {
+          var options = {showIcons: false, multiSelection: false};
+          var success = function (result) {
+              DesignHome.data.design.itemDetailsBgImage = result.selectedFiles && result.selectedFiles[0] || null;
+              if (tmrDelay)clearTimeout(tmrDelay);
+            }
+            , error = function (err) {
+              console.error('Error while selecting item list background image from ImageLibrary', err);
+              if (tmrDelay)clearTimeout(tmrDelay);
+            };
+          ImageLibrary.showDialog(options).then(success, error);
+        };
+
+        DesignHome.removeItemDetailsBackgroundImage = function () {
+          DesignHome.data.design.itemDetailsBgImage = null;
+        };
+
         /*
          * Watch for changes in data and trigger the saveDataWithDelay function on change
          * */
