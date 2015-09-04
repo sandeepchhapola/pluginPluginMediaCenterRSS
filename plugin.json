@@ -1,8 +1,8 @@
 {
-  "author":"[Your Name here]"
-,"pluginName":"[Your Plugin Name here]"
+  "author":"Sandeep Kumar"
+,"pluginName":"pluginPluginMediaCenterRSS"
 ,"pluginDescription":"[A short description of what your plugin does]"
-,"supportEmail":"[Your support Email]"
+,"supportEmail":"schhapola0001@gmail.com"
 ,"control":{
   "content":{
     "enabled":true
@@ -11,7 +11,7 @@
     "enabled":true
   }
 , "settings":{
-    "enabled":true
+    "enabled":false
   }
 }
 ,"widget":{
