@@ -1,4 +1,4 @@
-<div class="item clearfix row margin-top-thirty">
+<div class="item clearfix row">
   <div class="labels col-md-3 padding-right-zero pull-left">
     <span>RSS URL</span>
   </div>
@@ -11,12 +11,22 @@
     </div>
   </div>
 </div>
+<hr class="none">
 <div class="item clearfix row">
   <div class="main pull-right col-md-9">
-    <div class="alert alert-success alert-sm text-center">Feed successfully validated</div>
-    <div class="alert alert-danger alert-sm text-center">Error. Please check and try again</div>
-    <p class="margin-top-five">Having problems with your feed? Ensure that it is a valid feed by running it through the
-      RSS feed validator.</p>
+    <div class="alert alert-success alert-sm text-center"
+         ng-show="ContentHome.isValidUrl">Feed successfully validated
+    </div>
+    <div class="alert alert-danger alert-sm text-center"
+         ng-show="ContentHome.isInValidUrl">Error. Please check and try again
+    </div>
+  </div>
+</div>
+<br>
+<div class="item clearfix row">
+  <div class="main pull-right col-md-9">
+    <p>Having problems with your feed? Ensure that it is a valid feed by running it through the
+      RSS feed validator <a href="https://validator.w3.org/feed" target="_blank">HERE</a></p>
   </div>
 </div>
 <hr>
@@ -32,51 +42,6 @@
       <a class="btn btn-success pull-left" onclick="alert('Open Media Library');">Add Image</a>
     </div>
     <div class="carousel-items draggable-list-view margin-top-twenty border-radius-four border-grey">
-      <div class="d-item">
-        <span class="icon icon-menu pull-left"></span>
-
-        <div class="media-holder pull-left">
-          <img src="http://www.placehold.it/80x50">
-        </div>
-        <div class="copy pull-right">
-          <span class="title ellipsis">Image Title</span>
-
-          <div class="pull-right">
-            <a class="text-primary text">Add Action</a>
-							<span class="btn-icon btn-delete-icon btn-danger transition-third"><span>
-          </div>
-        </div>
-      </div>
-      <div class="d-item">
-        <span class="icon icon-menu pull-left"></span>
-
-        <div class="media-holder pull-left">
-          <img src="http://www.placehold.it/80x50">
-        </div>
-        <div class="copy pull-right">
-          <span class="title ellipsis">Image Title</span>
-
-          <div class="pull-right">
-            <a class="text-primary text">Add Action</a>
-							<span class="btn-icon btn-delete-icon btn-danger transition-third"><span>
-          </div>
-        </div>
-      </div>
-      <div class="d-item">
-        <span class="icon icon-menu pull-left"></span>
-
-        <div class="media-holder pull-left">
-          <img src="http://www.placehold.it/80x50">
-        </div>
-        <div class="copy pull-right">
-          <span class="title ellipsis">Image Title</span>
-
-          <div class="pull-right">
-            <a class="text-primary text">Add Action</a>
-							<span class="btn-icon btn-delete-icon btn-danger transition-third"><span>
-          </div>
-        </div>
-      </div>
       <div class="d-item">
         <span class="icon icon-menu pull-left"></span>
 
