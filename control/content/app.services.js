@@ -121,5 +121,30 @@
           return deferred.promise;
         }
       }
+    }])
+    .factory("FeedParseService", ['$q', '$http', function ($q, $http) {
+      var getFeedData = function (_feedUrl) {
+        var deferred = $q.defer();
+        if (!_feedUrl) {
+          deferred.reject(new Error('Undefined feed url'));
+        }
+        $http.post('http://localhost:3000/validatefeedurl', {
+          feedUrl: _feedUrl
+        })
+          .success(function (response) {
+            if (response.items && response.items.length > 0) {
+              deferred.resolve(response);
+            } else {
+              deferred.reject(new Error('Not a feed url'));
+            }
+          })
+          .error(function (error) {
+            deferred.reject(new error);
+          });
+        return deferred.promise;
+      };
+      return {
+        getFeedData: getFeedData
+      }
     }]);
 })(window.angular, window.buildfire);
