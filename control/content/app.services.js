@@ -139,7 +139,7 @@
             }
           })
           .error(function (error) {
-            deferred.reject(new error);
+            deferred.reject(error);
           });
         return deferred.promise;
       };
