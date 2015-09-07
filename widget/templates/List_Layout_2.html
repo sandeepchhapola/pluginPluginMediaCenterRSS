@@ -28,7 +28,8 @@
 			</div>
 		</div>
 		<div class="text-left padded padding-bottom-zero clearfix">
-			<p>This is the WYSIWYG Editor. This is the WYSIWYG Editor. This is the WYSIWYG Editor. This is the WYSIWYG Editor. This is the WYSIWYG Editor. This is the WYSIWYG Editor. This is the WYSIWYG Editor. This is the WYSIWYG Editor.</p</p>
+			<p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+				 ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
 		</div>
 		<div class="">
 			<div class="list-layout">

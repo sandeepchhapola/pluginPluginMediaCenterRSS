@@ -84,6 +84,7 @@
               else {
                 editor.loadItems(ContentHome.data.content.carouselImages);
               }
+              ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
               updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)

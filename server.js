@@ -72,8 +72,10 @@ app.post('/validatefeedurl', function (req, res) {
     });
     feedparser.on('end', function () {
       res.send({
-        meta: meta,
-        items: items,
+        data: {
+          meta: meta,
+          items: items
+        },
         status: 200
       }).end();
     });

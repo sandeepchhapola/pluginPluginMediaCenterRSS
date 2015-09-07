@@ -27,8 +27,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="padded text-left">
-			<p class="margin-bottom-zero">WYSIWYG Editor.</p>
+		<div class="text-left padded padding-bottom-zero clearfix">
+			<p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+				 ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
 		</div>
 		<div class="plugin-banner clearfix border-bottom-grey">
 			<div class="plugin-slide text-center">

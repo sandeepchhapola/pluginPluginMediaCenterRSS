@@ -132,7 +132,7 @@
           feedUrl: _feedUrl
         })
           .success(function (response) {
-            if (response.items && response.items.length > 0) {
+            if (response.data && response.data.items && response.data.items.length > 0) {
               deferred.resolve(response);
             } else {
               deferred.reject(new Error('Not a feed url'));
