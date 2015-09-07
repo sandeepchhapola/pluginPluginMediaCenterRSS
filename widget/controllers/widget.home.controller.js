@@ -14,6 +14,7 @@
 
         var getFeedData = function (rssUrl) {
           var success = function (result) {
+              console.info('Feed data: ', result);
               if (result.data && result.data.items.length > 0)
                 WidgetHome.items = result.data.items;
             }
@@ -33,7 +34,7 @@
         var init = function () {
           var success = function (result) {
               WidgetHome.data = result.data;
-              if (WidgetHome.data.content.rssUrl) {
+              if (WidgetHome.data.content && WidgetHome.data.content.rssUrl) {
                 getFeedData(WidgetHome.data.content.rssUrl);
               }
             }

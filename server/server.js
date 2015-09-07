@@ -9,7 +9,7 @@ var express = require('express')
   , env = process.env.NODE_ENV || 'development'
   , server = require('http').createServer(app);
 
-
+/* To Allow cross-domain Access-Control*/
 var allowCrossDomain = function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
@@ -41,6 +41,7 @@ app.use(session({
 app.get('/', function (req, res) {
   res.send('Welcome!').end();
 });
+/* respond to post call for '/validatefeedurl' route and send parsed xml in response*/
 app.post('/validatefeedurl', function (req, res) {
   var feedReq = request(req.body.feedUrl)
     , feedparser = new FeedParser()
