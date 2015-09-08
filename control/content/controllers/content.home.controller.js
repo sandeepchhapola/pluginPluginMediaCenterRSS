@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginContent')
-    .controller('ContentHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'TAG_NAMES', 'LAYOUTS',
-      function ($scope, DataStore, Buildfire, TAG_NAMES, LAYOUTS) {
+    .controller('ContentHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'TAG_NAMES', 'LAYOUTS', 'FeedParseService', '$timeout',
+      function ($scope, DataStore, Buildfire, TAG_NAMES, LAYOUTS, FeedParseService, $timeout) {
 
         var ContentHome = this
           , _data = {
@@ -25,6 +25,7 @@
 
         ContentHome.isInValidUrl = false;
         ContentHome.isValidUrl = false;
+        ContentHome.isValidateButtonClicked = false;
         ContentHome.descriptionWYSIWYGOptions = {
           plugins: 'advlist autolink link image lists charmap print preview',
           skin: 'lightgray',
@@ -33,7 +34,7 @@
         };
         ContentHome.data = angular.copy(_data);
         ContentHome.masterData = null;
-
+        ContentHome.rssFeedUrl = '';
         /*
          * Call the datastore to save the data object
          */
@@ -83,6 +84,7 @@
               else {
                 editor.loadItems(ContentHome.data.content.carouselImages);
               }
+              ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
               updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
@@ -133,12 +135,31 @@
           $scope.$digest();
         };
 
+        ContentHome.validateFeedUrl = function () {
+          var success = function () {
+              ContentHome.isValidUrl = true;
+              ContentHome.isValidateButtonClicked = false;
+              ContentHome.data.content.rssUrl = ContentHome.rssFeedUrl;
+              $timeout(function () {
+                ContentHome.isValidUrl = false;
+              }, 3000);
+            }
+            , error = function () {
+              ContentHome.isInValidUrl = true;
+              ContentHome.isValidateButtonClicked = false;
+              $timeout(function () {
+                ContentHome.isInValidUrl = false;
+              }, 3000);
+            };
+          ContentHome.isValidateButtonClicked = true;
+          FeedParseService.getFeedData(ContentHome.rssFeedUrl).then(success, error);
+        };
+
         /*
          * Watch for changes in data and trigger the saveDataWithDelay function on change
          * */
         $scope.$watch(function () {
           return ContentHome.data;
         }, saveDataWithDelay, true);
-
       }]);
 })(window.angular);

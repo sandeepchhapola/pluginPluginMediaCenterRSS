@@ -1,34 +1,11 @@
-<script type="text/javascript" charset="utf-8">
-	$(function(){
-		var slides = $('.plugin-slider .plugin-slide').length;
-		
-		// Slider needs at least 2 slides or you'll get an error.
-		if(slides > 1){
-			$('.plugin-slider').owlCarousel({
-				loop:true,
-				nav:false,
-				items:1
-			});	
-		}
-	})
-</script>
 <div class="holder padding-zero">
 	<div class="media-center-plugin layout3">
 		<div class="plugin-banner clearfix border-bottom-grey">
-			<div class="plugin-slider text-center">
-				<div class="plugin-slide">
-					<img src="http://www.placehold.it/1280x720.jpg">
-				</div>
-				<div class="plugin-slide">
-					<img src="http://www.placehold.it/1280x720.jpg">
-				</div>
-				<div class="plugin-slide">
-					<img src="http://www.placehold.it/1280x720.jpg">
-				</div>
-			</div>
+			<buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
 		</div>
-		<div class="padded text-left">
-			<p class="margin-bottom-zero">WYSIWYG Editor.</p>
+		<div class="text-left padded padding-bottom-zero clearfix">
+			<p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+				 ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
 		</div>
 		<div class="plugin-banner clearfix border-bottom-grey">
 			<div class="plugin-slide text-center">
@@ -36,7 +13,7 @@
 			</div>
 		</div>
 		<div class="padded text-left">
-			<a class="text-primary">This is a title</a>
+			<a class="text-primary">3 This is a title</a>
 			<p class="margin-bottom-zero">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 			<span class="list-item-date">Dec 21, 2014</span>
 		</div>
