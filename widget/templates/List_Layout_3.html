@@ -1,4 +1,4 @@
-<div class="holder padding-zero">
+<div background-image="{{WidgetHome.data.design.itemListBgImage}}"  class="holder padding-zero">
   <div class="media-center-plugin layout3">
     <div class="plugin-banner clearfix border-bottom-grey">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
@@ -16,7 +16,7 @@
       <div class="padded text-left">
         <a class="text-primary">{{item.title}}</a>
         <p class="summary ellipsis margin-zero"  ng-bind-html="item.summary|truncate|safeHtml"></p>
-        <span class="list-item-date">{{item.pubDate|date:'MMM dd yyyy'}}</span>
+        <span class="list-item-date">{{item.pubDate|date:'medium'}}</span>
       </div>
     </div>
   </div>
