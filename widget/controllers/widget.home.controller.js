@@ -59,5 +59,12 @@
         $scope.$on("$destroy", function () {
           DataStore.clearListener();
         });
+
+
+        DataStore.onUpdate(function (event) {
+          init();
+        });
+        
+        
       }]);
 })(window.angular);

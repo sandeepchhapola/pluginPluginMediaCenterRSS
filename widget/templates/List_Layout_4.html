@@ -1,31 +1,7 @@
-<script type="text/javascript" charset="utf-8">
-  $(function () {
-    var slides = $('.plugin-slider .plugin-slide').length;
-
-    // Slider needs at least 2 slides or you'll get an error.
-    if (slides > 1) {
-      $('.plugin-slider').owlCarousel({
-        loop: true,
-        nav: false,
-        items: 1
-      });
-    }
-  })
-</script>
 <div class="holder padding-zero">
   <div class="media-center-plugin list-layout layout4">
     <div class="media-center-banner clearfix border-bottom-grey">
-      <div class="plugin-slider text-center">
-        <div class="plugin-slide">
-          <img src="http://www.placehold.it/1280x720.jpg">
-        </div>
-        <div class="plugin-slide">
-          <img src="http://www.placehold.it/1280x720.jpg">
-        </div>
-        <div class="plugin-slide">
-          <img src="http://www.placehold.it/1280x720.jpg">
-        </div>
-      </div>
+      <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
     </div>
     <div class="text-left padded padding-bottom-zero clearfix">
       <p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
@@ -41,7 +17,7 @@
               </div>
             </div>
             <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero text-primary">This is a title</p>
+              <p class="ellipsis margin-zero text-primary">4 This is a title</p>
 
               <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
               <span class="list-item-date">Dec 21, 2014</span>
