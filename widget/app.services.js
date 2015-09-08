@@ -1,7 +1,7 @@
 'use strict';
 
 (function (angular, buildfire) {
-  angular.module('mediaCenterRSSPluginContent')
+  angular.module('mediaCenterRSSPluginWidget')
     .provider('Buildfire', [function () {
       var Buildfire = this;
       Buildfire.$get = function () {
@@ -10,6 +10,7 @@
       return Buildfire;
     }])
     .factory("DataStore", ['Buildfire', '$q', 'STATUS_CODE', 'STATUS_MESSAGES', function (Buildfire, $q, STATUS_CODE, STATUS_MESSAGES) {
+      var onUpdateListeners = [];
       return {
         get: function (_tagName) {
           var deferred = $q.defer();
@@ -119,20 +120,41 @@
             }
           });
           return deferred.promise;
+        },
+        onUpdate: function () {
+          var deferred = $q.defer();
+          var onUpdateFn = Buildfire.datastore.onUpdate(function (event) {
+            if (!event) {
+              return deferred.notify(new Error({
+                code: STATUS_CODE.UNDEFINED_EVENT,
+                message: STATUS_MESSAGES.UNDEFINED_EVENT
+              }), true);
+            } else {
+              return deferred.notify(event);
+            }
+          });
+          onUpdateListeners.push(onUpdateFn);
+          return deferred.promise;
+        },
+        clearListener: function () {
+          onUpdateListeners.forEach(function (listner) {
+            listner.clear();
+          });
+          onUpdateListeners = [];
         }
       }
     }])
     .factory("FeedParseService", ['$q', '$http', function ($q, $http) {
-      var validateFeedUrl = function (_feedUrl) {
+      var getFeedData = function (_feedUrl) {
         var deferred = $q.defer();
         if (!_feedUrl) {
           deferred.reject(new Error('Undefined feed url'));
         }
-        $http.post('http://localhost:3000/validatefeedurl', {
+        $http.post('http://localhost:3000/parsefeedurl', {
           feedUrl: _feedUrl
         })
           .success(function (response) {
-            if (response.data && response.data.isValidFeedUrl) {
+            if (response.data && response.data.items && response.data.items.length > 0) {
               deferred.resolve(response);
             } else {
               deferred.reject(new Error('Not a feed url'));
@@ -144,7 +166,7 @@
         return deferred.promise;
       };
       return {
-        validateFeedUrl: validateFeedUrl
+        getFeedData: getFeedData
       }
     }]);
 })(window.angular, window.buildfire);
