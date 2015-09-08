@@ -9,116 +9,16 @@
     </div>
     <div class="padded padding-top-zero">
       <div class="list-layout">
-        <div class="row">
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder play-btn">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero text-primary">4 This is a title</p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
+        <div class="list-item col-xs-6 pull-left" ng-repeat="item in  WidgetHome.items">
+          <div class="list-item-media text-center border-radius-three overflow-hidden">
+            <div class="list-media-holder">
+              <img ng-src="{{item.summary|extractImgSrc|resizeImage:133:88}}">
             </div>
           </div>
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder play-btn">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
-          </div>
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder play-btn">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
-          </div>
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder play-btn">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
-          </div>
-          <div class="list-item col-xs-6 pull-left">
-            <div class="list-item-media text-center border-radius-three overflow-hidden">
-              <div class="list-media-holder">
-                <img src="http://www.placehold.it/200x200">
-              </div>
-            </div>
-            <div class="list-item-copy text-left">
-              <p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-
-              <p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-              <span class="list-item-date">Dec 21, 2014</span>
-            </div>
+          <div class="list-item-copy text-left">
+            <p class="ellipsis margin-zero text-primary">{{item.title}}</p>
+            <p class="summary ellipsis margin-zero" ng-bind-html="item.summary|truncate|safeHtml"></p>
+            <span class="list-item-date">{{item.pubDate|date:'MMM dd yyyy'}}</span>
           </div>
         </div>
       </div>

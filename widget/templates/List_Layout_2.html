@@ -9,69 +9,16 @@
 		</div>
 		<div class="">
 			<div class="list-layout">
-				<div class="list-item">
+				<div class="list-item"
+						 ng-repeat="item in  WidgetHome.items">
 					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-media-holder pull-left play-btn">
-							<img src="http://www.placehold.it/120x70">
+						<div class="list-media-holder pull-left">
+							<img ng-src="{{item.summary|extractImgSrc|resizeImage:133:88}}">
 						</div>
 						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">2 This is a title This is a title This is a title</a></p>
-							<p class="summary ellipsis margin-zero">Here is where the summary goes and if it's too long it disappears</p>
-							<span class="list-item-date">Dec 21, 2014</span>
-						</div>
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-media-holder pull-left play-btn">
-							<img src="http://www.placehold.it/120x70">
-						</div>
-						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-							<p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-							<span class="list-item-date">Dec 21, 2014</span>
-						</div>
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-							<p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-							<span class="list-item-date">Dec 21, 2014</span>
-						</div>
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-media-holder pull-left play-btn">
-							<img src="http://www.placehold.it/120x70">
-						</div>
-						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-							<p class="summary ellipsis margin-zero">Here is where the summary goes and if it's too long it disappears</p>
-							<span class="list-item-date">Dec 21, 2014</span>
-						</div>
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-media-holder pull-left play-btn">
-							<img src="http://www.placehold.it/120x70">
-						</div>
-						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-							<p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-							<span class="list-item-date">Dec 21, 2014</span>
-						</div>
-					</div>
-				</div>
-				<div class="list-item">
-					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">This is a title</a></p>
-							<p class="summary ellipsis margin-zero">Here is where the summary goes</p>
-							<span class="list-item-date">Dec 21, 2014</span>
+							<p class="ellipsis margin-zero"><a class="text-primary">{{item.title}}</a></p>
+							<p class="summary ellipsis margin-zero"  ng-bind-html="item.summary|truncate|safeHtml"></p>
+							<span class="list-item-date">{{item.pubDate|date:'MMM dd yyyy'}}</span>
 						</div>
 					</div>
 				</div>
