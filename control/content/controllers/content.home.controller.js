@@ -77,6 +77,8 @@
               console.info('Init success result:', result);
               if (Object.keys(result.data).length > 0) {
                 ContentHome.data = result.data;
+              } else {
+                saveData(ContentHome.data, TAG_NAMES.RSS_FEED_INFO);
               }
               if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
                 editor.loadItems([]);
