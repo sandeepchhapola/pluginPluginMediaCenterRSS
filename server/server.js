@@ -43,6 +43,37 @@ app.get('/', function (req, res) {
 });
 /* respond to post call for '/validatefeedurl' route and send parsed xml in response*/
 app.post('/validatefeedurl', function (req, res) {
+  var isValidFeedUrl = false;
+  if (!req.body.feedUrl) {
+    res.send(new Error('Error: Undefined rss feed url')).end();
+  } else {
+    request(req.body.feedUrl, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          isValidFeedUrl = (body.match('<?xml') && body.match('<rss')) ? true : false;
+          res.send({
+            data: {
+              isValidFeedUrl: isValidFeedUrl
+            },
+            status: 200
+          }).end();
+        }
+        else {
+          console.error('Error:', error);
+          res.send({
+            data: {
+              isValidFeedUrl: isValidFeedUrl
+            },
+            status: 200
+          }).end();
+        }
+      }
+    )
+    ;
+  }
+})
+;
+
+app.post('/parsefeedurl', function (req, res) {
   var feedReq = request(req.body.feedUrl)
     , feedparser = new FeedParser()
     , meta = null

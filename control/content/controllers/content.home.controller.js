@@ -154,7 +154,7 @@
               }, 3000);
             };
           ContentHome.isValidateButtonClicked = true;
-          FeedParseService.getFeedData(ContentHome.rssFeedUrl).then(success, error);
+          FeedParseService.validateFeedUrl(ContentHome.rssFeedUrl).then(success, error);
         };
 
         /*

@@ -123,7 +123,7 @@
       }
     }])
     .factory("FeedParseService", ['$q', '$http', function ($q, $http) {
-      var getFeedData = function (_feedUrl) {
+      var validateFeedUrl = function (_feedUrl) {
         var deferred = $q.defer();
         if (!_feedUrl) {
           deferred.reject(new Error('Undefined feed url'));
@@ -132,7 +132,7 @@
           feedUrl: _feedUrl
         })
           .success(function (response) {
-            if (response.data && response.data.items && response.data.items.length > 0) {
+            if (response.data && response.data.isValidFeedUrl) {
               deferred.resolve(response);
             } else {
               deferred.reject(new Error('Not a feed url'));
@@ -144,7 +144,7 @@
         return deferred.promise;
       };
       return {
-        getFeedData: getFeedData
+        validateFeedUrl: validateFeedUrl
       }
     }]);
 })(window.angular, window.buildfire);
