@@ -1,4 +1,4 @@
-<div background-image="{{WidgetHome.data.design.itemListBgImage}}"  class="holder padding-zero">
+<div background-image="{{WidgetHome.data.design.itemListBgImage}}" class="holder padding-zero">
   <div class="media-center-plugin layout1">
     <div class="media-center-banner clearfix border-bottom-grey">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
@@ -12,16 +12,16 @@
         <div class="list-item col-xs-6 pull-left"
              ng-repeat="item in  WidgetHome.items">
           <div class="list-item-media text-center border-radius-three overflow-hidden">
-            <div class="list-media-holder">
-              <img ng-src="{{item.summary|extractImgSrc|resizeImage:133:88}}">
+            <div class="list-media-holder" ng-if="WidgetHome.getImageUrl(item)">
+              <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
             </div>
           </div>
           <div class="list-item-copy text-left">
-            <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{item.title}}</a></p>
+            <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a></p>
 
             <p class="summary ellipsis margin-zero"
-               ng-bind-html="item.summary|truncate|safeHtml"></p>
-            <span class="list-item-date">{{item.pubDate|date:'medium'}}</span>
+               ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
+            <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
           </div>
         </div>
       </div>

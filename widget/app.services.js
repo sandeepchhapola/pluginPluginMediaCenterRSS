@@ -154,11 +154,7 @@
           feedUrl: _feedUrl
         })
           .success(function (response) {
-            if (response.data && response.data.items && response.data.items.length > 0) {
-              deferred.resolve(response);
-            } else {
-              deferred.reject(new Error('Not a feed url'));
-            }
+            deferred.resolve(response);
           })
           .error(function (error) {
             deferred.reject(error);

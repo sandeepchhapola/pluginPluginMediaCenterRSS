@@ -9,16 +9,16 @@
     </div>
     <div class="padded padding-top-zero">
       <div class="list-layout">
-        <div class="list-item col-xs-6 pull-left" ng-repeat="item in  WidgetHome.items">
+        <div ng-click="WidgetHome.goToItem($index)" class="list-item col-xs-6 pull-left" ng-repeat="item in  WidgetHome.items">
           <div class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder">
-              <img ng-src="{{item.summary|extractImgSrc|resizeImage:133:88}}">
+              <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
             </div>
           </div>
           <div class="list-item-copy text-left">
-            <p class="ellipsis margin-zero text-primary">{{item.title}}</p>
-            <p class="summary ellipsis margin-zero" ng-bind-html="item.summary|truncate|safeHtml"></p>
-            <span class="list-item-date">{{item.pubDate|date:'medium'}}</span>
+            <p class="ellipsis margin-zero text-primary">{{WidgetHome.getTitle(item)}}</p>
+            <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
+            <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
           </div>
         </div>
       </div>
