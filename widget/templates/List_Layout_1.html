@@ -10,7 +10,7 @@
     <div class="padded padding-top-zero">
       <div class="list-layout">
         <div class="list-item col-xs-6 pull-left"
-             ng-repeat="item in  WidgetHome.items">
+             ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
           <div class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder" ng-if="WidgetHome.getImageUrl(item)">
               <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">

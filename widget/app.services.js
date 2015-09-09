@@ -165,7 +165,16 @@
         getFeedData: getFeedData
       }
     }])
-    .factory("Item",function(){
+    .factory('Location', [function () {
+      var _location = window.location;
+      return {
+        goTo: function (path) {
+          _location.href = path;
+        }
+      };
+    }])
+
+    .factory("ItemDetailsService",function(){
         var itemData = {};
 
         return {
