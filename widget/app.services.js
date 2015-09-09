@@ -154,11 +154,7 @@
           feedUrl: _feedUrl
         })
           .success(function (response) {
-            if (response.data && response.data.items && response.data.items.length > 0) {
-              deferred.resolve(response);
-            } else {
-              deferred.reject(new Error('Not a feed url'));
-            }
+            deferred.resolve(response);
           })
           .error(function (error) {
             deferred.reject(error);
@@ -168,5 +164,33 @@
       return {
         getFeedData: getFeedData
       }
-    }]);
+    }])
+    .factory('Location', [function () {
+      var _location = window.location;
+      return {
+        goTo: function (path) {
+          _location.href = path;
+        }
+      };
+    }])
+
+    .factory("ItemDetailsService",function(){
+        var itemData = {};
+
+        return {
+          getData: function () {
+            //You could also return specific attribute of the form data instead
+            //of the entire data
+            return itemData;
+          },
+          setData: function (newData) {
+            //You could also set specific attribute of the form data instead
+            itemData = newData
+          },
+          resetData: function () {
+            //To be called when the data stored needs to be discarded
+            itemData = {};
+          }
+        };
+      });
 })(window.angular, window.buildfire);
