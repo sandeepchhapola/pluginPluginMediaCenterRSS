@@ -10,6 +10,11 @@
           controllerAs: 'WidgetHome',
           controller: 'WidgetHomeCtrl'
         })
+          .when('/item', {
+            templateUrl: 'templates/media.html',
+            controllerAs: 'WidgetMedia',
+            controller: 'WidgetMediaCtrl'
+          })
         .otherwise('/');
     }]);
 })(window.angular);

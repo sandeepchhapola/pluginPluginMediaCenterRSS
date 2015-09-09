@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'FeedParseService', 'TAG_NAMES',
-      function ($scope, $sce, DataStore, FeedParseService, TAG_NAMES) {
+    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'FeedParseService', 'TAG_NAMES','Item',
+      function ($scope, $sce, DataStore, FeedParseService, TAG_NAMES,Item) {
         //create new instance of buildfire carousel viewer
         var view = null
           , WidgetHome = this;
@@ -64,7 +64,13 @@
         DataStore.onUpdate(function (event) {
           init();
         });
-        
+
+
+        WidgetHome.goToItem = function (index) {
+          Item.setData(WidgetHome.items[index]);
+          window.location = '#item';
+
+        };
         
       }]);
 })(window.angular);

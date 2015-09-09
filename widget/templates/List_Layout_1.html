@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="list-item-copy text-left">
-            <p class="ellipsis margin-zero"><a class="text-primary">{{item.title}}</a></p>
+            <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{item.title}}</a></p>
 
             <p class="summary ellipsis margin-zero"
                ng-bind-html="item.summary|truncate|safeHtml"></p>
