@@ -10,13 +10,13 @@
     <div ng-repeat="item in  WidgetHome.items">
       <div class="plugin-banner clearfix border-bottom-grey">
         <div class="plugin-slide text-center">
-          <img ng-src="{{item.summary|extractImgSrc|resizeImage:133:88}}">
+          <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
         </div>
       </div>
       <div class="padded text-left">
-        <a class="text-primary">{{item.title}}</a>
-        <p class="summary ellipsis margin-zero"  ng-bind-html="item.summary|truncate|safeHtml"></p>
-        <span class="list-item-date">{{item.pubDate|date:'medium'}}</span>
+        <a class="text-primary">{{WidgetHome.getTitle(item)}}</a>
+        <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
+        <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
       </div>
     </div>
   </div>

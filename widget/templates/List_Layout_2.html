@@ -13,12 +13,12 @@
 						 ng-repeat="item in  WidgetHome.items">
 					<div class="list-item-media text-left overflow-hidden">
 						<div class="list-media-holder pull-left">
-							<img ng-src="{{item.summary|extractImgSrc|resizeImage:133:88}}">
+							<img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
 						</div>
 						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a class="text-primary">{{item.title}}</a></p>
-							<p class="summary ellipsis margin-zero"  ng-bind-html="item.summary|truncate|safeHtml"></p>
-							<span class="list-item-date">{{item.pubDate|date:'medium'}}</span>
+							<p class="ellipsis margin-zero"><a class="text-primary">{{WidgetHome.getTitle(item)}}</a></p>
+							<p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml">></p>
+							<span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
 						</div>
 					</div>
 				</div>
