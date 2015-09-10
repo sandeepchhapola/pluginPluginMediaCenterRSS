@@ -28,7 +28,8 @@ module.exports = function (config) {
             'test/assets/*.js',
             'control/content/**/*.js',
             'control/design/**/*.js',
-            'widget/**/*.js',
+            'widget/*.js',
+            'widget/controllers/*.js',
             'test/**/*.spec.js'
         ],
 
