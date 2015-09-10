@@ -8,7 +8,11 @@
          ng-bind-html="WidgetHome.data.content.description | safeHtml"></p>
     </div>
     <div class="padded padding-top-zero">
-      <div class="list-layout">
+      <div class="list-layout"
+           ng-if="WidgetHome.data"
+           infinite-scroll="WidgetHome.loadMore()"
+           infinite-scroll-distance="1"
+           infinite-scroll-disabled="WidgetHome.busy">
         <div class="list-item col-xs-6 pull-left"
              ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
           <div class="list-item-media text-center border-radius-three overflow-hidden">
@@ -17,12 +21,18 @@
             </div>
           </div>
           <div class="list-item-copy text-left">
-            <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a></p>
+            <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
+            </p>
 
             <p class="summary ellipsis margin-zero"
                ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
             <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
           </div>
+        </div>
+        <!--Need to replace this loader url with BuildFire generic loader or spinner-->
+        <div class="text-center">
+          <img src="http://www.coxandkingsusa.com/resources/images/loading.gif"
+               ng-show="WidgetHome.showSpinner">
         </div>
       </div>
     </div>

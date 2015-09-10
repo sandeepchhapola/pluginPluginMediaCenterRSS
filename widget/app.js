@@ -1,7 +1,7 @@
 'use strict';
 
 (function (angular) {
-  angular.module('mediaCenterRSSPluginWidget', ['ngRoute'])
+  angular.module('mediaCenterRSSPluginWidget', ['ngRoute', 'infinite-scroll'])
     //injected ngRoute for routing
     .config(['$routeProvider', function ($routeProvider) {
       $routeProvider

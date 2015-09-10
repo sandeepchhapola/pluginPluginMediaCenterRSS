@@ -1,4 +1,4 @@
-<div background-image="{{WidgetHome.data.design.itemListBgImage}}"  class="holder padding-zero">
+<div background-image="{{WidgetHome.data.design.itemListBgImage}}" class="holder padding-zero">
   <div class="media-center-plugin layout3">
     <div class="plugin-banner clearfix border-bottom-grey">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
@@ -7,16 +7,27 @@
       <p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
          ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
     </div>
-    <div ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
-      <div class="plugin-banner clearfix border-bottom-grey">
-        <div class="plugin-slide text-center">
-          <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
+    <div ng-if="WidgetHome.data"
+         infinite-scroll="WidgetHome.loadMore()"
+         infinite-scroll-distance="1"
+         infinite-scroll-disabled="WidgetHome.busy">
+      <div ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
+        <div class="plugin-banner clearfix border-bottom-grey">
+          <div class="plugin-slide text-center">
+            <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
+          </div>
+        </div>
+        <div class="padded text-left">
+          <a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
+
+          <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
+          <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
         </div>
       </div>
-      <div class="padded text-left">
-        <a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
-        <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
-        <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
+      <!--Need to replace this loader url with BuildFire generic loader or spinner-->
+      <div class="text-center">
+        <img src="http://www.coxandkingsusa.com/resources/images/loading.gif"
+             ng-show="WidgetHome.showSpinner">
       </div>
     </div>
   </div>

@@ -6,3 +6,11 @@
 .list-layout{
     overflow: hidden;
 }
+
+/*
+* Set height of body to auto for enabling scroll
+*/
+
+.body-scroll{
+    height: auto !important;
+}

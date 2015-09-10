@@ -3,15 +3,23 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter',
-      function ($scope, $sce, DataStore, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter) {
+    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
+      function ($scope, $sce, DataStore, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
         //create new instance of buildfire carousel viewer
         var view = null
+          , _items = []
+          , limit = 10
+          , chunkData = null
+          , nextChunkDataIndex = 0
+          , nextChunk = null
+          , totalChunks = 0
           , currentRssUrl = null
           , WidgetHome = this;
 
         WidgetHome.data = null;
         WidgetHome.items = [];
+        WidgetHome.busy = false;
+        WidgetHome.showSpinner = false;
         WidgetHome.rssMetaData = null;
 
         var getFeedData = function (rssUrl) {
@@ -19,8 +27,11 @@
               console.info('Feed data: ', result);
               WidgetHome.rssMetaData = result.data.meta;
               if (result.data && result.data.items.length > 0) {
-                WidgetHome.items = result.data.items;
+                _items = result.data.items;
               }
+              chunkData = Underscore.chunk(_items, limit);
+              totalChunks = chunkData.length;
+              WidgetHome.loadMore();
             }
             , error = function (err) {
               console.error('Error while getting feed data', err);
@@ -81,7 +92,7 @@
           if (item.image && item.image.url) {
             return item.image.url;
           }
-          else if (item.enclosures.length > 0) {
+          else if (item.enclosures && item.enclosures.length > 0) {
             length = item.enclosures.length;
             for (i = 0; i < length; i++) {
               if (item.enclosures[i].type.indexOf('image/') === 0) {
@@ -130,5 +141,22 @@
           Location.goTo('#/item');
         };
 
+        WidgetHome.loadMore = function () {
+          if (WidgetHome.busy || totalChunks === 0) {
+            return;
+          }
+          WidgetHome.busy = true;
+          WidgetHome.showSpinner = true;
+          if (nextChunkDataIndex < totalChunks) {
+            nextChunk = chunkData[nextChunkDataIndex];
+            WidgetHome.items.push.apply(WidgetHome.items, nextChunk);
+            nextChunkDataIndex = nextChunkDataIndex + 1;
+            nextChunk = null;
+            WidgetHome.busy = false;
+            WidgetHome.showSpinner = false;
+          } else {
+            WidgetHome.showSpinner = false;
+          }
+        };
       }]);
 })(window.angular);
