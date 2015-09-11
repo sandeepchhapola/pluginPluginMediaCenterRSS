@@ -16,7 +16,7 @@
 /*
 * Styling for audio player
 */
-.back-color{
+.back-color {
     background-color: black !important;;
     padding: 0 !important;
 }
@@ -29,6 +29,23 @@
     margin: 0 auto;
 }
 
-.media-player-btns{
+.media-player-btns {
     margin-bottom: 15px;
+}
+
+.customBackground {
+    background-position: center center !important;
+    background-size: initial;
+    background-repeat: no-repeat !important;
+    background-origin: initial;
+    background-clip: initial;
+    background-attachment: fixed;
+    background-color: #FFFFFF !important;
+}
+
+.backButton {
+    float: left;
+    margin-left: 2px;
+    position: absolute;
+    z-index: 99;
 }
