@@ -1,9 +1,7 @@
-
-
 /*
 * Styling for list layout elements
 */
-.list-layout{
+.list-layout {
     overflow: hidden;
 }
 
@@ -11,6 +9,26 @@
 * Set height of body to auto for enabling scroll
 */
 
-.body-scroll{
+.body-scroll {
     height: auto !important;
+}
+
+/*
+* Styling for audio player
+*/
+.back-color{
+    background-color: black !important;;
+    padding: 0 !important;
+}
+
+.audeo-player-holder {
+    display: table;
+    text-align: center;
+    max-width: 260px;
+    max-height: 200px;
+    margin: 0 auto;
+}
+
+.media-player-btns{
+    margin-bottom: 15px;
 }

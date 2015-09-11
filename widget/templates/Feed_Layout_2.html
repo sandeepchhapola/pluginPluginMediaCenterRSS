@@ -3,13 +3,60 @@
     <div class="people-banner border-bottom-grey"
          style="background:url(http://www.placehold.it/400x400.jpg) no-repeat; background-position:center center; background-size:cover;">
       <div class="people-bg padding-top-fifteen padding-bottom-fifteen clearfix">
-        <div class="people-holder clearfix">
-          <div class="people-media play-btn text-center">
-            <img ng-src="{{WidgetMedia.getImageUrl(WidgetMedia.item)|resizeImage:133:88}}">
+        <div ng-switch="WidgetMedia.medium" class="people-holder clearfix">
+          <div ng-switch-when="VIDEO" class="videogular-container">
+            <videogular vg-player-ready="WidgetMedia.onPlayerReady($API)"
+                        vg-change-source="WidgetMedia.sourceChanged($source)"
+                        vg-theme="WidgetMedia.videoPlayerConfig.theme.url"
+                        vg-error="WidgetMedia.onVideoError($event)">
+              <vg-media vg-src="WidgetMedia.videoPlayerConfig.sources"
+                        vg-tracks="WidgetMedia.videoPlayerConfig.tracks"
+                        vg-native-controls="false">
+              </vg-media>
+              <vg-controls vg-autohide="true">
+                <vg-play-pause-button></vg-play-pause-button>
+                <vg-scrub-bar>
+                  <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                </vg-scrub-bar>
+                <vg-time-display>{{ timeLeft | date:'mm:ss':'+0530' | timeCorrect }}</vg-time-display>
+                <vg-volume>
+                  <vg-mute-button></vg-mute-button>
+                  <vg-volume-bar></vg-volume-bar>
+                </vg-volume>
+              </vg-controls>
+              <vg-overlay-play></vg-overlay-play>
+            </videogular>
           </div>
+          <div ng-switch-when="AUDIO">
+            <div class="holder now-playing text-center back-color">
+              <div class="audeo-player-holder">
+                <img class="border-radius-four"
+                     src="../resources/now-playing.png" height="100%" width="100%">
+              </div>
+              <div class="slider margin-top-twenty">
+                <div class="playerMP">
+                  <div ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime | number:2}}</div>
+                  <div><input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
+                              max="{{WidgetMedia.audio.duration}}"
+                              ng-model="WidgetMedia.audio.currentTime"/></div>
+                  <div ng-if="WidgetMedia.audio.duration">{{WidgetMedia.audio.duration | number:2}}</div>
+                </div>
+              </div>
+              <div class="media-player-btns">
+            <span ng-if="!WidgetMedia.audio.playing" class="icon icon-play-circle icon-main"
+                  ng-click="WidgetMedia.playAudio()"></span>
+            <span ng-if="WidgetMedia.audio.playing" class="icon icon-pause-circle icon-main"
+                  ng-click="WidgetMedia.pause()"></span>
+              </div>
+            </div>
+          </div>
+          <div ng-switch-default="" class="people-media text-center">
+            <img ng-src="{{WidgetMedia.getImageUrl(WidgetMedia.item)|resizeImage:340:190}}">
+          </div>
+
           <div class="people-info text-center col-md-12">
             <h5 class="ellipsis margin-top-fifteen">{{WidgetMedia.getTitle(WidgetMedia.item)}}</h5>
-            <h5 class="margin-bottom-zero">{{WidgetMedia.item.summary|removeHtml}}</h5>
+            <h5 class="margin-bottom-zero">{{WidgetMedia.item.summary|removeHtml|truncate:50}}</h5>
           </div>
         </div>
       </div>

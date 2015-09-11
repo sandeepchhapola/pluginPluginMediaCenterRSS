@@ -8,7 +8,7 @@
         //create new instance of buildfire carousel viewer
         var view = null
           , _items = []
-          , limit = 10
+          , limit = 15
           , chunkData = null
           , nextChunkDataIndex = 0
           , nextChunk = null

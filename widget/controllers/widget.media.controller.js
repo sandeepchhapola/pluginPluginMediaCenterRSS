@@ -3,11 +3,13 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
-      function ($scope, $sce, DataStore, FeedParseService, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
+    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
+      function ($scope, $sce, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
 
         var WidgetMedia = this
-          , currentRssUrl = null;
+          , currentRssUrl = null
+          , audioPlayer = Buildfire.services.media.audioPlayer // audioPlayer is Buildfire.services.media.audioPlayer.
+          , slider = $('#slider'); //slider to show the slider on now-playing page.
 
         WidgetMedia.item = ItemDetailsService.getData();
         WidgetMedia.data = null;
@@ -21,6 +23,13 @@
           theme: {
             url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
           }
+        };
+        WidgetMedia.audio = {
+          playing: false,
+          paused: false,
+          track: '',
+          currentTime: 0,
+          duration: 0
         };
 
         var changeVideoSrc = function (_src, _type) {
@@ -64,14 +73,14 @@
           }
         };
         var checkMediaTag = function (_item) {
-        // code here to check media:content tag or media:group tag
+          // code here to check media:content tag or media:group tag
         };
 
         var filterItemType = function (_item) {
           console.log(_item);
           var mediaData = checkEnclosuresTag(_item);
-          if(!mediaData){
-            mediaData= checkMediaTag(_item)
+          if (!mediaData) {
+            mediaData = checkMediaTag(_item)
           }
           if (mediaData) {
             switch (WidgetMedia.medium) {
@@ -79,6 +88,7 @@
                 changeVideoSrc(mediaData.src, mediaData.type);
                 break;
               case MEDIUM_TYPES.AUDIO:
+                WidgetMedia.audio.track = mediaData.src;
                 //code for audio player
                 break;
               case MEDIUM_TYPES.IMAGE:
@@ -92,7 +102,7 @@
                 break;
             }
           }
-          else{
+          else {
             //check description [CDATA]
           }
         };
@@ -178,6 +188,56 @@
           } else {
             return dateStr;
           }
+        };
+
+        /**
+         * audioPlayer.onEvent callback calls when audioPlayer event fires.
+         */
+        audioPlayer.onEvent(function (e) {
+          if (e.event == "timeUpdate") {
+            WidgetMedia.audio.currentTime = e.data.currentTime;
+            WidgetMedia.audio.duration = e.data.duration;
+            $scope.$apply();
+          }
+          else if (e.event == "audioEnded") {
+            WidgetMedia.audio.playing = false;
+            $scope.$apply();
+          }
+          else if (e.event == "pause") {
+            WidgetMedia.audio.playing = false;
+            $scope.$apply();
+          }
+        });
+        /**
+         * WidgetMedia.playAudio() plays audioPlayer service.
+         */
+        WidgetMedia.playAudio = function () {
+          WidgetMedia.audio.playing = true;
+          if (WidgetMedia.audio.paused) {
+            audioPlayer.play();
+          }
+          else if (WidgetMedia.audio.track) {
+            audioPlayer.play({url: WidgetMedia.audio.track});
+          }
+        };
+        WidgetMedia.pause = function () {
+          WidgetMedia.audio.paused = true;
+          audioPlayer.pause();
+        };
+
+        /**
+         * slider to show the slider on now-playing page.
+         * @type {*|jQuery|HTMLElement}
+         */
+        slider.onchange = function () {
+          if (Math.abs(this.value - WidgetMedia.audio.currentTime) > 1)
+            audioPlayer.setTime(this.value);
+        };
+        slider.onmousedown = function () {
+          this.stopUpdateing = true;
+        };
+        slider.onmouseup = function () {
+          this.stopUpdateing = false;
         };
 
         DataStore.onUpdate().then(null, null, onUpdateCallback);
