@@ -48,7 +48,7 @@
         </div>
       </div>
       <div ng-switch-default class="plugin-slider text-center">
-        <div class="plugin-slide">
+        <div class="plugin-slide" ng-if=" WidgetMedia.getImageUrl(WidgetMedia.item)">
           <img ng-src="{{WidgetMedia.getImageUrl(WidgetMedia.item)|resizeImage:340:190}}">
         </div>
       </div>

@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div ng-switch-default="" class="people-media text-center">
+          <div ng-switch-default="" ng-if="WidgetMedia.getImageUrl(WidgetMedia.item)" class="people-media text-center">
             <img ng-src="{{WidgetMedia.getImageUrl(WidgetMedia.item)|resizeImage:340:190}}">
           </div>
 

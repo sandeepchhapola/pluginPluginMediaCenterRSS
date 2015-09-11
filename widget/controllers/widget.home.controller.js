@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
-      function ($scope, $sce, DataStore, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
+    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
+      function ($scope, $sce, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
         //create new instance of buildfire carousel viewer
         var view = null
           , _items = []
@@ -19,13 +19,19 @@
         WidgetHome.data = null;
         WidgetHome.items = [];
         WidgetHome.busy = false;
-        WidgetHome.showSpinner = false;
         WidgetHome.rssMetaData = null;
 
         var getFeedData = function (rssUrl) {
+          chunkData = null;
+          nextChunkDataIndex = 0;
+          nextChunk = null;
+          totalChunks = 0;
+          _items = [];
+          Buildfire.spinner.show();
           var success = function (result) {
               console.info('Feed data: ', result);
               WidgetHome.rssMetaData = result.data ? result.data.meta : null;
+              Buildfire.spinner.hide();
               if (result.data && result.data.items.length > 0) {
                 _items = result.data.items;
               }
@@ -34,6 +40,7 @@
               WidgetHome.loadMore();
             }
             , error = function (err) {
+              Buildfire.spinner.hide();
               console.error('Error while getting feed data', err);
             };
           FeedParseService.getFeedData(rssUrl).then(success, error);
@@ -146,16 +153,16 @@
             return;
           }
           WidgetHome.busy = true;
-          WidgetHome.showSpinner = true;
+          Buildfire.spinner.show();
           if (nextChunkDataIndex < totalChunks) {
             nextChunk = chunkData[nextChunkDataIndex];
             WidgetHome.items.push.apply(WidgetHome.items, nextChunk);
             nextChunkDataIndex = nextChunkDataIndex + 1;
             nextChunk = null;
             WidgetHome.busy = false;
-            WidgetHome.showSpinner = false;
+            Buildfire.spinner.hide();
           } else {
-            WidgetHome.showSpinner = false;
+            Buildfire.spinner.hide();
           }
         };
       }]);

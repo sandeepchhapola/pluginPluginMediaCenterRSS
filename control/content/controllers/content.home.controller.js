@@ -138,10 +138,12 @@
         };
 
         ContentHome.validateFeedUrl = function () {
+          Buildfire.spinner.show();
           var success = function () {
               ContentHome.isValidUrl = true;
               ContentHome.isValidateButtonClicked = false;
               ContentHome.data.content.rssUrl = ContentHome.rssFeedUrl;
+              Buildfire.spinner.hide();
               $timeout(function () {
                 ContentHome.isValidUrl = false;
               }, 3000);
@@ -149,6 +151,7 @@
             , error = function () {
               ContentHome.isInValidUrl = true;
               ContentHome.isValidateButtonClicked = false;
+              Buildfire.spinner.hide();
               $timeout(function () {
                 ContentHome.isInValidUrl = false;
               }, 3000);
