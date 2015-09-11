@@ -1,8 +1,8 @@
 {
-  "author":"Sandeep Kumar"
+  "author":"BuildFire"
 ,"pluginName":"pluginPluginMediaCenterRSS"
-,"pluginDescription":"[A short description of what your plugin does]"
-,"supportEmail":"schhapola0001@gmail.com"
+,"pluginDescription":"This plugin is used to import RSS/ATOM feed contents into your app"
+,"supportEmail":"support@buildfire.com"
 ,"control":{
   "content":{
     "enabled":true
