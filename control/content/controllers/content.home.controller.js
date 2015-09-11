@@ -86,7 +86,8 @@
               else {
                 editor.loadItems(ContentHome.data.content.carouselImages);
               }
-              ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
+              if (ContentHome.data.content.rssUrl)
+                ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
               updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
@@ -159,7 +160,11 @@
           ContentHome.isValidateButtonClicked = true;
           FeedParseService.validateFeedUrl(ContentHome.rssFeedUrl).then(success, error);
         };
-
+        ContentHome.clearData = function () {
+          if (!ContentHome.rssFeedUrl) {
+            ContentHome.data.content.rssUrl = '';
+          }
+        };
         /*
          * Watch for changes in data and trigger the saveDataWithDelay function on change
          * */
