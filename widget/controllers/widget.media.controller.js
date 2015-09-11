@@ -110,7 +110,7 @@
         var onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
             WidgetMedia.data = event.data;
-            if (WidgetMedia.data.content && WidgetMedia.data.content.rssUrl && WidgetMedia.data.content.rssUrl !== currentRssUrl) {
+            if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
               currentRssUrl = WidgetMedia.data.content.rssUrl;
               Location.goTo('#/');
             }

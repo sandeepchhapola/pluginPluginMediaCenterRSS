@@ -21,12 +21,21 @@
         WidgetHome.busy = false;
         WidgetHome.rssMetaData = null;
 
-        var getFeedData = function (rssUrl) {
+        var resetDefaults = function () {
           chunkData = null;
           nextChunkDataIndex = 0;
           nextChunk = null;
           totalChunks = 0;
+          currentRssUrl = null;
           _items = [];
+          WidgetHome.items = [];
+          WidgetHome.busy = false;
+          WidgetHome.rssMetaData = null;
+          ItemDetailsService.setData(null);
+        };
+
+        var getFeedData = function (rssUrl) {
+          resetDefaults();
           Buildfire.spinner.show();
           var success = function (result) {
               console.info('Feed data: ', result);
@@ -48,9 +57,13 @@
         var onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
             WidgetHome.data = event.data;
-            if (WidgetHome.data.content && WidgetHome.data.content.rssUrl && WidgetHome.data.content.rssUrl !== currentRssUrl) {
-              currentRssUrl = WidgetHome.data.content.rssUrl;
-              getFeedData(WidgetHome.data.content.rssUrl);
+            if (WidgetHome.data.content && WidgetHome.data.content.rssUrl) {
+              if (WidgetHome.data.content.rssUrl !== currentRssUrl) {
+                currentRssUrl = WidgetHome.data.content.rssUrl;
+                getFeedData(WidgetHome.data.content.rssUrl);
+              }
+            } else {
+              resetDefaults();
             }
           }
         };
