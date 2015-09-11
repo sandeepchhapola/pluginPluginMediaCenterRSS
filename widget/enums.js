@@ -17,16 +17,22 @@
       UNDEFINED_ID: 'Undefined id provided',
       UNDEFINED_EVENT: 'Undefined event provided'
     })
+    .constant('MEDIUM_TYPES', {
+      VIDEO: 'VIDEO',
+      AUDIO: 'AUDIO',
+      IMAGE: 'IMAGE',
+      OTHER: 'OTHER'
+    })
     .constant('LAYOUTS', {
       itemListLayouts: [
-        {name: "List_Layout_1"},
-        {name: "List_Layout_2"},
-        {name: "List_Layout_3"},
-        {name: "List_Layout_4"}
+        {name: 'List_Layout_1'},
+        {name: 'List_Layout_2'},
+        {name: 'List_Layout_3'},
+        {name: 'List_Layout_4'}
       ],
       itemDetailsLayouts: [
-        {name: "Feed_Layout_1"},
-        {name: "Feed_Layout_2"}
+        {name: 'Feed_Layout_1'},
+        {name: 'Feed_Layout_2'}
       ]
     });
 })(window.angular);

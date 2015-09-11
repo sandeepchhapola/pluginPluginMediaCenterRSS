@@ -25,7 +25,7 @@
         var getFeedData = function (rssUrl) {
           var success = function (result) {
               console.info('Feed data: ', result);
-              WidgetHome.rssMetaData = result.data.meta;
+              WidgetHome.rssMetaData = result.data ? result.data.meta : null;
               if (result.data && result.data.items.length > 0) {
                 _items = result.data.items;
               }

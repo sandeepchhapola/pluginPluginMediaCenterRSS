@@ -20,7 +20,7 @@
                 return deferred.resolve(result);
               }
             };
-          Buildfire.datastore.get(_tagName, callback());
+          Buildfire.datastore.get(_tagName, callback);
           return deferred.promise;
         },
         save: function (_item, _tagName) {
