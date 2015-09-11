@@ -1,5 +1,8 @@
+
 <div background-image="{{WidgetMedia.data.design.itemDetailsBgImage}}" class="holder padding-zero">
+  <a style="float:left;margin-left: 2px;color:white" href="#/"><span class="icon icon-chevron-left"></span></a>
   <div class="media-center-plugin layout1">
+
     <div ng-switch="WidgetMedia.medium" class="media-center-banner clearfix border-bottom-grey">
       <div ng-switch-when="VIDEO" class="videogular-container">
         <videogular vg-player-ready="WidgetMedia.onPlayerReady($API)"
@@ -20,6 +23,7 @@
               <vg-mute-button></vg-mute-button>
               <vg-volume-bar></vg-volume-bar>
             </vg-volume>
+            <vg-fullscreen-button></vg-fullscreen-button>
           </vg-controls>
           <vg-overlay-play></vg-overlay-play>
         </videogular>
@@ -61,8 +65,8 @@
     <div class="padded padding-top-zero">
       <hr class="small">
       <div class="link-list">
-        <a class="text-primary">Listen</a>
-        <a class="text-primary">Watch</a>
+        <a class="text-primary" ng-click="WidgetMedia.playAudio()" ng-if="WidgetMedia.medium == 'AUDIO'">Listen</a>
+        <a class="text-primary" ng-click="WidgetMedia.API.play()" ng-if="WidgetMedia.medium == 'VIDEO'">Watch</a>
         <a class="text-primary">View Source</a>
         <a class="text-primary">Share</a>
       </div>
