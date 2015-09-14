@@ -23,6 +23,7 @@
       return {
         restrict: 'A',
         link: function (scope, element, attrs) {
+          element.css('min-height', '580px');
           var getImageUrlFilter = $filter("resizeImage");
           var setBackgroundImage = function (backgroundImage) {
             if (backgroundImage) {
