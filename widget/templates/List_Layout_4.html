@@ -1,19 +1,22 @@
-<div background-image="{{WidgetHome.data.design.itemListBgImage}}" class="holder padding-zero">
+<div background-image="{{WidgetHome.data.design.itemListBgImage}}" class="holder padding-zero customBackground">
   <div class="media-center-plugin list-layout layout4">
     <div class="media-center-banner clearfix border-bottom-grey">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
     </div>
-    <div class="text-left padded padding-bottom-zero clearfix">
-      <p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
-         ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
+    <div ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+         class="text-left padded padding-bottom-zero clearfix">
+      <p ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
     </div>
     <div class="padded padding-top-zero">
-      <div class="list-layout">
+      <div class="list-layout" ng-if="WidgetHome.data"
+           infinite-scroll="WidgetHome.loadMore()"
+           infinite-scroll-distance="1"
+           infinite-scroll-disabled="WidgetHome.busy">
         <div ng-click="WidgetHome.goToItem($index)" class="list-item col-xs-6 pull-left"
              ng-repeat="item in WidgetHome.items" trigger-ng-repeat-render="">
-          <div class="list-item-media text-center border-radius-three overflow-hidden">
+          <div ng-if="item.imageSrcUrl" class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder">
-              <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
+              <img ng-src="{{item.imageSrcUrl|resizeImage:153:85}}">
             </div>
           </div>
           <div class="list-item-copy text-left">
@@ -26,4 +29,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

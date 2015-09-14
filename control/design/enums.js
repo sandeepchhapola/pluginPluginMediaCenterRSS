@@ -6,9 +6,6 @@
       RSS_FEED_INFO: 'RssFeedInfo'
     })
     .constant('STATUS_CODE', {
-      INSERTED: 'inserted',
-      UPDATED: 'updated',
-      NOT_FOUND: 'NOTFOUND',
       UNDEFINED_DATA: 'UNDEFINED_DATA',
       UNDEFINED_OPTIONS: 'UNDEFINED_OPTIONS',
       UNDEFINED_ID: 'UNDEFINED_ID',

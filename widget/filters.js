@@ -35,18 +35,20 @@
     }])
     .filter('truncate', [function () {
       return function (html, length) {
-        html = html.replace(/<\/?[^>]+(>|$)/g, "");
+        if (html)
+          html = html.replace(/<\/?[^>]+(>|$)/g, "");
         return jQuery.truncate(html, {
           length: length
         });
       };
     }])
-      .filter('removeHtml', [function () {
-        return function (html) {
+    .filter('removeHtml', [function () {
+      return function (html) {
+        if (html)
           html = html.replace(/<\/?[^>]+(>|$)/g, "");
-          return html;
-        };
-      }])
+        return html;
+      };
+    }])
     .filter('extractImgSrc', [function () {
       return function (html) {
         var imgArr = html.match(/<img[^>]+>/i);

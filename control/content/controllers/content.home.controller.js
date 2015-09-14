@@ -86,7 +86,8 @@
               else {
                 editor.loadItems(ContentHome.data.content.carouselImages);
               }
-              ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
+              if (ContentHome.data.content.rssUrl)
+                ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
               updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
@@ -138,10 +139,12 @@
         };
 
         ContentHome.validateFeedUrl = function () {
+          Buildfire.spinner.show();
           var success = function () {
               ContentHome.isValidUrl = true;
               ContentHome.isValidateButtonClicked = false;
               ContentHome.data.content.rssUrl = ContentHome.rssFeedUrl;
+              Buildfire.spinner.hide();
               $timeout(function () {
                 ContentHome.isValidUrl = false;
               }, 3000);
@@ -149,6 +152,7 @@
             , error = function () {
               ContentHome.isInValidUrl = true;
               ContentHome.isValidateButtonClicked = false;
+              Buildfire.spinner.hide();
               $timeout(function () {
                 ContentHome.isInValidUrl = false;
               }, 3000);
@@ -156,7 +160,11 @@
           ContentHome.isValidateButtonClicked = true;
           FeedParseService.validateFeedUrl(ContentHome.rssFeedUrl).then(success, error);
         };
-
+        ContentHome.clearData = function () {
+          if (!ContentHome.rssFeedUrl) {
+            ContentHome.data.content.rssUrl = '';
+          }
+        };
         /*
          * Watch for changes in data and trigger the saveDataWithDelay function on change
          * */

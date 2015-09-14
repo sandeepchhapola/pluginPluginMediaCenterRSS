@@ -1,28 +1,34 @@
-<div background-image="{{WidgetHome.data.design.itemListBgImage}}"  class="holder padding-zero">
-	<div class="media-center-plugin layout3">
-		<div class="media-center-banner clearfix border-bottom-grey">
-			<buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
-		</div>
-		<div class="text-left padded padding-bottom-zero clearfix">
-			<p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
-				 ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
-		</div>
-		<div class="">
-			<div class="list-layout">
-				<div class="list-item"
-						 ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
-					<div class="list-item-media text-left overflow-hidden">
-						<div class="list-media-holder pull-left">
-							<img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:133:88}}">
-						</div>
-						<div class="list-item-copy text-left padding-left-ten padding-right-ten">
-							<p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a></p>
-							<p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml">></p>
-							<span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div background-image="{{WidgetHome.data.design.itemListBgImage}}" class="holder padding-zero customBackground">
+  <div class="media-center-plugin layout3">
+    <div class="media-center-banner clearfix border-bottom-grey">
+      <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
+    </div>
+    <div ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+         class="text-left padded padding-bottom-zero clearfix">
+      <p ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
+    </div>
+    <div class="">
+      <div class="list-layout"
+           ng-if="WidgetHome.data"
+           infinite-scroll="WidgetHome.loadMore()"
+           infinite-scroll-distance="1"
+           infinite-scroll-disabled="WidgetHome.busy">
+        <div class="list-item"
+             ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
+          <div class="list-item-media text-left overflow-hidden">
+            <div ng-if="item.imageSrcUrl" class="list-media-holder pull-left">
+              <img ng-src="{{item.imageSrcUrl|resizeImage:110:60}}">
+            </div>
+            <div class="list-item-copy text-left padding-left-ten padding-right-ten">
+              <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
+              </p>
+
+              <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml">></p>
+              <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

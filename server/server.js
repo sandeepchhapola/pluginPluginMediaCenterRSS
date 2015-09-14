@@ -49,7 +49,7 @@ app.post('/validatefeedurl', function (req, res) {
   } else {
     request(req.body.feedUrl, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          isValidFeedUrl = (body.match('<?xml') && body.match('<rss')) ? true : false;
+          isValidFeedUrl = (body.match('<?xml') && (body.match('<rss') || body.match('<feed'))) ? true : false;
           res.send({
             data: {
               isValidFeedUrl: isValidFeedUrl
