@@ -26,7 +26,6 @@
           nextChunkDataIndex = 0;
           nextChunk = null;
           totalChunks = 0;
-          currentRssUrl = null;
           _items = [];
           WidgetHome.items = [];
           WidgetHome.busy = false;
@@ -125,7 +124,7 @@
         };
 
         WidgetHome.showDescription = function (description) {
-          return !(description == '<p>&nbsp;<br></p>');
+          return ((description !== '<p><br data-mce-bogus="1"></p>') && (description !== '<p>&nbsp;<br></p>'));
         };
 
         WidgetHome.getTitle = function (item) {
