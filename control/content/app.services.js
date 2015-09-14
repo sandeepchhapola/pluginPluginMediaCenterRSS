@@ -32,8 +32,8 @@
                 return deferred.resolve(result);
               }
             };
-          if (typeof _item == 'undefined') {
-            return deferred.reject(new Error({
+          if (!_item) {
+            deferred.reject(new Error({
               code: STATUS_CODE.UNDEFINED_DATA,
               message: STATUS_MESSAGES.UNDEFINED_DATA
             }));
