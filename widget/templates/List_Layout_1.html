@@ -1,11 +1,12 @@
-<div background-image="{{WidgetHome.data.design.itemListBgImage}}" class="holder padding-zero customBackground minHeightWidget">
+<div background-image="{{WidgetHome.data.design.itemListBgImage}}"
+     class="holder padding-zero customBackground minHeightWidget">
   <div class="media-center-plugin layout1">
     <div class="media-center-banner clearfix border-bottom-grey">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
     </div>
-    <div class="text-left padded padding-bottom-zero clearfix">
-      <p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
-         ng-bind-html="WidgetHome.data.content.description | safeHtml"></p>
+    <div ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+         class="text-left padded padding-bottom-zero clearfix">
+      <p ng-bind-html="WidgetHome.data.content.description | safeHtml"></p>
     </div>
     <div class="padded padding-top-zero">
       <div class="list-layout"
@@ -15,15 +16,14 @@
            infinite-scroll-disabled="WidgetHome.busy">
         <div class="list-item col-xs-6 pull-left"
              ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
-          <div class="list-item-media text-center border-radius-three overflow-hidden">
-            <div class="list-media-holder" ng-if="WidgetHome.getImageUrl(item)">
-              <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:141:79}}">
+          <div ng-if="item.imageSrcUrl" class="list-item-media text-center border-radius-three overflow-hidden">
+            <div class="list-media-holder">
+              <img ng-src="{{item.imageSrcUrl|resizeImage:141:79}}">
             </div>
           </div>
           <div class="list-item-copy text-left">
             <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
             </p>
-
             <p class="summary ellipsis margin-zero"
                ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
             <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>

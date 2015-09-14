@@ -33,7 +33,35 @@
           WidgetHome.rssMetaData = null;
           ItemDetailsService.setData(null);
         };
-
+        var getImageUrl = function (item) {
+          var i = 0
+            , length = 0
+            , imageUrl = '';
+          if (item.image && item.image.url) {
+            return item.image.url;
+          }
+          else if (item.enclosures && item.enclosures.length > 0) {
+            length = item.enclosures.length;
+            for (i = 0; i < length; i++) {
+              if (item.enclosures[i].type.indexOf('image/') === 0) {
+                imageUrl = item.enclosures[i].url;
+                break;
+              }
+            }
+            return imageUrl;
+          } else {
+            if (item['media:thumbnail'] && item['media:thumbnail']['@'] && item['media:thumbnail']['@'].url) {
+              return item['media:thumbnail']['@'].url;
+            } else if (item['media:group'] && item['media:group']['media:content'] && itemitem['media:group']['media:content']['media:thumbnail']['@'] && item['media:group']['media:content']['media:thumbnail']['@'].url) {
+              return item['media:group']['media:content']['media:thumbnail']['@'].url;
+            } else if (item.description) {
+              return $filter('extractImgSrc')(item.description);
+            }
+            else {
+              return '';
+            }
+          }
+        };
         var getFeedData = function (rssUrl) {
           resetDefaults();
           Buildfire.spinner.show();
@@ -42,6 +70,9 @@
               WidgetHome.rssMetaData = result.data ? result.data.meta : null;
               Buildfire.spinner.hide();
               if (result.data && result.data.items.length > 0) {
+                result.data.items.forEach(function (item) {
+                  item.imageSrcUrl = getImageUrl(item);
+                });
                 _items = result.data.items;
               }
               chunkData = Underscore.chunk(_items, limit);
@@ -103,37 +134,6 @@
             item.title = $filter('truncate')(html, 5);
           }
           return item.title;
-        };
-
-        WidgetHome.getImageUrl = function (item) {
-          var i = 0
-            , length = 0
-            , imageUrl = '';
-          if (item.image && item.image.url) {
-            return item.image.url;
-          }
-          else if (item.enclosures && item.enclosures.length > 0) {
-            length = item.enclosures.length;
-            for (i = 0; i < length; i++) {
-              if (item.enclosures[i].type.indexOf('image/') === 0) {
-                imageUrl = item.enclosures[i].url;
-                break;
-              }
-            }
-            return imageUrl;
-          } else {
-            if (item['media:thumbnail'] && item['media:thumbnail']['@'] && item['media:thumbnail']['@'].url) {
-              return item['media:thumbnail']['@'].url;
-            } else if (item['media:group'] && item['media:group']['media:content'] && itemitem['media:group']['media:content']['media:thumbnail']['@'] && item['media:group']['media:content']['media:thumbnail']['@'].url) {
-              return item['media:group']['media:content']['media:thumbnail']['@'].url;
-            } else if (item.summary || item.description) {
-              var html = item.summary ? item.summary : item.description;
-              return $filter('extractImgSrc')(html);
-            }
-            else {
-              return '';
-            }
-          }
         };
 
         WidgetHome.getItemSummary = function (item) {

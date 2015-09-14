@@ -3,18 +3,17 @@
     <div class="plugin-banner clearfix border-bottom-grey">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
     </div>
-    <div class="text-left padded padding-bottom-zero clearfix">
-      <p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
-         ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
+    <div  ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)" class="text-left padded padding-bottom-zero clearfix">
+      <p ng-bind-html='WidgetHome.safeHtml(WidgetHome.data.content.description)'></p>
     </div>
     <div ng-if="WidgetHome.data"
          infinite-scroll="WidgetHome.loadMore()"
          infinite-scroll-distance="1"
          infinite-scroll-disabled="WidgetHome.busy">
       <div ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
-        <div class="plugin-banner clearfix border-bottom-grey">
+        <div ng-if="item.imageSrcUrl" class="plugin-banner clearfix border-bottom-grey">
           <div class="plugin-slide text-center">
-            <img ng-src="{{WidgetHome.getImageUrl(item)|resizeImage:340:190}}">
+            <img ng-src="{{item.imageSrcUrl|resizeImage:340:190}}">
           </div>
         </div>
         <div class="padded text-left">
