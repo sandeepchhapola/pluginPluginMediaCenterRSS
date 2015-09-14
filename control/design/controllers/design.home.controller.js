@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginDesign')
-    .controller('DesignHomeCtrl', ['$scope', 'DataStore', 'ImageLibrary', 'TAG_NAMES', 'LAYOUTS',
-      function ($scope, DataStore, ImageLibrary, TAG_NAMES, LAYOUTS) {
+    .controller('DesignHomeCtrl', ['$scope', 'DataStore', 'ImageLibrary', 'TAG_NAMES', 'LAYOUTS', '$timeout',
+      function ($scope, DataStore, ImageLibrary, TAG_NAMES, LAYOUTS, $timeout) {
 
         var DesignHome = this
           , _data = {
@@ -53,7 +53,7 @@
             if (tmrDelay) {
               clearTimeout(tmrDelay);
             }
-            tmrDelay = setTimeout(function () {
+            tmrDelay = $timeout(function () {
               saveData(JSON.parse(angular.toJson(newObj)), TAG_NAMES.RSS_FEED_INFO);
             }, 500);
           }
