@@ -35,7 +35,8 @@
     }])
     .filter('truncate', [function () {
       return function (html, length) {
-        html = html.replace(/<\/?[^>]+(>|$)/g, "");
+        if (html)
+          html = html.replace(/<\/?[^>]+(>|$)/g, "");
         return jQuery.truncate(html, {
           length: length
         });

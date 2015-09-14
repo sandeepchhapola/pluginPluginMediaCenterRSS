@@ -122,8 +122,10 @@
             }
             return imageUrl;
           } else {
-            if (item['media:thumbnail']) {
+            if (item['media:thumbnail'] && item['media:thumbnail']['@'] && item['media:thumbnail']['@'].url) {
               return item['media:thumbnail']['@'].url;
+            } else if (item['media:group'] && item['media:group']['media:content'] && itemitem['media:group']['media:content']['media:thumbnail']['@'] && item['media:group']['media:content']['media:thumbnail']['@'].url) {
+              return item['media:group']['media:content']['media:thumbnail']['@'].url;
             } else if (item.summary || item.description) {
               var html = item.summary ? item.summary : item.description;
               return $filter('extractImgSrc')(html);
@@ -137,7 +139,7 @@
         WidgetHome.getItemSummary = function (item) {
           if (item.summary || item.description) {
             var html = item.summary ? item.summary : item.description;
-            return $filter('truncate')(html, 13);
+            return $filter('truncate')(html, 100);
           } else {
             return '';
           }

@@ -1,8 +1,5 @@
-
 <div background-image="{{WidgetMedia.data.design.itemDetailsBgImage}}" class="holder padding-zero customBackground">
-  <a class="backButton" href="#/"><span class="icon icon-chevron-left"></span></a>
   <div class="media-center-plugin layout1">
-
     <div ng-switch="WidgetMedia.medium" class="media-center-banner clearfix border-bottom-grey">
       <div ng-switch-when="VIDEO" class="videogular-container">
         <videogular vg-player-ready="WidgetMedia.onPlayerReady($API)"
@@ -51,16 +48,15 @@
           </div>
         </div>
       </div>
-      <div ng-switch-default class="plugin-slider text-center">
-        <div class="plugin-slide" ng-if=" WidgetMedia.getImageUrl(WidgetMedia.item)">
-          <img ng-src="{{WidgetMedia.getImageUrl(WidgetMedia.item)|resizeImage:340:190}}">
+      <div ng-switch-when="IMAGE" class="plugin-slider text-center">
+        <div class="plugin-slide" ng-if="WidgetMedia.imageUrl">
+          <img ng-src="{{WidgetMedia.imageUrl|resizeImage:340:190}}">
         </div>
       </div>
     </div>
     <div class="text-left padded padding-bottom-zero clearfix ">
       <h4 class="margin-zero">{{WidgetMedia.getTitle(WidgetMedia.item)}}</h4>
-
-      <p>{{WidgetMedia.item.summary|removeHtml}}</p>
+      <p>{{WidgetMedia.item.summary|truncate:100}}</p>
     </div>
     <div class="padded padding-top-zero">
       <hr class="small">
