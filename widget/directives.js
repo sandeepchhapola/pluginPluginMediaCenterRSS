@@ -1,16 +1,6 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .directive('playBtn', function () {
-      var linker = function (scope, element, attrs) {
-        if (attrs.playBtn == 'true')
-          element.addClass('play-btn');
-      };
-      return {
-        restrict: 'A',
-        link: linker
-      };
-    })
     .directive("triggerNgRepeatRender", [function () {
       var linker = function (scope, elem, attrs) {
         var a = $(elem).width();
