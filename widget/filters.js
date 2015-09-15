@@ -60,11 +60,6 @@
         return rex.exec(img)[1];
       };
     }])
-    .filter("jsDate", function () {
-      return function (x) {
-        return new Date(x);
-      };
-    })
     .filter("timeCorrect", function () {
       return function (x) {
         x = '0' + x.substring(1);

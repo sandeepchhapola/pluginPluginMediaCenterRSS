@@ -12,62 +12,62 @@
       };
     })
     .directive("triggerNgRepeatRender", [function () {
+      var linker = function (scope, elem, attrs) {
+        var a = $(elem).width();
+      };
       return {
         restrict: 'A',
-        link: function (scope, elem, attrs) {
-          var a = $(elem).width();
-        }
+        link: linker
       };
     }])
     .directive("backgroundImage", ['$filter', function ($filter) {
+      var linker = function (scope, element, attrs) {
+        element.css('min-height', '580px');
+        var getImageUrlFilter = $filter("resizeImage");
+        var setBackgroundImage = function (backgroundImage) {
+          if (backgroundImage) {
+            element.css(
+              'background', '#010101 url('
+              + getImageUrlFilter(backgroundImage, 342, 770, 'resize')
+              + ') repeat fixed top center');
+          } else {
+            element.css('background', 'none');
+          }
+        };
+        attrs.$observe('backgroundImage', function (newValue) {
+          setBackgroundImage(newValue);
+        });
+      };
       return {
         restrict: 'A',
-        link: function (scope, element, attrs) {
-          element.css('min-height', '580px');
-          var getImageUrlFilter = $filter("resizeImage");
-          var setBackgroundImage = function (backgroundImage) {
-            if (backgroundImage) {
-              element.css(
-                'background', '#010101 url('
-                + getImageUrlFilter(backgroundImage, 342, 770, 'resize')
-                + ') repeat fixed top center');
-            } else {
-              element.css('background', 'none');
-            }
-          };
-          attrs.$observe('backgroundImage', function (newValue) {
-            setBackgroundImage(newValue);
-          });
-        }
+        link: linker
       };
     }])
     .directive('buildfireCarousel', function ($timeout) {
-      return {
-        restrict: 'E',
-        replace: true,
-        link: function (scope, elem, attrs) {
-          var view;
-
-          function initCarousel() {
+      var linker = function (scope, elem, attrs) {
+        var view
+          , initCarousel = function () {
             $timeout(function () {
               var imgs = scope.images || [];
               view = new buildfire.components.carousel.view("#carousel", imgs);
             });
 
-          }
+          };
 
-          initCarousel();
+        initCarousel();
 
-
-          scope.$watch(function () {
-            return scope.images;
-          }, function (newValue, oldValue) {
-            var imgs = angular.copy(newValue);
-            if (view)
-              view.loadItems(imgs);
-          });
-
-        },
+        scope.$watch(function () {
+          return scope.images;
+        }, function (newValue, oldValue) {
+          var imgs = angular.copy(newValue);
+          if (view)
+            view.loadItems(imgs);
+        });
+      };
+      return {
+        restrict: 'E',
+        replace: true,
+        link: linker,
         template: "<div id='carousel'></div>",
         scope: {
           images: '='
