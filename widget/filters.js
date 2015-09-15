@@ -17,10 +17,14 @@
     }])
     .filter('cropImage', [function () {
       return function (url, width, height) {
-        return buildfire.imageLib.cropImage(url, {
-          width: width,
-          height: height
-        });
+        if (!url) {
+          return '';
+        } else {
+          return buildfire.imageLib.cropImage(url, {
+            width: width,
+            height: height
+          });
+        }
       };
     }])
     .filter('safeHtml', ['$sce', function ($sce) {
@@ -35,11 +39,14 @@
     }])
     .filter('truncate', [function () {
       return function (html, length) {
-        if (html)
+        if (typeof html === 'string') {
           html = html.replace(/<\/?[^>]+(>|$)/g, "");
-        return jQuery.truncate(html, {
-          length: length
-        });
+          return jQuery.truncate(html, {
+            length: length
+          });
+        } else {
+          return html;
+        }
       };
     }])
     .filter('removeHtml', [function () {
