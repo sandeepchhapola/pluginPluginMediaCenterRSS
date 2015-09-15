@@ -56,6 +56,7 @@
     </div>
     <div class="text-left padded padding-bottom-zero clearfix ">
       <h4 class="margin-zero">{{WidgetMedia.getTitle(WidgetMedia.item)}}</h4>
+
       <p>{{WidgetMedia.item.summary|truncate:100}}</p>
     </div>
     <div class="padded padding-top-zero">
@@ -67,7 +68,7 @@
         <a class="text-primary">Share</a>
       </div>
       <hr class="small">
-      <p>{{WidgetMedia.item.description|removeHtml}}</p>
+      <p id="description" ng-bind-html="WidgetMedia.item.description|removeHtmlStyle|safeHtml"></p>
     </div>
   </div>
 </div>

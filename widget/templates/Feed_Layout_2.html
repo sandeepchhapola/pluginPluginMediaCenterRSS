@@ -69,7 +69,7 @@
         <a class="text-primary">Share</a>
       </div>
       <hr class="small">
-      <p>{{WidgetMedia.item.description|removeHtml}}</p>
+      <p ng-bind-html="WidgetMedia.item.description|removeHtmlStyle|safeHtml"</p>
     </div>
   </div>
 </div>

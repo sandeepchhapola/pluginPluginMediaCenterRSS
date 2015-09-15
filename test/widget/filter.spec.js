@@ -64,15 +64,15 @@ describe('Unit: pluginPluginMediaCenterRSS widget filters', function () {
     });
   });
 
-  describe('Unit: removeHtml filter', function () {
-    it('removeHtml filter should returns a html tag free string', function () {
+  describe('Unit: removeHtmlStyle filter', function () {
+    it('removeHtmlStyle filter should returns a html tag free string', function () {
       var result;
-      result = filter('removeHtml')('<p><a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> is a dynamically typed language</p>');
-      expect(result).toEqual('JavaScript is a dynamically typed language');
+      result = filter('removeHtmlStyle')('<p style="color: #ee5f5b; font-style: italic;">JavaScript is a dynamically typed language</p>');
+      expect(result).toEqual('<p>JavaScript is a dynamically typed language</p>');
     });
-    it('removeHtml filter should returns value if value is not html or string', function () {
+    it('removeHtmlStyle filter should returns value if value is not html or string', function () {
       var result;
-      result = filter('removeHtml')(null);
+      result = filter('removeHtmlStyle')(null);
       expect(result).toEqual(null);
     });
   });

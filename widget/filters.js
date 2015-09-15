@@ -49,10 +49,10 @@
         }
       };
     }])
-    .filter('removeHtml', [function () {
+    .filter('removeHtmlStyle', [function () {
       return function (html) {
         if (html)
-          html = html.replace(/<\/?[^>]+(>|$)/g, "");
+          html = html.replace(/(<[^>]+) style=".*?"/i, '$1', "");
         return html;
       };
     }])
