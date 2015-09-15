@@ -82,7 +82,7 @@
       return _;
     }])
     .factory("ItemDetailsService", function () {
-      var itemData = {}
+      var itemData = null
         , _getData = function () {
           //You could also return specific attribute of the form data instead
           //of the entire data
@@ -91,15 +91,10 @@
         , _setData = function (newData) {
           //You could also set specific attribute of the form data instead
           itemData = newData
-        }
-        , _resetData = function () {
-          //To be called when the data stored needs to be discarded
-          itemData = {};
         };
       return {
         getData: _getData,
-        setData: _setData,
-        resetData: _resetData
+        setData: _setData
       };
     });
 })(window.angular, window.buildfire, window._);

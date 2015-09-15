@@ -126,6 +126,13 @@
               src: _item.image.url
             }
           }
+          else if (_item.imageSrcUrl) {
+            WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
+            return {
+              type: 'image/*',
+              src: _item.imageSrcUrl
+            }
+          }
           else {
             return null;
           }
