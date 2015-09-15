@@ -64,7 +64,7 @@
       <div class="link-list">
         <a class="text-primary" ng-click="WidgetMedia.playAudio()" ng-if="WidgetMedia.medium == 'AUDIO'">Listen</a>
         <a class="text-primary" ng-click="WidgetMedia.API.play()" ng-if="WidgetMedia.medium == 'VIDEO'">Watch</a>
-        <a class="text-primary">View Source</a>
+        <a class="text-primary" ng-if="WidgetMedia.item.link" ng-href="{{WidgetMedia.item.link}}" target="_blank">View Source</a>
         <a class="text-primary">Share</a>
       </div>
       <hr class="small">
