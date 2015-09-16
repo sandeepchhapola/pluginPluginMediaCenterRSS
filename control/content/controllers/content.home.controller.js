@@ -24,6 +24,8 @@
           , editor = new Buildfire.components.carousel.editor("#carousel"); // create a new instance of the buildfire carousel editor
 
         ContentHome.isInValidUrl = false;
+        ContentHome.isSaved = false;
+        ContentHome.isNotSaved = false;
         ContentHome.isValidUrl = false;
         ContentHome.isValidateButtonClicked = false;
         ContentHome.descriptionWYSIWYGOptions = {
@@ -44,10 +46,18 @@
           }
           var success = function (result) {
               console.info('Saved data result: ', result);
+              ContentHome.isSaved = true;
+              $timeout(function () {
+                ContentHome.isSaved = false;
+              }, 1000);
               updateMasterItem(newObj);
             }
             , error = function (err) {
               console.error('Error while saving data : ', err);
+              ContentHome.isNotSaved = true;
+              $timeout(function () {
+                ContentHome.isNotSaved = false;
+              }, 1000);
             };
           DataStore.save(newObj, tag).then(success, error);
         };

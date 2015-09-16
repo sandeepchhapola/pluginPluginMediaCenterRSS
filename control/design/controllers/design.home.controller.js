@@ -22,6 +22,8 @@
           }
           , tmrDelay = null;
 
+        DesignHome.isInValidUrl = false;
+        DesignHome.isSaved = false;
         DesignHome.layouts = LAYOUTS;
         DesignHome.data = angular.copy(_data);
         DesignHome.masterData = null;
@@ -35,10 +37,18 @@
           }
           var success = function (result) {
               console.info('Saved data result: ', result);
+              DesignHome.isSaved = true;
+              $timeout(function () {
+                DesignHome.isSaved = false;
+              }, 1000);
               updateMasterItem(newObj);
             }
             , error = function (err) {
               console.error('Error while saving data : ', err);
+              DesignHome.isNotSaved = true;
+              $timeout(function () {
+                DesignHome.isNotSaved = false;
+              }, 1000);
             };
           DataStore.save(newObj, tag).then(success, error);
         };
