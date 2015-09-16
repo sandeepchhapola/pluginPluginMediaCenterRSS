@@ -202,6 +202,9 @@
         WidgetMedia.sourceChanged = function ($source) {
           WidgetMedia.API.stop();
         };
+        WidgetMedia.seekAudio=function(_time){
+          audioPlayer.setTime(_time);
+        };
 
         WidgetMedia.getTitle = function (item) {
           if (!item.title && (item.summary || item.description)) {

@@ -36,7 +36,8 @@
               <div ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime | number:2}}</div>
               <div><input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
                           max="{{WidgetMedia.audio.duration}}"
-                          ng-model="WidgetMedia.audio.currentTime"/></div>
+                          ng-model="WidgetMedia.audio.currentTime"
+                          ng-change="WidgetMedia.seekAudio(WidgetMedia.audio.currentTime)"/></div>
               <div ng-if="WidgetMedia.audio.duration">{{WidgetMedia.audio.duration | number:2}}</div>
             </div>
           </div>
@@ -64,7 +65,8 @@
       <div class="link-list">
         <a class="text-primary" ng-click="WidgetMedia.playAudio()" ng-if="WidgetMedia.medium == 'AUDIO'">Listen</a>
         <a class="text-primary" ng-click="WidgetMedia.API.play()" ng-if="WidgetMedia.medium == 'VIDEO'">Watch</a>
-        <a class="text-primary" ng-if="WidgetMedia.item.link" ng-href="{{WidgetMedia.item.link}}" target="_blank">View Source</a>
+        <a class="text-primary" ng-if="WidgetMedia.item.link" ng-href="{{WidgetMedia.item.link}}" target="_blank">View
+          Source</a>
         <a class="text-primary">Share</a>
       </div>
       <hr class="small">

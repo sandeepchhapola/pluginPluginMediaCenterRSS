@@ -39,7 +39,8 @@
                   <div ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime | number:2}}</div>
                   <div><input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
                               max="{{WidgetMedia.audio.duration}}"
-                              ng-model="WidgetMedia.audio.currentTime"/></div>
+                              ng-model="WidgetMedia.audio.currentTime"
+                              ng-change="WidgetMedia.seekAudio(WidgetMedia.audio.currentTime)"/></div>
                   <div ng-if="WidgetMedia.audio.duration">{{WidgetMedia.audio.duration | number:2}}</div>
                 </div>
               </div>
