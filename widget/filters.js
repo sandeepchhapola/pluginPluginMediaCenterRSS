@@ -53,6 +53,7 @@
       return function (html) {
         if (html) {
           html = html.replace(/(<[^>]+) style=".*?"/i, '$1', "");
+          html = html.replace(/<iframe.+?<\/iframe>/g, '');
           html = html.replace(/(<a\b[^><]*)>/ig, '$1 target="_blank">');
         }
         return html;
