@@ -116,7 +116,7 @@
             WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
             return {
               type: 'image/*',
-              src: _item['media:group']['media:content']['media:thumbnail']['@'].url
+              src: _item['media:thumbnail']['@'].url
             }
           }
           else if (_item.image && _item.image.url) {

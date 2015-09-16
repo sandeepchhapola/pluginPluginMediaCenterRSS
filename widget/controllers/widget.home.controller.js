@@ -20,6 +20,7 @@
         WidgetHome.items = [];
         WidgetHome.busy = false;
         WidgetHome.rssMetaData = null;
+        WidgetHome.isItems = true;
 
         var resetDefaults = function () {
           chunkData = null;
@@ -29,6 +30,7 @@
           _items = [];
           WidgetHome.items = [];
           WidgetHome.busy = false;
+          WidgetHome.isItems = true;
           WidgetHome.rssMetaData = null;
           ItemDetailsService.setData(null);
         };
@@ -73,6 +75,9 @@
                   item.imageSrcUrl = getImageUrl(item);
                 });
                 _items = result.data.items;
+                WidgetHome.isItems = true;
+              } else {
+                WidgetHome.isItems = false;
               }
               chunkData = Underscore.chunk(_items, limit);
               totalChunks = chunkData.length;

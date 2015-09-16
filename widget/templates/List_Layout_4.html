@@ -12,7 +12,7 @@
            infinite-scroll="WidgetHome.loadMore()"
            infinite-scroll-distance="1"
            infinite-scroll-disabled="WidgetHome.busy">
-        <div ng-click="WidgetHome.goToItem($index)" class="list-item col-xs-6 pull-left"
+        <div ng-show="WidgetHome.isItems" ng-click="WidgetHome.goToItem($index)" class="list-item col-xs-6 pull-left"
              ng-repeat="item in WidgetHome.items" trigger-ng-repeat-render="">
           <div ng-if="item.imageSrcUrl" class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder">
@@ -26,8 +26,11 @@
             <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
           </div>
         </div>
+        <div ng-hide="WidgetHome.isItems" class="items-info">
+          <a href="javaScript:void(0);" class="btn-info-icon btn-primary pull-left"></a>
+          <label class="pull-left">RSS Feed doesn't have any items.</label>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
