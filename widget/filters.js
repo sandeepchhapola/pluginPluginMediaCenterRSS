@@ -51,8 +51,10 @@
     }])
     .filter('removeHtmlStyle', [function () {
       return function (html) {
-        if (html)
+        if (html) {
           html = html.replace(/(<[^>]+) style=".*?"/i, '$1', "");
+          html = html.replace(/(<a\b[^><]*)>/ig, '$1 target="_blank">');
+        }
         return html;
       };
     }])
@@ -62,9 +64,10 @@
         if (!imgArr || imgArr.length === 0) {
           return '';
         }
-        var img = html.match(/<img[^>]+>/i)[0]
-          , rex = /<img[^>]+src="([^">]+)/g;
-        return rex.exec(img)[1];
+        var img = imgArr[0]
+          , rex = /^<img[^>].*src=['"]([\/:a-zA-Z0-9\._-]+)['"].*$/i
+          , result = img.match(rex);
+        return (result && result[1]) ? result[1] : '';
       };
     }])
     .filter("timeCorrect", function () {

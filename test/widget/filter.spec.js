@@ -88,12 +88,17 @@ describe('Unit: pluginPluginMediaCenterRSS widget filters', function () {
       result = filter('extractImgSrc')('<p><img src="http://www.b2bweb.fr/wp-content/uploads/js-logo-badge-512.png"/><a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> is a dynamically typed language</p>');
       expect(result).toEqual("http://www.b2bweb.fr/wp-content/uploads/js-logo-badge-512.png");
     });
+    it('extractImgSrc filter should returns an empty string if src not found', function () {
+      var result;
+      result = filter('extractImgSrc')('<p><img height="220" width="220" src=""/><a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> is a dynamically typed language</p>');
+      expect(result).toEqual('');
+    });
   });
 
-  describe('Unit: extractImgSrc filter', function () {
-    it('extractImgSrc filter should returns an empty string if image not found in html string', function () {
-      var timeleft = filter('date')(1442302441217, 'mm:ss', '+0530')
-        , result = filter('timeCorrect')(timeleft);
+  describe('Unit: timeCorrect filter', function () {
+    it('timeCorrect filter should returns time in a valid format', function () {
+      var timeLeft = filter('date')(1442302441217, 'mm:ss', '+0530')
+        , result = filter('timeCorrect')(timeLeft);
       expect(result).toEqual('04:01');
     });
   });
