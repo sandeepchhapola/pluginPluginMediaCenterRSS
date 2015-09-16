@@ -206,7 +206,9 @@
         WidgetMedia.getTitle = function (item) {
           if (!item.title && (item.summary || item.description)) {
             var html = item.summary ? item.summary : item.description;
-            item.title = $filter('truncate')(html, 5);
+            item.title = $filter('truncate')(html, 15);
+          } else {
+            item.title = $filter('truncate')(item.title, item.title.length);
           }
           return item.title;
         };
