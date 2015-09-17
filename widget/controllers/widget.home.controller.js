@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetHomeCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
-      function ($scope, $sce, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
+    .controller('WidgetHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
+      function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
         //create new instance of buildfire carousel viewer
         var view = null
           , _items = []
@@ -122,11 +122,6 @@
         init();
 
         DataStore.onUpdate().then(null, null, onUpdateCallback);
-
-        WidgetHome.safeHtml = function (html) {
-          if (html)
-            return $sce.trustAsHtml(html);
-        };
 
         WidgetHome.showDescription = function (description) {
           return ((description !== '<p><br data-mce-bogus="1"></p>') && (description !== '<p>&nbsp;<br></p>'));
