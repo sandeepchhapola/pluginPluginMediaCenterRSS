@@ -5,7 +5,7 @@
     .module('mediaCenterRSSPluginWidget')
     .controller('WidgetHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
       function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
-        //create new instance of buildfire carousel viewer
+
         var view = null
           , _items = []
           , limit = 15
@@ -53,7 +53,7 @@
           } else {
             if (item['media:thumbnail'] && item['media:thumbnail']['@'] && item['media:thumbnail']['@'].url) {
               return item['media:thumbnail']['@'].url;
-            } else if (item['media:group'] && item['media:group']['media:content'] && itemitem['media:group']['media:content']['media:thumbnail']['@'] && item['media:group']['media:content']['media:thumbnail']['@'].url) {
+            } else if (item['media:group'] && item['media:group']['media:content'] && item['media:group']['media:content']['media:thumbnail']['@'] && item['media:group']['media:content']['media:thumbnail']['@'].url) {
               return item['media:group']['media:content']['media:thumbnail']['@'].url;
             } else if (item.description) {
               return $filter('extractImgSrc')(item.description);

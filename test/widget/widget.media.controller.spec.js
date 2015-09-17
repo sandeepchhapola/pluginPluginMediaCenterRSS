@@ -23,7 +23,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.media.controller.js', functio
         }
       }
     };
-    Buildfire.services.media.audioPlayer = jasmine.createSpyObj('Buildfire.services.media.audioPlayer', ['setTime', 'onEvent', 'play', 'pause'])
+    Buildfire.services.media.audioPlayer = jasmine.createSpyObj('Buildfire.services.media.audioPlayer', ['setTime', 'onEvent', 'play', 'pause']);
     DataStore = {};
     DataStore = jasmine.createSpyObj('DataStore', ['get', 'onUpdate', 'clearListener']);
     DataStore.get.and.callFake(function () {
@@ -268,7 +268,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.media.controller.js', functio
     });
   });
 
-  describe('Unit : widget.home.controller unit tests', function () {
+  describe('Unit : widget.media.controller unit tests', function () {
     beforeEach(function () {
       DataStore.onUpdate.and.callFake(function () {
         var deferred = q.defer();
