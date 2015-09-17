@@ -3,13 +3,13 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
-      function ($scope, $sce, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
+    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
+      function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
 
         var WidgetMedia = this
           , currentRssUrl = null
-          , audioPlayer = Buildfire.services.media.audioPlayer // audioPlayer is Buildfire.services.media.audioPlayer.
-          , slider = $('#slider'); //slider to show the slider on now-playing page.
+          , audioPlayer = Buildfire.services.media.audioPlayer; // audioPlayer is Buildfire.services.media.audioPlayer.
+        WidgetMedia.slider = $('#slider'); //slider to show the slider on now-playing page.
 
         WidgetMedia.item = ItemDetailsService.getData();
         WidgetMedia.data = null;
@@ -192,9 +192,6 @@
                 case MEDIUM_TYPES.IMAGE:
                   WidgetMedia.imageUrl = mediaData.src;
                   break;
-                case MEDIUM_TYPES.OTHER:
-                  resetDefaults();
-                  break;
                 default :
                   //code here for defaults
                   resetDefaults();
@@ -304,14 +301,14 @@
          * slider to show the slider on now-playing page.
          * @type {*|jQuery|HTMLElement}
          */
-        slider.onchange = function () {
+        WidgetMedia.slider.onchange = function () {
           if (Math.abs(this.value - WidgetMedia.audio.currentTime) > 1)
             audioPlayer.setTime(this.value);
         };
-        slider.onmousedown = function () {
+        WidgetMedia.slider.onmousedown = function () {
           this.stopUpdateing = true;
         };
-        slider.onmouseup = function () {
+        WidgetMedia.slider.onmouseup = function () {
           this.stopUpdateing = false;
         };
 
