@@ -6,15 +6,55 @@
     .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
       function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
 
+        /*
+         * Private variables
+         *
+         * currentRssUrl used to hold previously saved rss url.
+         * @type {string}
+         * @private
+         *
+         * audioPlayer is an instance of buildfire.services.media.audioPlayer component
+         *  @private
+         *
+         */
         var WidgetMedia = this
           , currentRssUrl = null
-          , audioPlayer = Buildfire.services.media.audioPlayer; // audioPlayer is Buildfire.services.media.audioPlayer.
-        WidgetMedia.slider = $('#slider'); //slider to show the slider on now-playing page.
+          , audioPlayer = Buildfire.services.media.audioPlayer;
 
+        /**
+         * WidgetMedia.slider used to show the slider on now-playing page
+         * @type {*|jQuery|HTMLElement}
+         */
+        WidgetMedia.slider = $('#slider');
+
+        /**
+         * WidgetMedia.item used to hold item details object
+         * @type {object}
+         */
         WidgetMedia.item = ItemDetailsService.getData();
+
+        /*
+         * WidgetMedia.data is used to hold user's data object which used throughout the app.
+         * @type {object}
+         */
         WidgetMedia.data = null;
+
+        /*
+         * WidgetMedia.API is used to hold onPlayerReady $API.
+         * @type {object}
+         */
         WidgetMedia.API = null;
+
+        /**
+         * WidgetMedia.medium used to filter item based on media type.
+         * @type {string}
+         */
         WidgetMedia.medium = '';
+
+        /**
+         * WidgetMedia.videoPlayerConfig is configuration setting for video player
+         * @type {object}
+         */
         WidgetMedia.videoPlayerConfig = {
           autoHide: false,
           preload: "none",
@@ -24,6 +64,11 @@
             url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
           }
         };
+
+        /**
+         * WidgetMedia.audio used hold values related to audio player
+         * @type {object}
+         */
         WidgetMedia.audio = {
           playing: false,
           paused: false,
@@ -31,11 +76,29 @@
           currentTime: 0,
           duration: 0
         };
+
+        /**
+         * WidgetMedia.imageUrl used to hold item image url
+         * @type {string}
+         */
         WidgetMedia.imageUrl = '';
+
+        /**
+         * WidgetMedia.isVideoPlayerSupported used to check that url is supported by videogular or not
+         * @type {boolean}
+         */
         WidgetMedia.isVideoPlayerSupported = true;
+
+        /**
+         * WidgetMedia.videoUrl used to hold video url if it is youtube feed item or vimeo feed item
+         * @type {string}
+         */
         WidgetMedia.videoUrl = '';
 
-
+        /**
+         * resetDefaults() private method
+         * Used to reset default values
+         */
         var resetDefaults = function () {
             WidgetMedia.videoPlayerConfig = {
               autoHide: false,
@@ -57,14 +120,28 @@
             WidgetMedia.imageUrl = '';
             WidgetMedia.videoUrl = '';
             angular.element('#videoPlayer').detach();
-          }
-          , changeVideoSrc = function (_src, _type) {
+          };
+
+        /**
+         * changeVideoSrc() private method
+         * Used to reset WidgetMedia.videoPlayerConfig.sources
+         * @param _src
+         * @param _type
+         */
+        var changeVideoSrc = function (_src, _type) {
             WidgetMedia.videoPlayerConfig.sources = [{
               src: $sce.trustAsResourceUrl(_src),
               type: _type
             }];
-          }
-          , checkEnclosuresTag = function (_item) {
+          };
+
+        /**
+         * checkEnclosuresTag() private method
+         * used to check tag eclosures to filter item's media type
+         * @param _item
+         * @returns {*}
+         */
+        var checkEnclosuresTag = function (_item) {
             if (_item.enclosures && _item.enclosures.length > 0 && _item.enclosures[0].url && _item.enclosures[0].type) {
               if (_item.enclosures[0].type.indexOf('video/') === 0) {
                 WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
@@ -86,8 +163,15 @@
             else {
               return null
             }
-          }
-          , checkMediaTag = function (_item) {
+          };
+
+        /**
+         * checkMediaTag() private method
+         * used to check media tag to filter item's media type
+         * @param _item
+         * @returns {*}
+         */
+        var checkMediaTag = function (_item) {
             if (_item['media:group'] && _item['media:group']['media:content']) {
               if (_item['media:group']['media:content']['@'] && _item['media:group']['media:content']['@'].type && _item['media:group']['media:content']['@'].url) {
                 if (_item['media:group']['media:content']['@'].type.indexOf('video/') === 0) {
@@ -167,8 +251,14 @@
             else {
               return null;
             }
-          }
-          , filterItemType = function (_item) {
+          };
+
+        /**
+         * filterItemType() private method
+         * used to filter item whether it is image content, audio/video content or other
+         * @param _item
+         */
+        var filterItemType = function (_item) {
             var _src = ''
               , mediaData = checkEnclosuresTag(_item);
 
@@ -201,8 +291,14 @@
             else {
               WidgetMedia.medium = MEDIUM_TYPES.OTHER;
             }
-          }
-          , onUpdateCallback = function (event) {
+          };
+
+        /**
+         * onUpdateCallback() private method
+         * Will be called when DataStore.onUpdate() have been made.
+         * @param event
+         */
+        var onUpdateCallback = function (event) {
             if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
               WidgetMedia.data = event.data;
               if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
@@ -211,8 +307,13 @@
                 Location.goTo('#/');
               }
             }
-          }
-          , init = function () {
+          };
+
+        /**
+         * init() private function
+         * It is used to fetch previously saved user's data
+         */
+        var init = function () {
             var success = function (result) {
                 WidgetMedia.data = result.data;
                 currentRssUrl = WidgetMedia.data.content.rssUrl;
@@ -223,23 +324,57 @@
             DataStore.get(TAG_NAMES.RSS_FEED_INFO).then(success, error);
           };
 
+        /**
+         * init() function invocation to fetch previously saved user's data from datastore.
+         */
         init();
 
+        /**
+         * DataStore.onUpdate() will invoked when there is some change in datastore
+         */
+        DataStore.onUpdate().then(null, null, onUpdateCallback);
+
+        /**
+         * filterItemType() method will be called if WidgetMedia.item is not null
+         */
         if (WidgetMedia.item) {
           filterItemType(WidgetMedia.item);
         }
 
+        /**
+         * WidgetMedia.onPlayerReady() method
+         * will be called on videogular player ready.
+         * @param $API
+         */
         WidgetMedia.onPlayerReady = function ($API) {
           WidgetMedia.API = $API;
         };
+
+        /**
+         * WidgetMedia.onVideoError() method
+         * will be called when videogular player returns error.
+         * @param $event
+         */
         WidgetMedia.onVideoError = function ($event) {
           console.error('Error While playing:', $event);
           WidgetMedia.API.stop();
         };
+
+        /**
+         * WidgetMedia.sourceChanged() method
+         * will be called when videogular player source has changed.
+         * @param $source
+         */
         WidgetMedia.sourceChanged = function ($source) {
           WidgetMedia.API.stop();
         };
 
+        /**
+         * WidgetMedia.getTitle() method
+         * Will used to extract item title
+         * @param item
+         * @returns {item.title|*}
+         */
         WidgetMedia.getTitle = function (item) {
           if (!item.title && (item.summary || item.description)) {
             var html = item.summary ? item.summary : item.description;
@@ -250,6 +385,12 @@
           return item.title;
         };
 
+        /**
+         * WidgetMedia.getItemPublishDate() method
+         * Will used to extract item published date
+         * @param item
+         * @returns {*}
+         */
         WidgetMedia.getItemPublishDate = function (item) {
           var dateStr = item.pubDate ? item.pubDate : '';
           if (dateStr) {
@@ -260,7 +401,8 @@
         };
 
         /**
-         * audioPlayer.onEvent callback calls when audioPlayer event fires.
+         * audioPlayer.onEvent(callback) method
+         * callback will be called when audio player fires an event
          */
         audioPlayer.onEvent(function (e) {
           if (e.event == "timeUpdate") {
@@ -277,8 +419,10 @@
             $scope.$apply();
           }
         });
+
         /**
-         * WidgetMedia.playAudio() plays audioPlayer service.
+         * WidgetMedia.playAudio() method
+         * will be called when you click play button
          */
         WidgetMedia.playAudio = function () {
           WidgetMedia.audio.playing = true;
@@ -289,30 +433,54 @@
             audioPlayer.play({url: WidgetMedia.audio.track});
           }
         };
+
+
+        /**
+         * WidgetMedia.pause() method
+         * will be called when you click pause button
+         */
         WidgetMedia.pause = function () {
           WidgetMedia.audio.paused = true;
           audioPlayer.pause();
         };
+
+        /**
+         * WidgetMedia.seekAudio() method
+         * will be called when you seek audio player slider
+         */
         WidgetMedia.seekAudio = function (_time) {
           audioPlayer.setTime(_time);
         };
 
+
         /**
-         * slider to show the slider on now-playing page.
-         * @type {*|jQuery|HTMLElement}
+         *  WidgetMedia.slider.onchange()
+         *  will be called when audio player slider value get changed.
          */
         WidgetMedia.slider.onchange = function () {
           if (Math.abs(this.value - WidgetMedia.audio.currentTime) > 1)
             audioPlayer.setTime(this.value);
         };
+
+        /**
+         *  WidgetMedia.slider.onmousedown()
+         *  will be called when onmousedown event fired for audio player slider.
+         */
         WidgetMedia.slider.onmousedown = function () {
           this.stopUpdateing = true;
         };
+
+        /**
+         *  WidgetMedia.slider.onmouseup()
+         *  will be called when onmouseup event fired for audio player slider.
+         */
         WidgetMedia.slider.onmouseup = function () {
           this.stopUpdateing = false;
         };
 
-        DataStore.onUpdate().then(null, null, onUpdateCallback);
+        /**
+         * will called when controller scope has been destroyed.
+         */
         $scope.$on("$destroy", function () {
           DataStore.clearListener();
           WidgetMedia.pause();

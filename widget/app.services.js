@@ -2,6 +2,14 @@
 
 (function (angular, buildfire, _) {
   angular.module('mediaCenterRSSPluginWidget')
+
+  /**************************************
+   *  providers and factories/services  *
+   **************************************/
+
+  /**
+   * A provider for retrieving global window.buildfire object defined in buildfire.js.
+   */
     .provider('Buildfire', [function () {
       var Buildfire = this;
       Buildfire.$get = function () {
@@ -9,6 +17,10 @@
       };
       return Buildfire;
     }])
+
+  /**
+   * A factory which is a wrapper on global buildfire.datastore object defined in buildfire.js
+   */
     .factory("DataStore", ['Buildfire', '$q', 'STATUS_CODE', 'STATUS_MESSAGES', function (Buildfire, $q, STATUS_CODE, STATUS_MESSAGES) {
       var onUpdateListeners = [];
       return {
@@ -49,6 +61,10 @@
         }
       }
     }])
+
+  /**
+   * A REST-ful factory used to retrieve feed data.
+   */
     .factory("FeedParseService", ['$q', '$http', function ($q, $http) {
       var getFeedData = function (_feedUrl) {
         var deferred = $q.defer();
@@ -70,6 +86,10 @@
         getFeedData: getFeedData
       }
     }])
+
+  /**
+   * A factory which is used to change routes
+   */
     .factory('Location', [function () {
       var _location = window.location;
       return {
@@ -78,9 +98,17 @@
         }
       };
     }])
+
+  /**
+   * A factory which is a wrapper on lodash.js library
+   */
     .factory('Underscore', [function () {
       return _;
     }])
+
+  /**
+   * A factory which is used to hold selected item before going on item details page.
+   */
     .factory("ItemDetailsService", function () {
       var itemData = null
         , _getData = function () {

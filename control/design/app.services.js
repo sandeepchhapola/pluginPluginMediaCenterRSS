@@ -2,6 +2,14 @@
 
 (function (angular, buildfire) {
   angular.module('mediaCenterRSSPluginDesign')
+
+  /**************************************
+   *  providers and factories/services  *
+   **************************************/
+
+  /**
+   * A provider for retrieving global window.buildfire object defined in buildfire.js.
+   */
     .provider('Buildfire', [function () {
       var Buildfire = this;
       Buildfire.$get = function () {
@@ -9,6 +17,10 @@
       };
       return Buildfire;
     }])
+
+  /**
+   * A factory which is a wrapper on global buildfire.datastore object defined in buildfire.js
+   */
     .factory("DataStore", ['Buildfire', '$q', 'STATUS_CODE', 'STATUS_MESSAGES', function (Buildfire, $q, STATUS_CODE, STATUS_MESSAGES) {
       return {
         get: function (_tagName) {
@@ -43,6 +55,10 @@
         }
       }
     }])
+
+  /**
+   * A factory which is a wrapper on buildfire.imageLib component defined in buildfire.js.
+   */
     .factory("ImageLibrary", ['Buildfire', '$q', 'STATUS_CODE', 'STATUS_MESSAGES', function (Buildfire, $q, STATUS_CODE, STATUS_MESSAGES) {
       return {
         showDialog: function (_options) {

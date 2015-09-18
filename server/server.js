@@ -41,7 +41,7 @@ app.use(session({
 app.get('/', function (req, res) {
   res.send('Welcome!').end();
 });
-/* respond to post call for '/validatefeedurl' route and send parsed xml in response*/
+/* respond to post call for '/validatefeedurl' route and send isValidFeedUrl flag in response.data object*/
 app.post('/validatefeedurl', function (req, res) {
   var isValidFeedUrl = false;
   if (!req.body.feedUrl) {
@@ -73,6 +73,7 @@ app.post('/validatefeedurl', function (req, res) {
 })
 ;
 
+/* respond to post call for '/parsefeedurl' route and send parsed xml in response*/
 app.post('/parsefeedurl', function (req, res) {
   var feedReq = request(req.body.feedUrl)
     , feedparser = new FeedParser()
@@ -118,7 +119,6 @@ app.post('/parsefeedurl', function (req, res) {
  * Different setup for 'development' and 'production' modes
  * @type {string}
  */
-
 if (env === 'development') {
   // Development-mode-specific configuration
   console.info('Node is running in development mode');
@@ -132,7 +132,6 @@ else {
 /**
  * Server init and start
  */
-
 server.listen(_Port);
 
 function stopWebServer() {
@@ -152,12 +151,13 @@ var gracefulShutdown = function () {
 };
 
 
-// Ctrl + C
+//listen for Ctrl + C
 process.on('SIGINT', gracefulShutdown);
 
 // listen for TERM signal .e.g. kill
 process.on('SIGTERM', gracefulShutdown);
 
+// listen for uncaughtException
 process.on('uncaughtException', function (err) {
   console.error("Uncaught Exception: " + err);
   console.error("Stack: " + err.stack);

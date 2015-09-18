@@ -1,6 +1,14 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
+
+  /****************
+   *  directives  *
+   ****************/
+
+  /**
+   * A directive which is used to render ng-repeat when data received.
+   */
     .directive("triggerNgRepeatRender", [function () {
       var linker = function (scope, elem, attrs) {
         var a = $(elem).width();
@@ -10,6 +18,10 @@
         link: linker
       };
     }])
+
+  /**
+   * A directive which is used handle background image for layouts.
+   */
     .directive("backgroundImage", ['$filter', function ($filter) {
       var linker = function (scope, element, attrs) {
         element.css('min-height', '580px');
@@ -33,6 +45,10 @@
         link: linker
       };
     }])
+
+  /**
+   * A directive which is used to initiate carousel when image items received.
+   */
     .directive('buildfireCarousel', function ($timeout) {
       var linker = function (scope, elem, attrs) {
         var view

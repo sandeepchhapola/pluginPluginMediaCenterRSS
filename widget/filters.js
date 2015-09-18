@@ -1,8 +1,18 @@
 (function (angular, buildfire, location, jQuery) {
   "use strict";
-  //created mediaCenterWidget module
-  angular
-    .module('mediaCenterRSSPluginWidget')
+
+  angular.module('mediaCenterRSSPluginWidget')
+
+  /***************
+   *   Filters   *
+   ***************/
+
+  /**
+   * A filter for retrieving cropped image using buildfire.imageLib.cropImage component.
+   * @param url
+   * @param width
+   * @param height
+   */
     .filter('resizeImage', [function () {
       return function (url, width, height) {
         if (!url) {
@@ -15,6 +25,13 @@
         }
       };
     }])
+
+  /**
+   * A filter for retrieving re-sized image using buildfire.imageLib.resizeImage component.
+   * @param url
+   * @param width
+   * @param height
+   */
     .filter('cropImage', [function () {
       return function (url, width, height) {
         if (!url) {
@@ -27,6 +44,11 @@
         }
       };
     }])
+
+  /**
+   * A filter for retrieving trusty Html using angular $sce service.
+   * @param html
+   */
     .filter('safeHtml', ['$sce', function ($sce) {
       return function (html) {
         if (html) {
@@ -37,6 +59,12 @@
         }
       };
     }])
+
+  /**
+   * A filter for retrieving truncate Html of given length using jQuery.truncate method.
+   * @param html
+   * @param length
+   */
     .filter('truncate', [function () {
       return function (html, length) {
         if (typeof html === 'string') {
@@ -49,6 +77,11 @@
         }
       };
     }])
+
+  /**
+   * A filter will remove styles from Html and add attribute 'target=_blank' to all anchor tags available in html.
+   * @param html
+   */
     .filter('removeHtmlStyle', [function () {
       return function (html) {
         if (html) {
@@ -59,6 +92,11 @@
         return html;
       };
     }])
+
+  /**
+   * A filter will return src url of first found image tag in html..
+   * @param html
+   */
     .filter('extractImgSrc', [function () {
       return function (html) {
         var imgArr = html.match(/<img[^>]+>/i);
@@ -71,6 +109,11 @@
         return (result && result[1]) ? result[1] : '';
       };
     }])
+
+  /**
+   * A filter to correct time.
+   * @param html
+   */
     .filter("timeCorrect", function () {
       return function (x) {
         x = '0' + x.substring(1);

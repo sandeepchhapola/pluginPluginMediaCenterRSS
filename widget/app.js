@@ -1,6 +1,8 @@
 'use strict';
 
 (function (angular) {
+
+  // Make sure to include the required dependency to the module
   angular.module('mediaCenterRSSPluginWidget', [
     'ngRoute',
     'infinite-scroll',
@@ -10,8 +12,14 @@
     "com.2fdevs.videogular.plugins.overlayplay",
     "videosharing-embed"
   ])
-    //injected ngRoute for routing
+
     .config(['$routeProvider', function ($routeProvider) {
+
+      /*****************************
+       *  Redirects and Otherwise  *
+       *****************************/
+
+        // Use $routeProvider to configure any redirects (when) and invalid urls (otherwise).
       $routeProvider
         .when('/', {
           templateUrl: 'templates/home.html',
@@ -23,6 +31,8 @@
           controllerAs: 'WidgetMedia',
           controller: 'WidgetMediaCtrl'
         })
+
+        // If the url is invalid then redirect to '/'
         .otherwise('/');
     }]);
 })(window.angular);
