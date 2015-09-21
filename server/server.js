@@ -70,8 +70,7 @@ app.post('/validatefeedurl', function (req, res) {
     )
     ;
   }
-})
-;
+});
 
 /* respond to post call for '/parsefeedurl' route and send parsed xml in response*/
 app.post('/parsefeedurl', function (req, res) {
@@ -122,6 +121,9 @@ app.post('/parsefeedurl', function (req, res) {
 if (env === 'development') {
   // Development-mode-specific configuration
   console.info('Node is running in development mode');
+} else if (env === 'test') {
+  // Development-mode-specific configuration
+  console.info('Node is running in test mode');
 }
 else {
   // Production-mode-specific configuration goes here...
