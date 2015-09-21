@@ -1,75 +1,100 @@
-var assert = require('assert')
-  , express = require('express')
-  , request = require('supertest');
+var assert = require("chai").assert;
+var request = require("supertest");
+var server = require("../server");
+var app;
 
-describe('app', function () {
-  it('should be callable', function () {
-    var app = express();
-    assert.equal(typeof app, 'function');
+describe('Server API Test Suite', function () {
+  before(function (done) {
+    this.timeout(15000);
+    app = server();
+    done();
   });
-});
 
-describe('/validatefeedurl POST API', function () {
-  it('should throw an error', function (done) {
-    var app = express();
-    app.post('/validatefeedurl', function (req, res, next) {
-      return done(new Error('Invalid RSS feed url'));
+  describe('Server Root API Test', function () {
+    it('should return welcome', function (done) {
+      request(app)
+        .get("/")
+        .end(function (err, res) {
+          assert.isTrue(res.text === 'Welcome!');
+          done();
+        });
+    });
+  });
+
+  describe('/validatefeedurl POST API Test Suite', function () {
+    it('should be respond an error', function (done) {
+      request(app)
+        .post("/validatefeedurl")
+        .send({'feedUrl': ''})
+        .end(function (err, res) {
+          var resObj = JSON.parse(res.text);
+          assert.equal(404, res.statusCode);
+          assert.isTrue(resObj.code === 'RSS_FEED_URL_NOT_FOUND');
+          done();
+        });
     });
 
-    request(app)
-      .del('/validatefeedurl')
-      .expect(404, done);
-  });
-
-  it('should be respond with status 200', function (done) {
-    var app = express();
-    app.post('/validatefeedurl', function (req, res) {
-      res.status(200).end();
+    it('res.data.isValidFeedUrl should be true', function (done) {
+      request(app)
+        .post("/validatefeedurl")
+        .send({'feedUrl': 'https://vimeo.com/feeds/videos/rss'})
+        .end(function (err, res) {
+          var resObj = JSON.parse(res.text);
+          assert.equal(200, res.statusCode);
+          assert.isTrue(resObj.data.isValidFeedUrl === true);
+          done();
+        });
     });
 
-    request(app)
-      .post('/validatefeedurl')
-      .expect(200, done);
+    it('res.data.isValidFeedUrl should be false', function (done) {
+      request(app)
+        .post("/validatefeedurl")
+        .send({'feedUrl': 'https://www.youtube.com/watch?v=OA-0O09TsNI'})
+        .end(function (err, res) {
+          var resObj = JSON.parse(res.text);
+          assert.equal(200, res.statusCode);
+          assert.isTrue(resObj.data.isValidFeedUrl === false);
+          done();
+        });
+    });
   });
-});
 
-describe('/parsefeedurl POST API', function () {
-  it('should throw an error', function (done) {
-    var app = express();
-    app.post('/parsefeedurl', function (req, res, next) {
-      return done(new Error('ERROR: getaddrinfo ENOTFOUND'));
+  describe('/parsefeedurl POST API Test Suite', function () {
+    it('should be respond an error', function (done) {
+      request(app)
+        .post("/parsefeedurl")
+        .send({'feedUrl': ''})
+        .end(function (err, res) {
+          var resObj = JSON.parse(res.text);
+          assert.equal(404, res.statusCode);
+          assert.isTrue(resObj.code === 'RSS_FEED_URL_NOT_FOUND');
+          done();
+        });
     });
 
-    request(app)
-      .del('/parsefeedurl')
-      .expect(404, done);
-  });
-
-  it('should be respond with status 200', function (done) {
-    var app = express();
-    app.post('/parsefeedurl', function (req, res) {
-      res.status(200).end();
+    it('res.statusCode should be 200', function (done) {
+      request(app)
+        .post("/parsefeedurl")
+        .send({'feedUrl': 'https://vimeo.com/feeds/videos/rss'})
+        .end(function (err, res) {
+          assert.equal(200, res.statusCode);
+          done();
+        });
     });
-
-    request(app)
-      .post('/parsefeedurl')
-      .expect(200, done);
   });
-});
 
-describe('in development', function () {
-  it('should disable "view cache"', function () {
-    process.env.NODE_ENV = 'development';
-    var app = express();
-    app.enabled('view cache').should.be.false
+  describe('in development', function () {
+    it('should disable "view cache"', function () {
+      process.env.NODE_ENV = 'development';
+      require('express')().enabled('view cache').should.be.false;
+    })
+  });
 
+  describe('in production', function () {
+    it('should enable "view cache"', function () {
+      process.env.NODE_ENV = '';
+      require('express')().enabled('view cache').should.be.true;
+    })
   })
-});
 
-describe('in production', function () {
-  it('should enable "view cache"', function () {
-    process.env.NODE_ENV = '';
-    var app = express();
-    app.enabled('view cache').should.be.true;
-  })
 });

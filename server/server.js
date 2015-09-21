@@ -45,73 +45,80 @@ app.get('/', function (req, res) {
 app.post('/validatefeedurl', function (req, res) {
   var isValidFeedUrl = false;
   if (!req.body.feedUrl) {
-    res.send(new Error('Error: Undefined rss feed url')).end();
+    res.status(404).end(JSON.stringify({
+      code: 'RSS_FEED_URL_NOT_FOUND',
+      message: 'Error: Undefined rss feed url'
+    }));
   } else {
     request(req.body.feedUrl, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          isValidFeedUrl = (body.match('<?xml') && (body.match('<rss') || body.match('<feed'))) ? true : false;
-          res.send({
-            data: {
-              isValidFeedUrl: isValidFeedUrl
-            },
-            status: 200
-          }).end();
-        }
-        else {
-          console.error('Error:', error);
-          res.send({
-            data: {
-              isValidFeedUrl: isValidFeedUrl
-            },
-            status: 200
-          }).end();
-        }
+      if (!error && response.statusCode == 200) {
+        isValidFeedUrl = (body.match('<?xml') && (body.match('<rss') || body.match('<feed'))) ? true : false;
+        res.status(200).send({
+          data: {
+            isValidFeedUrl: isValidFeedUrl
+          },
+          status: 200
+        }).end();
       }
-    )
-    ;
+      else {
+        console.error('Error:', error);
+        res.status(200).send({
+          data: {
+            isValidFeedUrl: isValidFeedUrl
+          },
+          status: 200
+        }).end();
+      }
+    });
   }
 });
 
 /* respond to post call for '/parsefeedurl' route and send parsed xml in response*/
 app.post('/parsefeedurl', function (req, res) {
+
+  if (!req.body.feedUrl) {
+    res.status(404).end(JSON.stringify({
+      code: 'RSS_FEED_URL_NOT_FOUND',
+      message: 'Error: Undefined rss feed url'
+    }));
+    return;
+  }
+
   var feedReq = request(req.body.feedUrl)
     , feedparser = new FeedParser()
     , meta = null
     , items = [];
 
-  if (!req.body.feedUrl) {
-    res.send(new Error('Error: Undefined rss feed url')).end();
-  } else {
-    feedReq.on('error', function (error) {
-      console.error(error);
-      res.send(error).end();
-    });
-    feedReq.on('response', function (res) {
-      var stream = this;
-      if (res.statusCode != 200) return this.emit('error', new Error('Bad status code'));
-      stream.pipe(feedparser);
-    });
-    feedparser.on('error', function (err) {
-      console.error(err);
-    });
-    feedparser.on('readable', function () {
-      var stream = this
-        , item;
-      meta = stream.meta; // **NOTE** the "meta" is always available in the context of the feedparser instance
-      while (item = stream.read()) {
-        items.push(item);
-      }
-    });
-    feedparser.on('end', function () {
-      res.send({
-        data: {
-          meta: meta,
-          items: items
-        },
-        status: 200
-      }).end();
-    });
-  }
+  feedReq.on('error', function (error) {
+    console.error(error);
+    res.status(404).end(JSON.stringify(error));
+  });
+  feedReq.on('response', function (res) {
+    var stream = this;
+    if (res.statusCode != 200) return this.emit('error', new Error('Bad status code'));
+    stream.pipe(feedparser);
+  });
+  feedparser.on('error', function (err) {
+    console.error(err);
+  });
+  feedparser.on('readable', function () {
+    var stream = this
+      , item;
+    meta = stream.meta; // **NOTE** the "meta" is always available in the context of the feedparser instance
+    while (item = stream.read()) {
+      items.push(item);
+    }
+  });
+  feedparser.on('end', function () {
+    res.send({
+      data: {
+        meta: meta,
+        items: items
+      },
+      status: 200
+    }).end();
+  });
+
 });
 
 /**
@@ -121,7 +128,8 @@ app.post('/parsefeedurl', function (req, res) {
 if (env === 'development') {
   // Development-mode-specific configuration
   console.info('Node is running in development mode');
-} else if (env === 'test') {
+}
+else if (env === 'test') {
   // Development-mode-specific configuration
   console.info('Node is running in test mode');
 }
@@ -167,3 +175,7 @@ process.on('uncaughtException', function (err) {
 });
 
 console.info('Express server listening on port: %s', server.address().port);
+
+module.exports = function () {
+  return server;
+};
