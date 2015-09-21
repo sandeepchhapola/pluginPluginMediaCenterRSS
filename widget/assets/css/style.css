@@ -56,3 +56,9 @@
     margin-left: 30px;
     margin-top: 15px;
 }
+
+/*Style to fix height and width of description images*/
+#description img {
+    height: auto !important;
+    width:100% !important;
+}
