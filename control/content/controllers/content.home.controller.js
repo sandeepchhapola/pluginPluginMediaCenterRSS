@@ -15,9 +15,6 @@
          * tmrDelay used to hold the time returned by $timeout
          * @private
          *
-         * editor used to add, edit and delete images from your carousel.It will create a new instance of the buildfire carousel editor component.
-         * @private
-         *
          *  */
         var ContentHome = this
           , _data = {
@@ -33,8 +30,12 @@
               "itemDetailsBgImage": ""
             }
           }
-          , tmrDelay = null
-          , editor = new Buildfire.components.carousel.editor("#carousel");
+          , tmrDelay = null;
+
+        /*
+         * ContentHome.editor used to add, edit and delete images from your carousel.It will create a new instance of the buildfire carousel editor component.
+         */
+        ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
 
         /*
          * ContentHome.isValidUrl is used to show/hide Success alert message when rss feed url is valid. Its default value is false.
@@ -127,7 +128,7 @@
          * It will create an artificial delay so api isn't called on every character entered
          * @param newObj is an updated data object
          */
-         var saveDataWithDelay = function (newObj) {
+        var saveDataWithDelay = function (newObj) {
           if (newObj) {
             if (isUnchanged(newObj)) {
               return;
@@ -145,7 +146,7 @@
          * init() private function
          * It is used to fetch previously saved user's data
          */
-         var init = function () {
+        var init = function () {
           var success = function (result) {
               console.info('Init success result:', result);
               if (Object.keys(result.data).length > 0) {
@@ -154,10 +155,10 @@
                 saveData(ContentHome.data, TAG_NAMES.RSS_FEED_INFO);
               }
               if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
-                editor.loadItems([]);
+                ContentHome.editor.loadItems([]);
               }
               else {
-                editor.loadItems(ContentHome.data.content.carouselImages);
+                ContentHome.editor.loadItems(ContentHome.data.content.carouselImages);
               }
               if (ContentHome.data.content.rssUrl)
                 ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
@@ -207,44 +208,44 @@
         init();
 
         /**
-         * editor.onAddItems function will be called when new image item(s) added to carousel image item list.
+         * ContentHome.editor.onAddItems function will be called when new image item(s) added to carousel image item list.
          * @param items
          */
-        editor.onAddItems = function (items) {
+        ContentHome.editor.onAddItems = function (items) {
           ContentHome.data.content.carouselImages.push.apply(ContentHome.data.content.carouselImages, items);
           $scope.$digest();
         };
 
         // this method will be called when an item deleted from the list
         /**
-         * editor.onDeleteItem will be called when an image item deleted from carousel image item list
+         * ContentHome.editor.onDeleteItem will be called when an image item deleted from carousel image item list
          * @param item
          * @param index
          */
-        editor.onDeleteItem = function (item, index) {
+        ContentHome.editor.onDeleteItem = function (item, index) {
           ContentHome.data.content.carouselImages.splice(index, 1);
           $scope.$digest();
         };
 
 
         /**
-         * editor.onItemChange function will be called when you edit details of a carousel image item.
+         * ContentHome.editor.onItemChange function will be called when you edit details of a carousel image item.
          * @param item
          * @param index
          */
-        editor.onItemChange = function (item, index) {
+        ContentHome.editor.onItemChange = function (item, index) {
           ContentHome.data.content.carouselImages.splice(index, 1, item);
           $scope.$digest();
         };
 
 
         /**
-         * editor.onOrderChange function will be called when you change the order of image item in the list.
+         * ContentHome.editor.onOrderChange function will be called when you change the order of image item in the list.
          * @param item
          * @param oldIndex
          * @param newIndex
          */
-        editor.onOrderChange = function (item, oldIndex, newIndex) {
+        ContentHome.editor.onOrderChange = function (item, oldIndex, newIndex) {
           var temp = ContentHome.data.content.carouselImages[oldIndex];
           ContentHome.data.content.carouselImages[oldIndex] = ContentHome.data.content.carouselImages[newIndex];
           ContentHome.data.content.carouselImages[newIndex] = temp;
@@ -289,7 +290,7 @@
         /**
          * $scope.$watch will Watch for changes in user's data object and trigger the saveDataWithDelay function if data changed
          */
-         $scope.$watch(function () {
+        $scope.$watch(function () {
           return ContentHome.data;
         }, saveDataWithDelay, true);
       }]);

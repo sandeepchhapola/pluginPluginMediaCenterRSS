@@ -243,7 +243,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.home.controller.js', function
           return deferred.promise;
         });
         $rootScope.$digest();
-        expect(WidgetHome.rssMetaData).toEqual(null);
+        expect(WidgetHome.isItems).toEqual(false);
       });
       it('FeedParseService.getFeedData should return success and image url is an empty string', function () {
         FeedParseService.getFeedData.and.callFake(function () {
