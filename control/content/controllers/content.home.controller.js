@@ -5,7 +5,17 @@
     .module('mediaCenterRSSPluginContent')
     .controller('ContentHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'TAG_NAMES', 'LAYOUTS', 'FeedParseService', '$timeout',
       function ($scope, DataStore, Buildfire, TAG_NAMES, LAYOUTS, FeedParseService, $timeout) {
-
+        /*
+         * Private variables
+         *
+         * _data used to specify default values to save when user visit first time.
+         * @type {object}
+         * @private
+         *
+         * tmrDelay used to hold the time returned by $timeout
+         * @private
+         *
+         *  */
         var ContentHome = this
           , _data = {
             "content": {
@@ -20,23 +30,76 @@
               "itemDetailsBgImage": ""
             }
           }
-          , tmrDelay = null
-          , editor = new Buildfire.components.carousel.editor("#carousel"); // create a new instance of the buildfire carousel editor
+          , tmrDelay = null;
 
-        ContentHome.isInValidUrl = false;
+        /*
+         * ContentHome.editor used to add, edit and delete images from your carousel.It will create a new instance of the buildfire carousel editor component.
+         */
+        ContentHome.editor = new Buildfire.components.carousel.editor("#carousel");
+
+        /*
+         * ContentHome.isValidUrl is used to show/hide Success alert message when rss feed url is valid. Its default value is false.
+         * @type {boolean}
+         */
         ContentHome.isValidUrl = false;
+
+        /*  ContentHome.isInValidUrl is used to show/hide Error alert message when rss feed url is invalid. Its default value is false.
+         * @type {boolean}
+         */
+        ContentHome.isInValidUrl = false;
+
+        /*
+         * ContentHome.isSaved is used to show/hide Success alert message when data saved successfully. Its default value is false.
+         * @type {boolean}
+         */
+        ContentHome.isSaved = false;
+
+        /*
+         * ContentHome.isNotSaved is used to show/hide Error alert message when data not saved. Its default value is false.
+         * @type {boolean}
+         */
+        ContentHome.isNotSaved = false;
+
+        /*
+         * ContentHome.isValidateButtonClicked is used to disable validate button when clicked to validate RSS feed url and enabled when response has received. Its default value is false.
+         * @type {boolean}
+         */
         ContentHome.isValidateButtonClicked = false;
+
+
+        /*
+         * ContentHome.descriptionWYSIWYGOptions are optional options used for WYSIWYG text editor.
+         * @type {object}
+         */
         ContentHome.descriptionWYSIWYGOptions = {
           plugins: 'advlist autolink link image lists charmap print preview',
           skin: 'lightgray',
           trusted: true,
           theme: 'modern'
         };
-        ContentHome.data = angular.copy(_data);
-        ContentHome.masterData = null;
-        ContentHome.rssFeedUrl = '';
+
         /*
-         * Call the datastore to save the data object
+         * ContentHome.data is user's data of design and content sections which used throughout the app.
+         * @type {object}
+         */
+        ContentHome.data = angular.copy(_data);
+
+        /*
+         * ContentHome.masterData used to hold previous saved user's data.
+         * @type {object}
+         */
+        ContentHome.masterData = null;
+
+        /*
+         * ContentHome.rssFeedUrl used as ng-model to show previously saved valid rss feed url.
+         * @type {string}
+         */
+        ContentHome.rssFeedUrl = '';
+
+        /* saveData(data, tag) private function
+         * It will Call the Datastore.save method to save the data object
+         * @param data: data to save in datastore.
+         * @param tag: An alias given to saved data
          */
         var saveData = function (newObj, tag) {
           if (typeof newObj === 'undefined') {
@@ -44,17 +107,27 @@
           }
           var success = function (result) {
               console.info('Saved data result: ', result);
+              ContentHome.isSaved = true;
+              $timeout(function () {
+                ContentHome.isSaved = false;
+              }, 1000);
               updateMasterItem(newObj);
             }
             , error = function (err) {
               console.error('Error while saving data : ', err);
+              ContentHome.isNotSaved = true;
+              $timeout(function () {
+                ContentHome.isNotSaved = false;
+              }, 1000);
             };
           DataStore.save(newObj, tag).then(success, error);
         };
 
-        /*
-         * create an artificial delay so api isnt called on every character entered
-         * */
+        /**
+         * saveDataWithDelay(newObj) private function
+         * It will create an artificial delay so api isn't called on every character entered
+         * @param newObj is an updated data object
+         */
         var saveDataWithDelay = function (newObj) {
           if (newObj) {
             if (isUnchanged(newObj)) {
@@ -69,9 +142,10 @@
           }
         };
 
-        /*
-         * Go pull any previously saved data
-         * */
+        /**
+         * init() private function
+         * It is used to fetch previously saved user's data
+         */
         var init = function () {
           var success = function (result) {
               console.info('Init success result:', result);
@@ -81,10 +155,10 @@
                 saveData(ContentHome.data, TAG_NAMES.RSS_FEED_INFO);
               }
               if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
-                editor.loadItems([]);
+                ContentHome.editor.loadItems([]);
               }
               else {
-                editor.loadItems(ContentHome.data.content.carouselImages);
+                ContentHome.editor.loadItems(ContentHome.data.content.carouselImages);
               }
               if (ContentHome.data.content.rssUrl)
                 ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
@@ -103,41 +177,84 @@
           DataStore.get(TAG_NAMES.RSS_FEED_INFO).then(success, error);
         };
 
+        /**
+         * function updateMasterItem(data)
+         * Used to update master data with newly saved user's data object.
+         * @param data is an updated data.
+         */
         function updateMasterItem(data) {
           ContentHome.masterData = angular.copy(data);
         }
 
+        /**
+         * function isUnchanged(data)
+         * Used to check master data object and updated data object are same or not
+         * @param data
+         * @returns {*|boolean}
+         */
         function isUnchanged(data) {
           return angular.equals(data, ContentHome.masterData);
         }
 
+        /**
+         *  updateMasterItem() function invocation to update master data with default data.
+         */
         updateMasterItem(_data);
 
+
+        /**
+         *  init() function invocation to fetch previously saved user's data from datastore.
+         */
         init();
 
-        // this method will be called when a new item added to the list
-        editor.onAddItems = function (items) {
+        /**
+         * ContentHome.editor.onAddItems function will be called when new image item(s) added to carousel image item list.
+         * @param items
+         */
+        ContentHome.editor.onAddItems = function (items) {
           ContentHome.data.content.carouselImages.push.apply(ContentHome.data.content.carouselImages, items);
           $scope.$digest();
         };
+
         // this method will be called when an item deleted from the list
-        editor.onDeleteItem = function (item, index) {
+        /**
+         * ContentHome.editor.onDeleteItem will be called when an image item deleted from carousel image item list
+         * @param item
+         * @param index
+         */
+        ContentHome.editor.onDeleteItem = function (item, index) {
           ContentHome.data.content.carouselImages.splice(index, 1);
           $scope.$digest();
         };
-        // this method will be called when you edit item details
-        editor.onItemChange = function (item, index) {
+
+
+        /**
+         * ContentHome.editor.onItemChange function will be called when you edit details of a carousel image item.
+         * @param item
+         * @param index
+         */
+        ContentHome.editor.onItemChange = function (item, index) {
           ContentHome.data.content.carouselImages.splice(index, 1, item);
           $scope.$digest();
         };
-        // this method will be called when you change the order of items
-        editor.onOrderChange = function (item, oldIndex, newIndex) {
+
+
+        /**
+         * ContentHome.editor.onOrderChange function will be called when you change the order of image item in the list.
+         * @param item
+         * @param oldIndex
+         * @param newIndex
+         */
+        ContentHome.editor.onOrderChange = function (item, oldIndex, newIndex) {
           var temp = ContentHome.data.content.carouselImages[oldIndex];
           ContentHome.data.content.carouselImages[oldIndex] = ContentHome.data.content.carouselImages[newIndex];
           ContentHome.data.content.carouselImages[newIndex] = temp;
           $scope.$digest();
         };
 
+        /**
+         * ContentHome.validateFeedUrl function will called when you click validate button to check Rss feed url is either valid or not.
+         */
         ContentHome.validateFeedUrl = function () {
           Buildfire.spinner.show();
           var success = function () {
@@ -160,14 +277,19 @@
           ContentHome.isValidateButtonClicked = true;
           FeedParseService.validateFeedUrl(ContentHome.rssFeedUrl).then(success, error);
         };
+
+        /**
+         * ContentHome.clearData function will called when RSS feed url removed from RSS feed url input box.
+         */
         ContentHome.clearData = function () {
           if (!ContentHome.rssFeedUrl) {
             ContentHome.data.content.rssUrl = '';
           }
         };
-        /*
-         * Watch for changes in data and trigger the saveDataWithDelay function on change
-         * */
+
+        /**
+         * $scope.$watch will Watch for changes in user's data object and trigger the saveDataWithDelay function if data changed
+         */
         $scope.$watch(function () {
           return ContentHome.data;
         }, saveDataWithDelay, true);

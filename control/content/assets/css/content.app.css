@@ -1,0 +1,5 @@
+/*style to fix bottom margin for alert messages*/
+.margin-fix{
+    margin-bottom: 30px;
+    text-align: center;
+}
