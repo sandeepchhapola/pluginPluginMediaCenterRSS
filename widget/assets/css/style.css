@@ -16,6 +16,11 @@
 /*
 * Styling for audio player
 */
+.playerMP {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .back-color {
     background-color: black !important;;
     padding: 0 !important;
@@ -50,7 +55,6 @@
     z-index: 99;
 }
 
-
 /*style for the info showed when feed items not available*/
 .items-info {
     margin-left: 30px;
@@ -60,5 +64,24 @@
 /*Style to fix height and width of description images*/
 #description img {
     height: auto !important;
-    width:100% !important;
+    width: 100% !important;
+}
+
+/*Styles for Audio player Slider*/
+.slider-block {
+    width: 77%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.slider-block input[type=range] {
+    cursor: pointer;
+}
+
+.padding0 {
+    padding: 0px !important;
+}
+
+.clear-both {
+    clear: both;
 }

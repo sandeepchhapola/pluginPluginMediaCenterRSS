@@ -119,5 +119,10 @@
         x = '0' + x.substring(1);
         return x;
       };
-    });
+    })
+    .filter('secondsToDateTime', [function() {
+      return function(seconds) {
+        return new Date(1970, 0, 1).setSeconds(seconds);
+      };
+    }]);
 })(window.angular, window.buildfire, window.location, jQuery);

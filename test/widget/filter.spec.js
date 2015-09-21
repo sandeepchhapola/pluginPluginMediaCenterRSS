@@ -102,4 +102,12 @@ describe('Unit: pluginPluginMediaCenterRSS widget filters', function () {
       expect(result).toEqual('04:01');
     });
   });
+
+  describe('Unit: secondsToDateTime filter', function () {
+    it('it should be convert seconds to minutes using secondsToDateTime filter and date filter', function () {
+      var _secondsToDateTime = filter('secondsToDateTime')(4200)
+        , result = filter('date')(_secondsToDateTime, 'mm:ss');
+      expect(result).toEqual('10:00');
+    });
+  });
 });

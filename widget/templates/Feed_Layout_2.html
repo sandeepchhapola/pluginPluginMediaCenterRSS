@@ -38,15 +38,17 @@
               </div>
               <div class="slider margin-top-twenty">
                 <div class="playerMP">
-                  <div ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime | number:2}}</div>
-                  <div><input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
+                  <div class="col-sm-2 pull-left padding0" ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime | secondsToDateTime | date:'mm:ss'}}</div>
+                  <div class="col-sm-8 slider-block pull-left padding0">
+                    <input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
                               max="{{WidgetMedia.audio.duration}}"
                               ng-model="WidgetMedia.audio.currentTime"
-                              ng-change="WidgetMedia.seekAudio(WidgetMedia.audio.currentTime)"/></div>
-                  <div ng-if="WidgetMedia.audio.duration">{{WidgetMedia.audio.duration | number:2}}</div>
+                              ng-change="WidgetMedia.seekAudio(WidgetMedia.audio.currentTime)"/>
+                  </div>
+                  <div class="padding0 col-sm-2 pull-left" ng-if="WidgetMedia.audio.duration">{{WidgetMedia.audio.duration | secondsToDateTime | date:'mm:ss'}}</div>
                 </div>
               </div>
-              <div class="media-player-btns">
+              <div class="clear-both media-player-btns">
             <span ng-if="!WidgetMedia.audio.playing" class="icon icon-play-circle icon-main"
                   ng-click="WidgetMedia.playAudio()"></span>
             <span ng-if="WidgetMedia.audio.playing" class="icon icon-pause-circle icon-main"
