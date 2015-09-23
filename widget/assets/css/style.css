@@ -85,3 +85,13 @@
 .clear-both {
     clear: both;
 }
+
+.video-container-background,videogular, [videogular]{
+    background-color: transparent !important;
+}
+
+videogular vg-controls, [videogular] vg-controls
+{
+    overflow: hidden !important;
+    height:45px !important;
+}
