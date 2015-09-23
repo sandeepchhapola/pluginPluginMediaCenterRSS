@@ -40,7 +40,7 @@
 
 .customBackground {
     background-position: center center !important;
-    background-size: initial;
+    background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
     background-origin: initial;
     background-clip: initial;
