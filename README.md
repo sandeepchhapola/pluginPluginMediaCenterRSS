@@ -1,4 +1,4 @@
-# pluginPluginMediaCenterRSS
+# pluginPluginMediaCenterRSS ![](https://api.travis-ci.org/BuildFire/pluginPluginMediaCenterRSS.svg)
 BuildFire Plugin to import RSS/ATOM feed content into your app.
 
 ### Start Node server
