@@ -64,10 +64,6 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
     });
 
-    it('ContentHome.isNotSaved should be true', function () {
-      $rootScope.$digest();
-      expect(ContentHome.isNotSaved).toEqual(true);
-    });
     it('ContentHome.isNotSaved should be false when timeout called', function () {
       $rootScope.$digest();
       $timeout.flush();
