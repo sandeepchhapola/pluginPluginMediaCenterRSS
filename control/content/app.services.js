@@ -65,7 +65,7 @@
         if (!_feedUrl) {
           deferred.reject(new Error('Undefined feed url'));
         }
-        $http.post('http://localhost:3000/validatefeedurl', {
+        $http.post('https://plugin-proxy-server.herokuapp.com/validatefeedurl', {
           feedUrl: _feedUrl
         })
           .success(function (response) {

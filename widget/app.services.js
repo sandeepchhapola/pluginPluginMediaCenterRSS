@@ -71,7 +71,7 @@
         if (!_feedUrl) {
           deferred.reject(new Error('Undefined feed url'));
         }
-        $http.post('http://localhost:3000/parsefeedurl', {
+        $http.post('https://plugin-proxy-server.herokuapp.com/parsefeedurl', {
           feedUrl: _feedUrl
         })
           .success(function (response) {

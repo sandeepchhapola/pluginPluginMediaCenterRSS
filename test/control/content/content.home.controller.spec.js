@@ -155,7 +155,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
       describe('Function : ContentHome.validateFeedUrl Error', function () {
         beforeEach(function () {
-          $httpBackend.expectPOST("http://localhost:3000/validatefeedurl").respond({
+          $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/validatefeedurl").respond({
             data: {
               isValidFeedUrl: false
             },
@@ -175,7 +175,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
       describe('Function : ContentHome.validateFeedUrl success', function () {
         beforeEach(function () {
-          $httpBackend.expectPOST("http://localhost:3000/validatefeedurl").respond({
+          $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/validatefeedurl").respond({
             data: {
               isValidFeedUrl: true
             },
