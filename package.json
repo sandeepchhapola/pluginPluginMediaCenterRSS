@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "test": "karma start"
+    "postinstall": "./node_modules/.bin/bower install",
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bower": "^1.5.3",
     "karma-cli": "^0.1.0",
     "karma-coverage": "^0.5.0"
   },
