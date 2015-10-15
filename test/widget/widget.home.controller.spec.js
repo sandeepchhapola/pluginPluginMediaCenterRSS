@@ -197,7 +197,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.home.controller.js', function
         };
         var result = WidgetHome.getItemPublishDate(_item);
         $rootScope.$digest();
-        expect(result).toEqual('Sep 16, 2015 11:52:10 PM');
+        expect(result).toContain('Sep 16, 2015');
       });
     });
 
