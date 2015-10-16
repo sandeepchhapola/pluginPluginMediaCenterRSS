@@ -64,10 +64,6 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
     });
 
-    it('ContentHome.isNotSaved should be true', function () {
-      $rootScope.$digest();
-      expect(ContentHome.isNotSaved).toEqual(true);
-    });
     it('ContentHome.isNotSaved should be false when timeout called', function () {
       $rootScope.$digest();
       $timeout.flush();
@@ -155,7 +151,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
       describe('Function : ContentHome.validateFeedUrl Error', function () {
         beforeEach(function () {
-          $httpBackend.expectPOST("http://localhost:3000/validatefeedurl").respond({
+          $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/validatefeedurl").respond({
             data: {
               isValidFeedUrl: false
             },
@@ -175,7 +171,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
       describe('Function : ContentHome.validateFeedUrl success', function () {
         beforeEach(function () {
-          $httpBackend.expectPOST("http://localhost:3000/validatefeedurl").respond({
+          $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/validatefeedurl").respond({
             data: {
               isValidFeedUrl: true
             },

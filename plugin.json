@@ -1,6 +1,6 @@
 {
   "author":"BuildFire"
-,"pluginName":"pluginPluginMediaCenterRSS"
+,"pluginName":"Media Center RSS Feed"
 ,"pluginDescription":"This plugin is used to import RSS/ATOM feed contents into your app"
 ,"supportEmail":"support@buildfire.com"
 ,"control":{

@@ -8,14 +8,14 @@
     <div class="screens clearfix">
       <div class="screen layouticon pull-left">
         <a class="border-grey border-radius-three default-background-hover text-center">
-          <img ng-src="../../resources/{{DesignHome.data.design.itemListLayout}}.jpg">
+          <img ng-src="../../resources/{{DesignHome.data.design.itemListLayout}}.png">
         </a>
       </div>
       <div class="screen layoutgrid pull-right margin-left-zero border-grey border-radius-three">
         <a ng-repeat="listLayout in DesignHome.layouts.itemListLayouts"
            class="layouticon border-grey border-radius-three default-background-hover text-center"
            ng-click="DesignHome.changeListLayout(this.listLayout.name)">
-          <img ng-src="../../resources/{{listLayout.name}}.jpg">
+          <img ng-src="../../resources/{{listLayout.name}}.png">
         </a>
       </div>
     </div>
@@ -30,14 +30,14 @@
     <div class="screens clearfix">
       <div class="screen layouticon pull-left">
         <a class="border-grey border-radius-three default-background-hover text-center">
-          <img ng-src="../../resources/{{DesignHome.data.design.itemDetailsLayout}}.jpg">
+          <img ng-src="../../resources/{{DesignHome.data.design.itemDetailsLayout}}.png">
         </a>
       </div>
       <div class="screen layoutgrid pull-right margin-left-zero border-grey border-radius-three">
         <a ng-repeat="itemDetailsLayout in DesignHome.layouts.itemDetailsLayouts"
            class="layouticon border-grey border-radius-three default-background-hover text-center"
            ng-click="DesignHome.changeItemDetailsLayout(this.itemDetailsLayout.name)">
-          <img ng-src="../../resources/{{itemDetailsLayout.name}}.jpg">
+          <img ng-src="../../resources/{{itemDetailsLayout.name}}.png">
         </a>
       </div>
     </div>

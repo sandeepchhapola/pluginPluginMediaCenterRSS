@@ -14,8 +14,8 @@
            infinite-scroll="WidgetHome.loadMore()"
            infinite-scroll-distance="1"
            infinite-scroll-disabled="WidgetHome.busy">
-        <div ng-show="WidgetHome.isItems" class="list-item col-xs-6 pull-left"
-             ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
+        <div ng-show="WidgetHome.isItems" class=" col-xs-6 pull-left"
+             ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="" ng-class-even="list-item-even" ng-class-odd="list-item-odd" >
           <div ng-if="item.imageSrcUrl" class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder">
               <img ng-src="{{item.imageSrcUrl|resizeImage:141:79}}">
