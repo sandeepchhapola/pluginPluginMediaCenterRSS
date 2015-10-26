@@ -4,7 +4,7 @@
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
     </div>
     <div  ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)" class="text-left padded padding-bottom-zero clearfix">
-      <p ng-bind-html='WidgetHome.data.content.description | safeHtml'></p>
+      <p style="word-break: break-all" ng-bind-html='WidgetHome.data.content.description | safeHtml'></p>
     </div>
     <div ng-if="WidgetHome.data"
          infinite-scroll="WidgetHome.loadMore()"
