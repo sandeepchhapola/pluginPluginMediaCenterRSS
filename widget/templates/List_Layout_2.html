@@ -20,7 +20,7 @@
               <img ng-src="{{item.imageSrcUrl|resizeImage:110:60}}">
             </div>
             <div class="list-item-copy text-left padding-left-ten padding-right-ten">
-              <p class="ellipsis margin-zero"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
+              <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
               </p>
 
               <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml">></p>
