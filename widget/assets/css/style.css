@@ -95,3 +95,8 @@ videogular vg-controls, [videogular] vg-controls
     overflow: hidden !important;
     height:45px !important;
 }
+
+.layout1 .list-layout .list-item-copy,
+.layout4 .list-layout .list-item-copy {
+    min-height: 80px;
+}
