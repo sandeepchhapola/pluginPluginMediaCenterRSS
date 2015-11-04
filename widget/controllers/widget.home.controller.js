@@ -221,8 +221,9 @@
         WidgetHome.getTitle = function (item) {
           if (!item.title && (item.summary || item.description)) {
             var html = item.summary ? item.summary : item.description;
-            item.title = $filter('truncate')(html, 5);
+            item.title = $filter('truncate')(html, 20);
           }
+          item.title = $filter('truncate')(item.title, 20);
           return item.title;
         };
 

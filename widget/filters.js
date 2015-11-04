@@ -68,12 +68,12 @@
     .filter('truncate', [function () {
       return function (html, length) {
         if (typeof html === 'string') {
-          html = html.replace(/<[^>]+>/gm, '');
+          html = html.replace(/<\/?[^>]+(>|$)/g, "");
           return jQuery.truncate(html, {
             length: length
           });
         } else {
-          return 'aa';
+          return html;
         }
       };
     }])
