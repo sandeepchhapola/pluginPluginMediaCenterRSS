@@ -224,7 +224,7 @@
             item.title = $filter('truncate')(html, 20);
           }
           item.title = $filter('truncate')(item.title, 20);
-          return item.title;
+          return 'title';
         };
 
         /**

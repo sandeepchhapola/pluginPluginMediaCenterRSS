@@ -25,7 +25,7 @@
                         </div>
                         <div class="list-item-copy text-left">
                             <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index)"
-                                                                            class="text-primary" ng-bind-html="WidgetHome.getItemTitle(WidgetHome.items[$index])|safeHtml"></a>
+                                                                            class="text-primary">{{WidgetHome.getTitle(WidgetHome.items[$index])}}</a>
                             </p>
 
                             <p class="summary ellipsis margin-zero"
@@ -42,7 +42,7 @@
                         </div>
                         <div class="list-item-copy text-left">
                             <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index+1)"
-                                                                            class="text-primary" ng-bind-html="WidgetHome.getItemTitle(WidgetHome.items[$index+1])|safeHtml"></a>
+                                                                            class="text-primary">{{WidgetHome.getTitle(WidgetHome.items[$index+1])}}</a>
                             </p>
 
                             <p class="summary ellipsis margin-zero"
