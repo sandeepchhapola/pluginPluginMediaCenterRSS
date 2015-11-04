@@ -73,7 +73,7 @@
             length: length
           });
         } else {
-          return html;
+          return 'a';
         }
       };
     }])
