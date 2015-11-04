@@ -68,7 +68,7 @@
     .filter('truncate', [function () {
       return function (html, length) {
         if (typeof html === 'string') {
-          html = html.replace(/<\/?[^>]+(>|$)/g, "");
+          html = html.replace(/<[^>]+>/gm, '');
           return jQuery.truncate(html, {
             length: length
           });
