@@ -20,16 +20,16 @@
                         <div ng-if="WidgetHome.items[$index].imageSrcUrl"
                              class="list-item-media text-center border-radius-three overflow-hidden">
                             <div class="list-media-holder">
-                                <img src="http://www.placehold.it/240x160">
+                                <img ng-src="{{WidgetHome.items[$index].imageSrcUrl|cropImage:240:160}}">
                             </div>
                         </div>
                         <div class="list-item-copy text-left">
                             <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index)"
-                                                                            class="text-primary">title</a>
+                                                                            class="text-primary">{{WidgetHome.getTitle(WidgetHome.items[$index])}}</a>
                             </p>
 
                             <p class="summary ellipsis margin-zero"
-                               ng-bind-html="WidgetHome.getItemSummary(WidgetHome.items[$index])|safeHtml"></p>
+                               >789</p>
                             <span class="list-item-date">{{WidgetHome.getItemPublishDate(WidgetHome.items[$index])}}</span>
                         </div>
                     </div>
@@ -37,16 +37,16 @@
                         <div ng-if="WidgetHome.items[$index+1].imageSrcUrl"
                              class="list-item-media text-center border-radius-three overflow-hidden">
                             <div class="list-media-holder">
-                                <img src="http://www.placehold.it/240x160">
+                                <img ng-src="{{WidgetHome.items[$index+1].imageSrcUrl|resizeImage:240:160}}">
                             </div>
                         </div>
                         <div class="list-item-copy text-left">
                             <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index+1)"
-                                                                            class="text-primary">title</a>
+                                                                            class="text-primary">{{WidgetHome.getTitle(WidgetHome.items[$index+1])}}</a>
                             </p>
 
                             <p class="summary ellipsis margin-zero"
-                               ng-bind-html="WidgetHome.getItemSummary(WidgetHome.items[$index+1])|safeHtml"></p>
+                               >789</p>
                             <span class="list-item-date">{{WidgetHome.getItemPublishDate(WidgetHome.items[$index+1])}}</span>
                         </div>
                     </div>
