@@ -48,6 +48,8 @@
   <script src="filters.js"></script>
   <script src="controllers/widget.home.controller.js"></script>
   <script src="controllers/widget.media.controller.js"></script>
+  <script src="../../../scripts/angular/angular-animate.min.js"></script>
+  <link rel="stylesheet" href="../../../styles/transitionAnimation.css">
 
   <!--Buildfire Carousel-->
   <script src="assets/js/buildfireCarousel.js"></script>
@@ -58,7 +60,7 @@
 </head>
 <body class="body-scroll">
 <div class="main_view">
-  <div class="content" ng-view=""></div>
+  <div class="slide relative content" ng-view=""></div>
 </div>
 </body>
 </html>

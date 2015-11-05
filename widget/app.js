@@ -10,7 +10,8 @@
     "com.2fdevs.videogular",
     "com.2fdevs.videogular.plugins.controls",
     "com.2fdevs.videogular.plugins.overlayplay",
-    "videosharing-embed"
+    "videosharing-embed",
+    'ngAnimate'
   ])
 
     .config(['$routeProvider', '$compileProvider', function ($routeProvider, $compileProvider) {
