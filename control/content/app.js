@@ -3,7 +3,7 @@
 (function (angular) {
 
   // Make sure to include the required dependency to the module
-  angular.module('mediaCenterRSSPluginContent', ['ngRoute', 'ui.bootstrap', 'ui.tinymce'])
+  angular.module('mediaCenterRSSPluginContent', ['ngRoute', 'ui.bootstrap', 'ui.tinymce','ngAnimate'])
 
     .config(['$routeProvider', function ($routeProvider) {
 
