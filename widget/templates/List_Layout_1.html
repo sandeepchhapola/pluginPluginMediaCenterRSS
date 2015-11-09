@@ -20,7 +20,7 @@
                         <div ng-if="WidgetHome.items[$index].imageSrcUrl"
                              class="list-item-media text-center border-radius-three overflow-hidden">
                             <div class="list-media-holder">
-                                <img ng-src="{{WidgetHome.items[$index].imageSrcUrl|cropImage:240:160}}">
+                                <img ng-src="{{WidgetHome.items[$index].imageSrcUrl| getImageUrl:240:160}}">
                             </div>
                         </div>
                         <div class="list-item-copy text-left">
@@ -37,7 +37,7 @@
                         <div ng-if="WidgetHome.items[$index+1].imageSrcUrl"
                              class="list-item-media text-center border-radius-three overflow-hidden">
                             <div class="list-media-holder">
-                                <img ng-src="{{WidgetHome.items[$index+1].imageSrcUrl|resizeImage:240:160}}">
+                                <img ng-src="{{WidgetHome.items[$index+1].imageSrcUrl|getImageUrl:240:160}}">
                             </div>
                         </div>
                         <div class="list-item-copy text-left">

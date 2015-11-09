@@ -16,7 +16,7 @@
              ng-repeat="item in WidgetHome.items" ng-class-even="list-item-even" ng-class-odd="list-item-odd" trigger-ng-repeat-render="">
           <div ng-if="item.imageSrcUrl" class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder">
-              <img ng-src="{{item.imageSrcUrl|resizeImage:153:85}}">
+              <img ng-src="{{item.imageSrcUrl| getImageUrl:200:200}}">
             </div>
           </div>
           <div class="list-item-copy text-left">

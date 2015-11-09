@@ -17,7 +17,7 @@
              ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
           <div class="list-item-media text-left overflow-hidden">
             <div ng-if="item.imageSrcUrl" class="list-media-holder pull-left">
-              <img ng-src="{{item.imageSrcUrl|resizeImage:110:60}}">
+              <img ng-src="{{item.imageSrcUrl| getImageUrl:220:120}}">
             </div>
             <div class="list-item-copy text-left padding-left-ten padding-right-ten">
               <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>

@@ -13,7 +13,7 @@
       <div ng-show="WidgetHome.isItems" ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
         <div ng-if="item.imageSrcUrl" class="plugin-banner clearfix border-bottom-grey">
           <div class="plugin-slide text-center">
-            <img ng-src="{{item.imageSrcUrl|resizeImage:340:190}}">
+            <img ng-src="{{item.imageSrcUrl| getImageUrl:340:192}}">
           </div>
         </div>
         <div class="padded text-left">
