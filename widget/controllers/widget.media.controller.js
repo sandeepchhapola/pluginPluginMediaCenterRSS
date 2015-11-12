@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
-      function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
+    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES','$rootScope',
+      function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES,$rootScope) {
 
         /*
          * Private variables
@@ -304,6 +304,7 @@
               if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
                 resetDefaults();
                 currentRssUrl = WidgetMedia.data.content.rssUrl;
+                $rootScope.showFeed = true;
                 Location.goTo('#/');
               }
             }
@@ -315,10 +316,12 @@
          */
         var init = function () {
             var success = function (result) {
+                $rootScope.showFeed = false;
                 WidgetMedia.data = result.data;
                 currentRssUrl = WidgetMedia.data.content.rssUrl;
               }
               , error = function (err) {
+                $rootScope.showFeed = false;
                 console.error('Error while getting data', err);
               };
             DataStore.get(TAG_NAMES.RSS_FEED_INFO).then(success, error);
@@ -485,6 +488,7 @@
           DataStore.clearListener();
           WidgetMedia.pause();
           ItemDetailsService.setData(null);
+          $rootScope.$broadcast('ROUTE_CHANGED', WidgetMedia.data.design.itemListLayout);
         });
       }]
   )

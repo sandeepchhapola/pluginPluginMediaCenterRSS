@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
-      function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
+    .controller('WidgetHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore', '$rootScope',
+      function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore, $rootScope) {
 
         /*
          * Private variables
@@ -71,6 +71,8 @@
          * @type {boolean}
          */
         WidgetHome.isItems = true;
+
+        $rootScope.showFeed = true;
 
         /**
          * resetDefaults() private method
@@ -300,5 +302,13 @@
         $scope.$on("$destroy", function () {
           DataStore.clearListener();
         });
+
+        $rootScope.$on("ROUTE_CHANGED", function (e, itemListLayout) {
+          if (!WidgetHome.data.design)
+            WidgetHome.data.design = {};
+          WidgetHome.data.design.itemListLayout = itemListLayout;
+          DataStore.onUpdate().then(null, null, onUpdateCallback);
+        });
+
       }]);
 })(window.angular);
