@@ -37,7 +37,7 @@
   <script src="../../../scripts/buildfire/services/media/audioPlayer.js"></script>
 
   <!-- lodash and ng-infinite-scroll -->
-  <script src="assets/js/ng-infinite-scroll.js"></script>
+  <script src="assets/js/ng-infinite-scroll.custom.js"></script>
   <script src="assets/js/lodash.js"></script>
 
   <!--App scripts-->
@@ -60,7 +60,7 @@
 </head>
 <body class="body-scroll">
 <div class="main_view">
-  <div class="slide relative content" ng-view=""></div>
+  <div class="slide content infinite-scroll-parent" ng-view=""></div>
 </div>
 </body>
 </html>

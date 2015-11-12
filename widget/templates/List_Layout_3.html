@@ -9,7 +9,8 @@
     <div ng-if="WidgetHome.data"
          infinite-scroll="WidgetHome.loadMore()"
          infinite-scroll-distance="1"
-         infinite-scroll-disabled="WidgetHome.busy">
+         infinite-scroll-disabled="WidgetHome.busy"
+         data-infinite-container=".infinite-scroll-parent">
       <div ng-show="WidgetHome.isItems" ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
         <div ng-if="item.imageSrcUrl" class="plugin-banner clearfix border-bottom-grey">
           <div class="plugin-slide text-center">

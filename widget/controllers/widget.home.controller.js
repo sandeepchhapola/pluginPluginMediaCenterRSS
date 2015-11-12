@@ -272,6 +272,7 @@
          * will used to load more items on scroll to implement lazy loading
          */
         WidgetHome.loadMore = function () {
+
           if (WidgetHome.busy || totalChunks === 0) {
             return;
           }
