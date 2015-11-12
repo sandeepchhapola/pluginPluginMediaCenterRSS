@@ -251,7 +251,7 @@
         WidgetHome.getItemPublishDate = function (item) {
           var dateStr = item.pubDate ? item.pubDate : '';
           if (dateStr) {
-            return $filter('date')(dateStr, 'medium');
+            return $filter('date')(dateStr, 'MMM dd, yyyy');
           } else {
             return dateStr;
           }
