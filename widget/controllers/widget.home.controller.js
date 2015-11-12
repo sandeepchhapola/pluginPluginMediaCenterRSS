@@ -219,12 +219,14 @@
          * @returns {item.title|*}
          */
         WidgetHome.getTitle = function (item) {
-          if (!item.title && (item.summary || item.description)) {
-            var html = item.summary ? item.summary : item.description;
-            item.title = $filter('truncate')(html, 20);
+          if (item) {
+            if (!item.title && (item.summary || item.description)) {
+              var html = item.summary ? item.summary : item.description;
+              item.title = $filter('truncate')(html, 20);
+            }
+            item.title = $filter('truncate')(item.title, 20);
+            return item.title;
           }
-          item.title = $filter('truncate')(item.title, 20);
-          return item.title;
         };
 
         /**
@@ -249,11 +251,13 @@
          * @returns {*}
          */
         WidgetHome.getItemPublishDate = function (item) {
-          var dateStr = item.pubDate ? item.pubDate : '';
-          if (dateStr) {
-            return $filter('date')(dateStr, 'MMM dd, yyyy');
-          } else {
-            return dateStr;
+          if (item) {
+            var dateStr = item.pubDate ? item.pubDate : '';
+            if (dateStr) {
+              return $filter('date')(dateStr, 'MMM dd, yyyy');
+            } else {
+              return dateStr;
+            }
           }
         };
 
