@@ -8,22 +8,6 @@ describe('Unit: pluginPluginMediaCenterRSS widget app', function () {
       rootScope = _$rootScope_;
     }));
 
-    describe('Home route', function () {
-      beforeEach(inject(
-        function ($httpBackend) {
-          $httpBackend.expectGET('templates/home.html')
-            .respond(200);
-          $httpBackend.expectGET('/')
-            .respond(200);
-        }));
-
-      it('should load the home page on successful load of location path /', function () {
-        location.path('/');
-        rootScope.$digest();
-        expect(route.current.controller).toEqual('WidgetHomeCtrl')
-      });
-    });
-
     describe('Media route', function () {
       beforeEach(inject(
         function ($httpBackend) {
