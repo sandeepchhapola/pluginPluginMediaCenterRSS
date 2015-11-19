@@ -34,10 +34,11 @@
 
 
   <!-- Audio player-->
-  <script src="../../../scripts/buildfire/services/media/audioPlayer.js"></script>
+  <script
+      src="../../../scripts/buildfire/services/media/audioPlayer.js"></script>
 
   <!-- lodash and ng-infinite-scroll -->
-  <script src="assets/js/ng-infinite-scroll.js"></script>
+  <script src="assets/js/ng-infinite-scroll.custom.js"></script>
   <script src="assets/js/lodash.js"></script>
 
   <!--App scripts-->
@@ -48,6 +49,8 @@
   <script src="filters.js"></script>
   <script src="controllers/widget.home.controller.js"></script>
   <script src="controllers/widget.media.controller.js"></script>
+  <script src="../../../scripts/angular/angular-animate.min.js"></script>
+  <link rel="stylesheet" href="../../../styles/transitionAnimation.css">
 
   <!--Buildfire Carousel-->
   <script src="assets/js/buildfireCarousel.js"></script>
@@ -58,7 +61,14 @@
 </head>
 <body class="body-scroll">
 <div class="main_view">
-  <div class="content" ng-view=""></div>
+  <div class="slide content infinite-scroll-parent">
+    <div ng-controller="WidgetHomeCtrl as WidgetHome">
+      <div ng-if="WidgetHome.data.design.itemListLayout"
+           ng-include="'templates/' + WidgetHome.data.design.itemListLayout+ '.html'">
+      </div>
+    </div>
+  </div>
+  <div ng-view="" class="slide content" ng-hide="showFeed"></div>
 </div>
 </body>
 </html>

@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES',
-      function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES) {
+    .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES', '$rootScope',
+      function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES, $rootScope) {
 
         /*
          * Private variables
@@ -100,27 +100,27 @@
          * Used to reset default values
          */
         var resetDefaults = function () {
-            WidgetMedia.videoPlayerConfig = {
-              autoHide: false,
-              preload: "none",
-              sources: null,
-              tracks: null,
-              theme: {
-                url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
-              }
-            };
-            WidgetMedia.audio = {
-              playing: false,
-              paused: false,
-              track: '',
-              currentTime: 0,
-              duration: 0
-            };
-            WidgetMedia.isVideoPlayerSupported = true;
-            WidgetMedia.imageUrl = '';
-            WidgetMedia.videoUrl = '';
-            angular.element('#videoPlayer').detach();
+          WidgetMedia.videoPlayerConfig = {
+            autoHide: false,
+            preload: "none",
+            sources: null,
+            tracks: null,
+            theme: {
+              url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+            }
           };
+          WidgetMedia.audio = {
+            playing: false,
+            paused: false,
+            track: '',
+            currentTime: 0,
+            duration: 0
+          };
+          WidgetMedia.isVideoPlayerSupported = true;
+          WidgetMedia.imageUrl = '';
+          WidgetMedia.videoUrl = '';
+          angular.element('#videoPlayer').detach();
+        };
 
         /**
          * changeVideoSrc() private method
@@ -129,11 +129,11 @@
          * @param _type
          */
         var changeVideoSrc = function (_src, _type) {
-            WidgetMedia.videoPlayerConfig.sources = [{
-              src: $sce.trustAsResourceUrl(_src),
-              type: _type
-            }];
-          };
+          WidgetMedia.videoPlayerConfig.sources = [{
+            src: $sce.trustAsResourceUrl(_src),
+            type: _type
+          }];
+        };
 
         /**
          * checkEnclosuresTag() private method
@@ -142,28 +142,28 @@
          * @returns {*}
          */
         var checkEnclosuresTag = function (_item) {
-            if (_item.enclosures && _item.enclosures.length > 0 && _item.enclosures[0].url && _item.enclosures[0].type) {
-              if (_item.enclosures[0].type.indexOf('video/') === 0) {
-                WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
-              }
-              else if (_item.enclosures[0].type.indexOf('audio/') === 0) {
-                WidgetMedia.medium = MEDIUM_TYPES.AUDIO;
-              }
-              else if (_item.enclosures[0].type.indexOf('image/') === 0) {
-                WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
-              }
-              else {
-                WidgetMedia.medium = MEDIUM_TYPES.OTHER;
-              }
-              return {
-                type: _item.enclosures[0].type,
-                src: _item.enclosures[0].url
-              }
+          if (_item.enclosures && _item.enclosures.length > 0 && _item.enclosures[0].url && _item.enclosures[0].type) {
+            if (_item.enclosures[0].type.indexOf('video/') === 0) {
+              WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
+            }
+            else if (_item.enclosures[0].type.indexOf('audio/') === 0) {
+              WidgetMedia.medium = MEDIUM_TYPES.AUDIO;
+            }
+            else if (_item.enclosures[0].type.indexOf('image/') === 0) {
+              WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
             }
             else {
-              return null
+              WidgetMedia.medium = MEDIUM_TYPES.OTHER;
             }
-          };
+            return {
+              type: _item.enclosures[0].type,
+              src: _item.enclosures[0].url
+            }
+          }
+          else {
+            return null
+          }
+        };
 
         /**
          * checkMediaTag() private method
@@ -172,86 +172,86 @@
          * @returns {*}
          */
         var checkMediaTag = function (_item) {
-            if (_item['media:group'] && _item['media:group']['media:content']) {
-              if (_item['media:group']['media:content']['@'] && _item['media:group']['media:content']['@'].type && _item['media:group']['media:content']['@'].url) {
-                if (_item['media:group']['media:content']['@'].type.indexOf('video/') === 0) {
-                  WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
-                }
-                else if (_item['media:group']['media:content']['@'].type.indexOf('audio/') === 0) {
-                  WidgetMedia.medium = MEDIUM_TYPES.AUDIO;
-                }
-                else if (_item['media:group']['media:content']['@'].type.indexOf('image/') === 0) {
-                  WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
-                }
-                else {
-                  WidgetMedia.medium = MEDIUM_TYPES.OTHER;
-                }
-                return {
-                  type: _item['media:group']['media:content']['@'].type,
-                  src: _item['media:group']['media:content']['@'].url
-                }
-              }
-              else if (_item['media:group']['media:content']['media:thumbnail'] && _item['media:group']['media:content']['media:thumbnail']['@'] && _item['media:group']['media:content']['media:thumbnail']['@'].url) {
-                WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
-                return {
-                  type: 'image/*',
-                  src: _item['media:group']['media:content']['media:thumbnail']['@'].url
-                }
-              }
-              else {
-                return null;
-              }
-            }
-            else if (_item['media:content'] && _item['media:content']['@'] && _item['media:content']['@'].url && _item['media:content']['@'].type) {
-              if (_item['media:content']['@'].type.indexOf('video/') === 0) {
+          if (_item['media:group'] && _item['media:group']['media:content']) {
+            if (_item['media:group']['media:content']['@'] && _item['media:group']['media:content']['@'].type && _item['media:group']['media:content']['@'].url) {
+              if (_item['media:group']['media:content']['@'].type.indexOf('video/') === 0) {
                 WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
               }
-              else if (_item['media:content']['@'].type.indexOf('audio/') === 0) {
+              else if (_item['media:group']['media:content']['@'].type.indexOf('audio/') === 0) {
                 WidgetMedia.medium = MEDIUM_TYPES.AUDIO;
               }
-              else if (_item['media:content']['@'].type.indexOf('image/') === 0) {
+              else if (_item['media:group']['media:content']['@'].type.indexOf('image/') === 0) {
                 WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
               }
               else {
                 WidgetMedia.medium = MEDIUM_TYPES.OTHER;
               }
               return {
-                type: _item['media:content']['@'].type,
-                src: _item['media:content']['@'].url
+                type: _item['media:group']['media:content']['@'].type,
+                src: _item['media:group']['media:content']['@'].url
               }
             }
-            else if (_item['media:content'] && _item['media:content']['media:player'] && _item['media:content']['media:player']['@'] && _item['media:content']['media:player']['@'].url) {
-              WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
-              return {
-                type: 'video/*',
-                src: _item['media:content']['media:player']['@'].url
-              }
-            }
-            else if (_item['media:thumbnail'] && _item['media:thumbnail']['@'] && _item['media:thumbnail']['@'].url) {
+            else if (_item['media:group']['media:content']['media:thumbnail'] && _item['media:group']['media:content']['media:thumbnail']['@'] && _item['media:group']['media:content']['media:thumbnail']['@'].url) {
               WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
               return {
                 type: 'image/*',
-                src: _item['media:thumbnail']['@'].url
-              }
-            }
-            else if (_item.image && _item.image.url) {
-              WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
-              return {
-                type: 'image/*',
-                src: _item.image.url
-              }
-            }
-            else if (_item.imageSrcUrl) {
-              WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
-              return {
-                type: 'image/*',
-                src: _item.imageSrcUrl
+                src: _item['media:group']['media:content']['media:thumbnail']['@'].url
               }
             }
             else {
               return null;
             }
-          };
+          }
+          else if (_item['media:content'] && _item['media:content']['@'] && _item['media:content']['@'].url && _item['media:content']['@'].type) {
+            if (_item['media:content']['@'].type.indexOf('video/') === 0) {
+              WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
+            }
+            else if (_item['media:content']['@'].type.indexOf('audio/') === 0) {
+              WidgetMedia.medium = MEDIUM_TYPES.AUDIO;
+            }
+            else if (_item['media:content']['@'].type.indexOf('image/') === 0) {
+              WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
+            }
+            else {
+              WidgetMedia.medium = MEDIUM_TYPES.OTHER;
+            }
+            return {
+              type: _item['media:content']['@'].type,
+              src: _item['media:content']['@'].url
+            }
+          }
+          else if (_item['media:content'] && _item['media:content']['media:player'] && _item['media:content']['media:player']['@'] && _item['media:content']['media:player']['@'].url) {
+            WidgetMedia.medium = MEDIUM_TYPES.VIDEO;
+            return {
+              type: 'video/*',
+              src: _item['media:content']['media:player']['@'].url
+            }
+          }
+          else if (_item['media:thumbnail'] && _item['media:thumbnail']['@'] && _item['media:thumbnail']['@'].url) {
+            WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
+            return {
+              type: 'image/*',
+              src: _item['media:thumbnail']['@'].url
+            }
+          }
+          else if (_item.image && _item.image.url) {
+            WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
+            return {
+              type: 'image/*',
+              src: _item.image.url
+            }
+          }
+          else if (_item.imageSrcUrl) {
+            WidgetMedia.medium = MEDIUM_TYPES.IMAGE;
+            return {
+              type: 'image/*',
+              src: _item.imageSrcUrl
+            }
+          }
+          else {
+            return null;
+          }
+        };
 
         /**
          * filterItemType() private method
@@ -259,39 +259,39 @@
          * @param _item
          */
         var filterItemType = function (_item) {
-            var _src = ''
-              , mediaData = checkEnclosuresTag(_item);
+          var _src = ''
+            , mediaData = checkEnclosuresTag(_item);
 
-            if (!mediaData) {
-              mediaData = checkMediaTag(_item)
+          if (!mediaData) {
+            mediaData = checkMediaTag(_item)
+          }
+          if (mediaData) {
+            switch (WidgetMedia.medium) {
+              case MEDIUM_TYPES.VIDEO:
+                _src = mediaData.src.toLowerCase();
+                if (_src.indexOf('vimeo') >= 0 || _src.indexOf('youtube') >= 0) {
+                  WidgetMedia.isVideoPlayerSupported = false;
+                  WidgetMedia.videoUrl = _item.link ? _item.link : null;
+                } else {
+                  changeVideoSrc(mediaData.src, mediaData.type);
+                }
+                break;
+              case MEDIUM_TYPES.AUDIO:
+                WidgetMedia.audio.track = mediaData.src;
+                break;
+              case MEDIUM_TYPES.IMAGE:
+                WidgetMedia.imageUrl = mediaData.src;
+                break;
+              default :
+                //code here for defaults
+                resetDefaults();
+                break;
             }
-            if (mediaData) {
-              switch (WidgetMedia.medium) {
-                case MEDIUM_TYPES.VIDEO:
-                  _src = mediaData.src.toLowerCase();
-                  if (_src.indexOf('vimeo') >= 0 || _src.indexOf('youtube') >= 0) {
-                    WidgetMedia.isVideoPlayerSupported = false;
-                    WidgetMedia.videoUrl = _item.link ? _item.link : null;
-                  } else {
-                    changeVideoSrc(mediaData.src, mediaData.type);
-                  }
-                  break;
-                case MEDIUM_TYPES.AUDIO:
-                  WidgetMedia.audio.track = mediaData.src;
-                  break;
-                case MEDIUM_TYPES.IMAGE:
-                  WidgetMedia.imageUrl = mediaData.src;
-                  break;
-                default :
-                  //code here for defaults
-                  resetDefaults();
-                  break;
-              }
-            }
-            else {
-              WidgetMedia.medium = MEDIUM_TYPES.OTHER;
-            }
-          };
+          }
+          else {
+            WidgetMedia.medium = MEDIUM_TYPES.OTHER;
+          }
+        };
 
         /**
          * onUpdateCallback() private method
@@ -299,30 +299,33 @@
          * @param event
          */
         var onUpdateCallback = function (event) {
-            if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
-              WidgetMedia.data = event.data;
-              if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
-                resetDefaults();
-                currentRssUrl = WidgetMedia.data.content.rssUrl;
-                Location.goTo('#/');
-              }
+          if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
+            WidgetMedia.data = event.data;
+            if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
+              resetDefaults();
+              currentRssUrl = WidgetMedia.data.content.rssUrl;
+              $rootScope.showFeed = true;
+              Location.goTo('#/');
             }
-          };
+          }
+        };
 
         /**
          * init() private function
          * It is used to fetch previously saved user's data
          */
         var init = function () {
-            var success = function (result) {
-                WidgetMedia.data = result.data;
-                currentRssUrl = WidgetMedia.data.content.rssUrl;
-              }
-              , error = function (err) {
-                console.error('Error while getting data', err);
-              };
-            DataStore.get(TAG_NAMES.RSS_FEED_INFO).then(success, error);
-          };
+          var success = function (result) {
+              $rootScope.showFeed = false;
+              WidgetMedia.data = result.data;
+              currentRssUrl = WidgetMedia.data.content.rssUrl;
+            }
+            , error = function (err) {
+              $rootScope.showFeed = false;
+              console.error('Error while getting data', err);
+            };
+          DataStore.get(TAG_NAMES.RSS_FEED_INFO).then(success, error);
+        };
 
         /**
          * init() function invocation to fetch previously saved user's data from datastore.
@@ -394,7 +397,7 @@
         WidgetMedia.getItemPublishDate = function (item) {
           var dateStr = item.pubDate ? item.pubDate : '';
           if (dateStr) {
-            return $filter('date')(dateStr, 'medium');
+            return $filter('date')(dateStr);
           } else {
             return dateStr;
           }
@@ -485,6 +488,8 @@
           DataStore.clearListener();
           WidgetMedia.pause();
           ItemDetailsService.setData(null);
+          if (WidgetMedia.data && WidgetMedia.data.design)
+            $rootScope.$broadcast('ROUTE_CHANGED', WidgetMedia.data.design.itemListLayout);
         });
       }]
   )
