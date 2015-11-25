@@ -144,19 +144,19 @@ describe('Unit : pluginPluginMediaCenterRSS widget.home.controller.js', function
         var item = {title: 'Nike sports white shoes'}
           , result = WidgetHome.getTitle(item);
         $rootScope.$digest();
-        expect(result).toEqual('Nike sports white shoes');
+        expect(result).toEqual('Nike sports white s…');
       });
       it('WidgetHome.getTitle should return title by extracting substring from summary if title not found', function () {
         var item = {summary: 'Nike sports white shoes'}
           , result = WidgetHome.getTitle(item);
         $rootScope.$digest();
-        expect(result).toEqual('Nike…');
+        expect(result).toEqual('Nike sports white s…');
       });
       it('WidgetHome.getTitle should return title by extracting substring from description if title and summary not found', function () {
         var item = {description: 'Nike sports white shoes'}
           , result = WidgetHome.getTitle(item);
         $rootScope.$digest();
-        expect(result).toEqual('Nike…');
+        expect(result).toEqual('Nike sports white s…');
       });
     });
 

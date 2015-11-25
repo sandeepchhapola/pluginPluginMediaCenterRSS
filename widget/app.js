@@ -35,9 +35,7 @@
         // Use $routeProvider to configure any redirects (when) and invalid urls (otherwise).
       $routeProvider
         .when('/', {
-          templateUrl: 'templates/home.html',
-          controllerAs: 'WidgetHome',
-          controller: 'WidgetHomeCtrl'
+          template: '<div></div>'
         })
         .when('/item', {
           templateUrl: 'templates/media.html',
@@ -48,13 +46,16 @@
         // If the url is invalid then redirect to '/'
         .otherwise('/');
     }])
-    .run(['Location', '$location', function (Location, $location) {
+    .run(['Location', '$location', '$rootScope', function (Location, $location, $rootScope) {
       buildfire.navigation.onBackButtonClick = function () {
-        var path = $location.path();
-        if (path.indexOf('/item') == 0)
+        var reg = /^\/item/;
+        if (reg.test($location.path())) {
+          $rootScope.showFeed = true;
           Location.goTo('#/');
-        else
+        }
+        else {
           buildfire.navigation.navigateHome();
+        }
       }
     }])
     .filter('getImageUrl', ['Buildfire', function (Buildfire) {

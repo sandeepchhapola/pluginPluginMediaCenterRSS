@@ -3,8 +3,8 @@
 (function (angular) {
   angular
     .module('mediaCenterRSSPluginWidget')
-    .controller('WidgetHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore',
-      function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore) {
+    .controller('WidgetHomeCtrl', ['$scope', 'DataStore', 'Buildfire', 'FeedParseService', 'TAG_NAMES', 'ItemDetailsService', 'Location', '$filter', 'Underscore', '$rootScope',
+      function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore, $rootScope) {
 
         /*
          * Private variables
@@ -71,6 +71,8 @@
          * @type {boolean}
          */
         WidgetHome.isItems = true;
+
+        $rootScope.showFeed = true;
 
         /**
          * resetDefaults() private method
@@ -219,12 +221,14 @@
          * @returns {item.title|*}
          */
         WidgetHome.getTitle = function (item) {
-          if (!item.title && (item.summary || item.description)) {
-            var html = item.summary ? item.summary : item.description;
-            item.title = $filter('truncate')(html, 20);
+          if (item) {
+            if (!item.title && (item.summary || item.description)) {
+              var html = item.summary ? item.summary : item.description;
+              item.title = $filter('truncate')(html, 20);
+            }
+            item.title = $filter('truncate')(item.title, 20);
+            return item.title;
           }
-          item.title = $filter('truncate')(item.title, 20);
-          return item.title;
         };
 
         /**
@@ -249,11 +253,13 @@
          * @returns {*}
          */
         WidgetHome.getItemPublishDate = function (item) {
-          var dateStr = item.pubDate ? item.pubDate : '';
-          if (dateStr) {
-            return $filter('date')(dateStr, 'MMM dd, yyyy');
-          } else {
-            return dateStr;
+          if (item) {
+            var dateStr = item.pubDate ? item.pubDate : '';
+            if (dateStr) {
+              return $filter('date')(dateStr, 'MMM dd, yyyy');
+            } else {
+              return dateStr;
+            }
           }
         };
 
@@ -296,5 +302,13 @@
         $scope.$on("$destroy", function () {
           DataStore.clearListener();
         });
+
+        $rootScope.$on("ROUTE_CHANGED", function (e, itemListLayout) {
+          if (!WidgetHome.data.design)
+            WidgetHome.data.design = {};
+          WidgetHome.data.design.itemListLayout = itemListLayout;
+          DataStore.onUpdate().then(null, null, onUpdateCallback);
+        });
+
       }]);
 })(window.angular);
