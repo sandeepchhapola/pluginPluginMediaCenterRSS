@@ -481,6 +481,10 @@
           this.stopUpdateing = false;
         };
 
+        WidgetMedia.openLink = function (link) {
+          Buildfire.navigation.openWindow(link,'_system');
+        };
+
         /**
          * will called when controller scope has been destroyed.
          */
