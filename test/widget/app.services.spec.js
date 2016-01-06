@@ -108,7 +108,7 @@ describe('Unit : pluginPluginMediaCenterRSS content services', function () {
     });
     describe('Unit : FeedParseService.getFeedData Success', function () {
       beforeEach(function () {
-        $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/parsefeedurl").respond({
+        $httpBackend.expectPOST("http://proxy.buildfire.com/parsefeedurl").respond({
           data: {
             meta: {},
             items: []
@@ -139,7 +139,7 @@ describe('Unit : pluginPluginMediaCenterRSS content services', function () {
     });
     describe('Unit : FeedParseService.getFeedData Error when Undefined feed url provided', function () {
       beforeEach(function () {
-        $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/parsefeedurl").respond({
+        $httpBackend.expectPOST("http://proxy.buildfire.com/parsefeedurl").respond({
           data: {
             meta: {},
             items: []
@@ -165,7 +165,7 @@ describe('Unit : pluginPluginMediaCenterRSS content services', function () {
     });
     describe('Unit : FeedParseService.getFeedData Server Error', function () {
       beforeEach(function () {
-        $httpBackend.expectPOST("https://plugin-proxy-server.herokuapp.com/parsefeedurl").respond(500, 'internal server error');
+        $httpBackend.expectPOST("http://proxy.buildfire.com/parsefeedurl").respond(500, 'internal server error');
       });
       it('FeedParseService.getFeedData should return server error', function () {
         var url = 'http://feeds.reuters.com/reuters/USVideoBreakingviews'

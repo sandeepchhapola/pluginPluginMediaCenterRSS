@@ -1,7 +1,7 @@
 {
   "author":"BuildFire"
 ,"pluginName":"Media Center RSS Feed"
-,"pluginDescription":"This plugin is used to import RSS/ATOM feed contents into your app"
+,"pluginDescription":"Sync your RSS feeds to give your users interactive, educational, content. Import your feed once and your new posts will automatically pulled in."
 ,"supportEmail":"support@buildfire.com"
 ,"control":{
   "content":{
