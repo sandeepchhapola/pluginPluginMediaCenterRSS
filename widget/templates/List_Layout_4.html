@@ -15,9 +15,10 @@
            data-infinite-container=".infinite-scroll-parent">
         <div ng-show="WidgetHome.isItems" ng-click="WidgetHome.goToItem($index)" class="col-xs-6 pull-left"
              ng-repeat="item in WidgetHome.items" ng-class-even="list-item-even" ng-class-odd="list-item-odd" trigger-ng-repeat-render="">
-          <div ng-if="item.imageSrcUrl" class="list-item-media text-center border-radius-three overflow-hidden">
+          <div class="list-item-media text-center border-radius-three overflow-hidden">
             <div class="list-media-holder">
-              <img ng-src="{{item.imageSrcUrl| getImageUrl:200:200}}">
+              <img ng-if="item.imageSrcUrl"  ng-src="{{item.imageSrcUrl| getImageUrl:200:200}}">
+              <img ng-if="!item.imageSrcUrl"  src="assets/images/placeholder200x200.png">
             </div>
           </div>
           <div class="list-item-copy text-left">
