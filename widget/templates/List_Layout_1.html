@@ -1,5 +1,4 @@
-<div background-image="{{WidgetHome.data.design.itemListBgImage}}"
-     class="holder padding-zero "><!-- customBackground minHeightWidget-->
+<div class="holder padding-zero "><!-- customBackground minHeightWidget-->
     <div class="media-center-plugin layout1">
         <div class="media-center-banner clearfix">
             <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
@@ -19,10 +18,11 @@
                 <div ng-show="WidgetHome.isItems" class="row"
                      ng-repeat="item in WidgetHome.items" ng-if="$index % 2 == 0">
                     <div class="list-item col-xs-6 pull-left">
-                        <div ng-if="WidgetHome.items[$index].imageSrcUrl"
+                        <div
                              class="list-item-media text-center border-radius-three overflow-hidden">
                             <div class="list-media-holder">
-                                <img ng-src="{{WidgetHome.items[$index].imageSrcUrl| getImageUrl:240:160}}">
+                                <img ng-if="WidgetHome.items[$index].imageSrcUrl" ng-src="{{WidgetHome.items[$index].imageSrcUrl| getImageUrl:240:160}}">
+                                <img ng-if="!WidgetHome.items[$index].imageSrcUrl" src="assets/images/placeholder16x9.png">
                             </div>
                         </div>
                         <div class="list-item-copy text-left">
@@ -36,10 +36,10 @@
                         </div>
                     </div>
                     <div class="list-item col-xs-6 pull-left">
-                        <div ng-if="WidgetHome.items[$index+1].imageSrcUrl"
-                             class="list-item-media text-center border-radius-three overflow-hidden">
+                        <div class="list-item-media text-center border-radius-three overflow-hidden">
                             <div class="list-media-holder">
-                                <img ng-src="{{WidgetHome.items[$index+1].imageSrcUrl|getImageUrl:240:160}}">
+                                <img ng-if="WidgetHome.items[$index+1].imageSrcUrl" ng-src="{{WidgetHome.items[$index+1].imageSrcUrl| getImageUrl:240:160}}">
+                                <img ng-if="!WidgetHome.items[$index+1].imageSrcUrl" src="assets/images/placeholder16x9.png">
                             </div>
                         </div>
                         <div class="list-item-copy text-left">
@@ -48,7 +48,7 @@
                             </p>
 
                             <p style="max-width: 240px" class="summary ellipsis margin-zero"
-                               ng-bind-html="WidgetHome.getItemSummary(WidgetHome.items[$index])|safeHtml"
+                               ng-bind-html="WidgetHome.getItemSummary(WidgetHome.items[$index+1])|safeHtml"
                                ></p>
                             <span class="list-item-date">{{WidgetHome.getItemPublishDate(WidgetHome.items[$index+1])}}</span>
                         </div>

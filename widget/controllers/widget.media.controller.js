@@ -6,6 +6,9 @@
     .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES', '$rootScope',
       function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES, $rootScope) {
 
+        $rootScope.deviceHeight = window.innerHeight;
+        $rootScope.deviceWidth = window.innerWidth;
+
         /*
          * Private variables
          *
@@ -301,6 +304,10 @@
         var onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
             WidgetMedia.data = event.data;
+            $rootScope.backgroundImage = WidgetMedia.data.design.itemListBgImage;
+            $rootScope.backgroundImageItem = WidgetMedia.data.design.itemDetailsBgImage;
+            console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
+            console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
             if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
               resetDefaults();
               currentRssUrl = WidgetMedia.data.content.rssUrl;
@@ -317,7 +324,11 @@
         var init = function () {
           var success = function (result) {
               $rootScope.showFeed = false;
-              WidgetMedia.data = result.data;
+                WidgetMedia.data = result.data;
+                $rootScope.backgroundImage = WidgetMedia.data.design.itemListBgImage;
+                $rootScope.backgroundImageItem = WidgetMedia.data.design.itemDetailsBgImage;
+                console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
+                console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
               currentRssUrl = WidgetMedia.data.content.rssUrl;
             }
             , error = function (err) {
