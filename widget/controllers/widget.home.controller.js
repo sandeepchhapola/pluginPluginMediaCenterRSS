@@ -222,7 +222,7 @@
          * @returns {boolean}
          */
         WidgetHome.showDescription = function (description) {
-          return ((description !== '<p><br data-mce-bogus="1"></p>') && (description !== '<p>&nbsp;<br></p>'));
+          return !((description == '<p>&nbsp;<br></p>') || (description == '<p><br data-mce-bogus="1"></p>'));
         };
 
         /**
