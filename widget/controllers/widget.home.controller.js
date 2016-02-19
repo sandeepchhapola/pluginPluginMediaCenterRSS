@@ -249,7 +249,7 @@
          * @returns {*}
          */
         WidgetHome.getItemSummary = function (item) {
-          if (item.summary || item.description) {
+          if (item && (item.summary || item.description)) {
             var html = item.summary ? item.summary : item.description;
             return $filter('truncate')(html, 100);
           } else {
