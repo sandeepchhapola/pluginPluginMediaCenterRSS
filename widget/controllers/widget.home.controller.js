@@ -222,7 +222,12 @@
          * @returns {boolean}
          */
         WidgetHome.showDescription = function (description) {
-          return ((description !== '<p><br data-mce-bogus="1"></p>') && (description !== '<p>&nbsp;<br></p>'));
+          var _retVal = false;
+          description = description.trim();
+          if(description && (description !== '<p>&nbsp;<br></p>') && (description !== '<p><br data-mce-bogus="1"></p>')) {
+            _retVal = true;
+          }
+          return _retVal;
         };
 
         /**
@@ -249,7 +254,7 @@
          * @returns {*}
          */
         WidgetHome.getItemSummary = function (item) {
-          if (item.summary || item.description) {
+          if (item && (item.summary || item.description)) {
             var html = item.summary ? item.summary : item.description;
             return $filter('truncate')(html, 100);
           } else {
