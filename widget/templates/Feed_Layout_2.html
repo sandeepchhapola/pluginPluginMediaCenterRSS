@@ -1,8 +1,8 @@
 <div class="holder padding-zero customBackground">
   <div class="media-center-plugin layout2">
-    <div class="people-banner border-bottom-grey"
+    <div class="people-banner"
          style="background:url(http://www.placehold.it/400x400.jpg) no-repeat; background-position:center center; background-size:cover;">
-      <div class="people-bg padding-top-fifteen padding-bottom-fifteen clearfix">
+      <div class="people-bg padding-bottom-fifteen clearfix">
         <div ng-switch="WidgetMedia.medium" class="people-holder clearfix">
           <div ng-switch-when="VIDEO" class="videogular-container">
             <videogular ng-if="WidgetMedia.isVideoPlayerSupported" vg-player-ready="WidgetMedia.onPlayerReady($API)"
