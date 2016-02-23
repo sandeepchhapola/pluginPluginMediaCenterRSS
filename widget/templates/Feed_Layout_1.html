@@ -1,6 +1,6 @@
 <div class="holder padding-zero customBackground">
   <div class="media-center-plugin layout1">
-    <div ng-switch="WidgetMedia.medium" class="media-center-banner clearfix border-bottom-grey">
+    <div ng-switch="WidgetMedia.medium" class="media-center-banner clearfix">
       <div ng-switch-when="VIDEO" class="videogular-container">
         <videogular ng-if="WidgetMedia.isVideoPlayerSupported" vg-player-ready="WidgetMedia.onPlayerReady($API)"
                     vg-change-source="WidgetMedia.sourceChanged($source)"
@@ -29,7 +29,7 @@
       </div>
       <div ng-switch-when="AUDIO">
         <div class="holder now-playing text-center back-color">
-          <div class="audeo-player-holder">
+          <div class="audio-player-holder">
             <img class="border-radius-four"
                  src="./assets/images/now-playing.png" height="100%"
                  width="100%">
@@ -38,10 +38,11 @@
             <div class="playerMP">
               <div class="col-sm-2 pull-left padding0" ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime  | secondsToDateTime | date:'mm:ss'}}</div>
               <div class="col-sm-8 slider-block pull-left padding0">
-                <input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
+                  <div class="audio-player" ng-if="WidgetMedia.audio.duration && WidgetMedia.audio.currentTime"><input id="slider" ng-show="WidgetMedia.audio.duration" type="range" min="0"
                           max="{{WidgetMedia.audio.duration}}"
                           ng-model="WidgetMedia.audio.currentTime"
                           ng-change="WidgetMedia.seekAudio(WidgetMedia.audio.currentTime)"/>
+                  </div>
               </div>
               <div class="padding0 col-sm-2 pull-left" ng-if="WidgetMedia.audio.duration">{{WidgetMedia.audio.duration  | secondsToDateTime | date:'mm:ss'}}</div>
             </div>
@@ -49,7 +50,7 @@
           <div class="clear-both media-player-btns">
             <span ng-if="!WidgetMedia.audio.playing" class="icon icon-play-circle icon-main"
                   ng-click="WidgetMedia.playAudio()"></span>
-            <span ng-if="WidgetMedia.audio.playing" class="icon icon-pause-circle icon-main"
+            <span ng-if="WidgetMedia.audio.playing" class="icon icon-pause-circle icon-main whiteTheme"
                   ng-click="WidgetMedia.pause()"></span>
           </div>
         </div>
