@@ -82,7 +82,7 @@
          * ContentHome.data is user's data of design and content sections which used throughout the app.
          * @type {object}
          */
-        ContentHome.data = angular.copy(_data);
+        // ContentHome.data = angular.copy(_data);
 
         /*
          * ContentHome.masterData used to hold previous saved user's data.
@@ -152,14 +152,18 @@
               if (Object.keys(result.data).length > 0) {
                 ContentHome.data = result.data;
               }
-              if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
-                ContentHome.editor.loadItems([]);
+              if (!ContentHome.data) {
+                ContentHome.data = angular.copy(_data);
+              } else {
+                if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
+                  ContentHome.editor.loadItems([]);
+                }
+                else {
+                  ContentHome.editor.loadItems(ContentHome.data.content.carouselImages);
+                }
+                if (ContentHome.data.content.rssUrl)
+                  ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
               }
-              else {
-                ContentHome.editor.loadItems(ContentHome.data.content.carouselImages);
-              }
-              if (ContentHome.data.content.rssUrl)
-                ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
               updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
@@ -210,6 +214,7 @@
          * @param items
          */
         ContentHome.editor.onAddItems = function (items) {
+          console.log(">>>>>>>>>>>>", items);
           ContentHome.data.content.carouselImages.push.apply(ContentHome.data.content.carouselImages, items);
           $scope.$digest();
         };
