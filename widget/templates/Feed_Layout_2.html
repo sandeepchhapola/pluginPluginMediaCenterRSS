@@ -33,8 +33,8 @@
           <div ng-switch-when="AUDIO">
             <div class="holder now-playing text-center back-color">
               <div class="audio-player-holder">
-                <img class="border-radius-four"
-                     src="./assets/images/now-playing.png" height="100%" width="100%">
+                <img class="border-radius-four" ng-if="WidgetMedia.item.imageSrcUrl" ng-src="{{WidgetMedia.item.imageSrcUrl}}" height="100%" width="100%">
+                <img class="border-radius-four" ng-if="!WidgetMedia.item.imageSrcUrl" src="./assets/images/now-playing.png" height="100%" width="100%">
               </div>
               <div class="slider margin-top-twenty">
                 <div class="playerMP">

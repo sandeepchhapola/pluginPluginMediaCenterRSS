@@ -352,6 +352,7 @@
          * filterItemType() method will be called if WidgetMedia.item is not null
          */
         if (WidgetMedia.item) {
+          console.log('WidgetMedia Item----------------------',WidgetMedia.item);
           filterItemType(WidgetMedia.item);
         }
 
