@@ -138,7 +138,6 @@
             }
             tmrDelay = setTimeout(function () {
               console.log('0>>>>>',newObj, ContentHome.masterData);
-              alert(1);
               saveData(JSON.parse(angular.toJson(newObj)), TAG_NAMES.RSS_FEED_INFO);
             }, 500);
           }
