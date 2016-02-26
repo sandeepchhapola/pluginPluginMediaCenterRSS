@@ -129,13 +129,6 @@
          * @param newObj is an updated data object
          */
         var saveDataWithDelay = function (newObj) {
-
-          if(firstTimeWatcher)
-          {
-            firstTimeWatcher = false;
-            return;
-          }
-
           if (newObj) {
             if (isUnchanged(newObj)) {
               return;
@@ -145,6 +138,7 @@
             }
             tmrDelay = setTimeout(function () {
               console.log('0>>>>>',newObj, ContentHome.masterData);
+              alert(1);
               saveData(JSON.parse(angular.toJson(newObj)), TAG_NAMES.RSS_FEED_INFO);
             }, 500);
           }
@@ -161,15 +155,19 @@
                 updateMasterItem(result.data);
                 ContentHome.data = result.data;
               }
-              if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
-                ContentHome.editor.loadItems([]);
-              }
-              else {
-                ContentHome.editor.loadItems(ContentHome.data.content.carouselImages);
-              }
-              if (ContentHome.data.content.rssUrl)
-                ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
-
+              if (!ContentHome.data) {
+                ContentHome.data = angular.copy(_data);
+              } else {
+                if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
+                  ContentHome.editor.loadItems([]);
+                }
+                else {
+                  ContentHome.editor.loadItems(ContentHome.data.content.carouselImages);
+                }
+                if (ContentHome.data.content.rssUrl)
+                  ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
+              }             
+              //updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
               }
@@ -200,6 +198,7 @@
          * @returns {*|boolean}
          */
         function isUnchanged(data) {
+          console.log('-1',data, ContentHome.masterData);
           return angular.equals(data, ContentHome.masterData);
         }
 
@@ -297,8 +296,6 @@
         /**
          * $scope.$watch will Watch for changes in user's data object and trigger the saveDataWithDelay function if data changed
          */
-
-        var firstTimeWatcher = true;
         $scope.$watch(function () {
           return ContentHome.data;
         }, saveDataWithDelay, true);

@@ -138,6 +138,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
         expect(typeof ContentHome.clearData).toEqual('function');
       });
       it('it should pass if ContentHome.data.content.rssUrl  is equals to "" ', function () {
+        ContentHome.data = { content : {}};
         ContentHome.data.content.rssUrl = 'http://feeds.cnevids.com/brand/wired.mrss';
         ContentHome.clearData();
         $rootScope.$digest();
@@ -191,7 +192,8 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
       });
     });
     describe('Function : ContentHome.editor.onAddItems ', function () {
-      it('ContentHome.editor..onAddItems should be called', function () {
+      it('ContentHome.editor.onAddItems should be called', function () {
+        ContentHome.data = { content : {}};
         var items = [{
           action: null,
           imageUrl: "https://imagelibserver.s3.amazonaws.com/25935164-2add-11e5-9d04-02f7ca55c361/950a50c0-400a-11e5-9af5-3f5e0d725ccb.jpg"
@@ -204,6 +206,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
     });
     describe('Function : ContentHome.editor.onDeleteItem ', function () {
       it('ContentHome.editor.onDeleteItem should be called', function () {
+        ContentHome.data = { content : {}};
         var item = {
           action: null,
           imageUrl: "https://imagelibserver.s3.amazonaws.com/25935164-2add-11e5-9d04-02f7ca55c361/950a50c0-400a-11e5-9af5-3f5e0d725ccb.jpg"
@@ -216,6 +219,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
     });
     describe('Function : ContentHome.editor.onItemChange ', function () {
       it('ContentHome.editor.onItemChange should be called', function () {
+        ContentHome.data = { content : {}};
         var item = {
           action: {
             name: 'self'
@@ -238,6 +242,7 @@ describe('Unit : pluginPluginMediaCenterRSS content.home.controller.js', functio
     });
     describe('Function : ContentHome.editor.onOrderChange ', function () {
       it('ContentHome.editor.onOrderChange should be called', function () {
+        ContentHome.data = { content : {}};
         var item = {
           action: {
             name: 'self'
