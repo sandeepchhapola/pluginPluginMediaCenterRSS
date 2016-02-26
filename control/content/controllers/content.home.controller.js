@@ -20,7 +20,7 @@
           , _data = {
             "content": {
               "carouselImages": [],
-              "description": "<p>&nbsp;<br></p>",
+              "description": "",
               "rssUrl": ""
             },
             "design": {
@@ -82,7 +82,7 @@
          * ContentHome.data is user's data of design and content sections which used throughout the app.
          * @type {object}
          */
-        // ContentHome.data = angular.copy(_data);
+        ContentHome.data = angular.copy(_data);
 
         /*
          * ContentHome.masterData used to hold previous saved user's data.
@@ -137,6 +137,7 @@
               clearTimeout(tmrDelay);
             }
             tmrDelay = setTimeout(function () {
+              console.log('0>>>>>',newObj, ContentHome.masterData);
               saveData(JSON.parse(angular.toJson(newObj)), TAG_NAMES.RSS_FEED_INFO);
             }, 500);
           }
@@ -150,6 +151,7 @@
           var success = function (result) {
               console.info('Init success result:', result);
               if (Object.keys(result.data).length > 0) {
+                updateMasterItem(result.data);
                 ContentHome.data = result.data;
               }
               if (!ContentHome.data) {
@@ -163,8 +165,8 @@
                 }
                 if (ContentHome.data.content.rssUrl)
                   ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
-              }
-              updateMasterItem(ContentHome.data);
+              }             
+              //updateMasterItem(ContentHome.data);
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
               }
@@ -195,6 +197,7 @@
          * @returns {*|boolean}
          */
         function isUnchanged(data) {
+          console.log('-1',data, ContentHome.masterData);
           return angular.equals(data, ContentHome.masterData);
         }
 
@@ -214,7 +217,6 @@
          * @param items
          */
         ContentHome.editor.onAddItems = function (items) {
-          console.log(">>>>>>>>>>>>", items);
           ContentHome.data.content.carouselImages.push.apply(ContentHome.data.content.carouselImages, items);
           $scope.$digest();
         };
