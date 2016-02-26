@@ -20,7 +20,7 @@
           , _data = {
             "content": {
               "carouselImages": [],
-              "description": "<p>&nbsp;<br></p>",
+              "description": "",
               "rssUrl": ""
             },
             "design": {
@@ -129,6 +129,13 @@
          * @param newObj is an updated data object
          */
         var saveDataWithDelay = function (newObj) {
+
+          if(firstTimeWatcher)
+          {
+            firstTimeWatcher = false;
+            return;
+          }
+
           if (newObj) {
             if (isUnchanged(newObj)) {
               return;
@@ -137,6 +144,7 @@
               clearTimeout(tmrDelay);
             }
             tmrDelay = setTimeout(function () {
+              console.log('0>>>>>',newObj, ContentHome.masterData);
               saveData(JSON.parse(angular.toJson(newObj)), TAG_NAMES.RSS_FEED_INFO);
             }, 500);
           }
@@ -150,6 +158,7 @@
           var success = function (result) {
               console.info('Init success result:', result);
               if (Object.keys(result.data).length > 0) {
+                updateMasterItem(result.data);
                 ContentHome.data = result.data;
               }
               if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
@@ -160,7 +169,7 @@
               }
               if (ContentHome.data.content.rssUrl)
                 ContentHome.rssFeedUrl = ContentHome.data.content.rssUrl;
-              updateMasterItem(ContentHome.data);
+
               if (tmrDelay) {
                 clearTimeout(tmrDelay)
               }
@@ -288,6 +297,8 @@
         /**
          * $scope.$watch will Watch for changes in user's data object and trigger the saveDataWithDelay function if data changed
          */
+
+        var firstTimeWatcher = true;
         $scope.$watch(function () {
           return ContentHome.data;
         }, saveDataWithDelay, true);
