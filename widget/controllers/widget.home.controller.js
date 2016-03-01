@@ -170,8 +170,8 @@
             WidgetHome.data = event.data;
             $rootScope.backgroundImage = WidgetHome.data.design.itemListBgImage;
             $rootScope.backgroundImageItem = WidgetHome.data.design.itemDetailsBgImage;
-            console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
-            console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
+            console.log('$rootScope.backgroundImage', $rootScope.backgroundImage);
+            console.log('$rootScope.backgroundImageItem', $rootScope.backgroundImageItem);
             if (WidgetHome.data.content && WidgetHome.data.content.rssUrl) {
               if (WidgetHome.data.content.rssUrl !== currentRssUrl) {
                 currentRssUrl = WidgetHome.data.content.rssUrl;
@@ -190,10 +190,10 @@
         var init = function () {
           var success = function (result) {
               WidgetHome.data = result.data;
+              if (WidgetHome.data.design) {
                 $rootScope.backgroundImage = WidgetHome.data.design.itemListBgImage;
                 $rootScope.backgroundImageItem = WidgetHome.data.design.itemDetailsBgImage;
-                console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
-                console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
+              }
               if (WidgetHome.data.content && WidgetHome.data.content.rssUrl) {
                 currentRssUrl = WidgetHome.data.content.rssUrl;
                 getFeedData(WidgetHome.data.content.rssUrl);
@@ -224,7 +224,7 @@
         WidgetHome.showDescription = function (description) {
           var _retVal = false;
           description = description.trim();
-          if(description && (description !== '<p>&nbsp;<br></p>') && (description !== '<p><br data-mce-bogus="1"></p>')) {
+          if (description && (description !== '<p>&nbsp;<br></p>') && (description !== '<p><br data-mce-bogus="1"></p>')) {
             _retVal = true;
           }
           return _retVal;
