@@ -15,7 +15,7 @@
            infinite-scroll-disabled="WidgetHome.busy"
            data-infinite-container=".infinite-scroll-parent">
         <div ng-show="WidgetHome.isItems" class="list-item"
-             ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="">
+             ng-repeat="item in  WidgetHome.items" trigger-ng-repeat-render="" ng-click="WidgetHome.goToItem($index)" style="cursor: pointer">
           <div class="list-item-media text-left overflow-hidden">
             <div ng-if="item.imageSrcUrl" class="list-media-holder pull-left">
               <img ng-src="{{item.imageSrcUrl| getImageUrl:220:120}}">

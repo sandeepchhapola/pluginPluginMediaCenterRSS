@@ -14,14 +14,15 @@
            infinite-scroll-disabled="WidgetHome.busy"
            data-infinite-container=".infinite-scroll-parent">
         <div ng-show="WidgetHome.isItems" ng-click="WidgetHome.goToItem($index)" class="col-xs-6 pull-left"
-             ng-repeat="item in WidgetHome.items" ng-class-even="list-item-even" ng-class-odd="list-item-odd" trigger-ng-repeat-render="">
+             ng-repeat="item in WidgetHome.items"
+             ng-class-even="list-item-even" ng-class-odd="list-item-odd" trigger-ng-repeat-render="">
           <div class="list-item-media text-center overflow-hidden">
-            <div class="list-media-holder">
+            <div class="list-media-holder" style="cursor: pointer">
               <img ng-if="item.imageSrcUrl"  ng-src="{{item.imageSrcUrl| getImageUrl:200:200}}">
               <img ng-if="!item.imageSrcUrl"  src="assets/images/placeholder200x200.png">
             </div>
           </div>
-          <div class="list-item-copy text-left">
+          <div class="list-item-copy text-left" style="cursor: pointer">
             <p class="ellipsis margin-zero text-primary">{{WidgetHome.getTitle(item)}}</p>
 
             <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
