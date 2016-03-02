@@ -18,9 +18,8 @@
             <img ng-src="{{item.imageSrcUrl| getImageUrl:340:192}}">
           </div>
         </div>
-        <div class="padded text-left">
-          <a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
-
+        <div class="padded text-left ellipsis">
+         <a ng-click="WidgetHome.goToItem($index)" class="text-primary">{{WidgetHome.getTitle(item)}}</a>
           <p class="summary ellipsis margin-zero" ng-bind-html="WidgetHome.getItemSummary(item)|safeHtml"></p>
           <span class="list-item-date">{{WidgetHome.getItemPublishDate(item)}}</span>
         </div>

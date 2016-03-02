@@ -3,9 +3,9 @@
     <div class="media-center-banner clearfix">
       <buildfire-carousel images="WidgetHome.data.content.carouselImages"></buildfire-carousel>
     </div>
-    <div ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)"
+    <div
          class="text-left padded padding-bottom-zero clearfix">
-      <p style="word-break: break-word" ng-bind-html='WidgetHome.data.content.description | safeHtml'></p>
+      <p ng-if="WidgetHome.showDescription(WidgetHome.data.content.description)" style="word-break: break-word" ng-bind-html='WidgetHome.data.content.description | safeHtml'></p>
     </div>
     <div class="padded padding-top-zero">
       <div class="list-layout" ng-if="WidgetHome.data"
