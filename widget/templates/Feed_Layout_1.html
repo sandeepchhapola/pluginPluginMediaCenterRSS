@@ -30,14 +30,14 @@
       <div ng-switch-when="AUDIO">
         <div class="holder now-playing text-center back-color">
           <div class="audio-player-holder">
-            <img ng-if="!WidgetMedia.item.imageSrcUrl" class="border-radius-four"
+            <!--<img ng-if="!WidgetMedia.item.imageSrcUrl" class="border-radius-four"
                  src="./assets/images/now-playing.png" height="100%"
-                 width="100%">
+                 width="100%">-->
               <img ng-if="WidgetMedia.item.imageSrcUrl" class="border-radius-four"
                  ng-src="{{WidgetMedia.item.imageSrcUrl}}" height="100%"
                  width="100%">
           </div>
-          <div class="slider margin-top-twenty">
+         <!-- <div class="slider margin-top-twenty">
             <div class="playerMP">
               <div class="col-sm-2 pull-left padding0" ng-if="WidgetMedia.audio.currentTime">{{WidgetMedia.audio.currentTime  | secondsToDateTime | date:'mm:ss'}}</div>
               <div class="col-sm-8 slider-block pull-left padding0">
@@ -55,7 +55,7 @@
                   ng-click="WidgetMedia.playAudio()"></span>
             <span ng-if="WidgetMedia.audio.playing" class="icon icon-pause-circle icon-main whiteTheme"
                   ng-click="WidgetMedia.pause()"></span>
-          </div>
+          </div>-->
         </div>
       </div>
       <div ng-switch-when="IMAGE" class="plugin-slider text-center">
@@ -77,7 +77,7 @@
            ng-if="WidgetMedia.isVideoPlayerSupported && WidgetMedia.medium == 'VIDEO'">Watch</a>
         <a class="text-primary" ng-if="WidgetMedia.item.link" ng-click="WidgetMedia.openLink(WidgetMedia.item.link)" target="_blank">View
           Source</a>
-        <a class="text-primary">Share</a>
+        <!--<a class="text-primary">Share</a>-->
       </div>
       <hr class="small">
       <p id="description" ng-bind-html="WidgetMedia.item.description|removeHtmlStyle|safeHtml"></p>

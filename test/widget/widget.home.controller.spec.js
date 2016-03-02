@@ -16,7 +16,14 @@ describe('Unit : pluginPluginMediaCenterRSS widget.home.controller.js', function
     Location = _Location_;
     TAG_NAMES = _TAG_NAMES_;
     Buildfire = {
-      spinner: {}
+      spinner: {},
+      datastore: {
+        onRefresh: function () {
+          return{
+            clear:function(){}
+          }
+        }
+      }
     };
     Buildfire.spinner = jasmine.createSpyObj('Buildfire.spinner', ['show', 'hide']);
     Buildfire.spinner.show.and.callFake(function () {
@@ -33,7 +40,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.home.controller.js', function
       return deferred.promise;
     });
     DataStore = {};
-    DataStore = jasmine.createSpyObj('DataStore', ['get', 'onUpdate', 'clearListener']);
+    DataStore = jasmine.createSpyObj('DataStore', ['get', 'onUpdate', 'clearListener','onRefresh']);
     ItemDetailsService = {};
     ItemDetailsService = jasmine.createSpyObj('ItemDetailsService', ['getData', 'setData']);
     ItemDetailsService.setData.and.callFake(function (data) {
@@ -144,19 +151,19 @@ describe('Unit : pluginPluginMediaCenterRSS widget.home.controller.js', function
         var item = {title: 'Nike sports white shoes'}
           , result = WidgetHome.getTitle(item);
         $rootScope.$digest();
-        expect(result).toEqual('Nike sports white s…');
+        expect(result).toEqual('Nike sports white shoes');
       });
       it('WidgetHome.getTitle should return title by extracting substring from summary if title not found', function () {
         var item = {summary: 'Nike sports white shoes'}
           , result = WidgetHome.getTitle(item);
         $rootScope.$digest();
-        expect(result).toEqual('Nike sports white s…');
+        expect(result).toEqual('Nike sports white shoes');
       });
       it('WidgetHome.getTitle should return title by extracting substring from description if title and summary not found', function () {
         var item = {description: 'Nike sports white shoes'}
           , result = WidgetHome.getTitle(item);
         $rootScope.$digest();
-        expect(result).toEqual('Nike sports white s…');
+        expect(result).toEqual('Nike sports white shoes');
       });
     });
 
