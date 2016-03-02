@@ -497,11 +497,23 @@
           Buildfire.navigation.openWindow(link,'_system');
         };
 
+
+        /**
+         * Implementation of pull down to refresh
+         */
+        var onRefresh=Buildfire.datastore.onRefresh(function(){
+        });
+
+
         /**
          * will called when controller scope has been destroyed.
          */
         $scope.$on("$destroy", function () {
           DataStore.clearListener();
+          onRefresh.clear();
+          Buildfire.datastore.onRefresh(function(){
+            Location.goToHome();
+          });
           WidgetMedia.pause();
           ItemDetailsService.setData(null);
           if (WidgetMedia.data && WidgetMedia.data.design)

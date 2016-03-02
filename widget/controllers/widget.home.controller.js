@@ -326,5 +326,12 @@
           DataStore.onUpdate().then(null, null, onUpdateCallback);
         });
 
+        /**
+         * Implementation of pull down to refresh
+         */
+        var onRefresh=Buildfire.datastore.onRefresh(function(){
+          Location.goToHome();
+        });
+
       }]);
 })(window.angular);
