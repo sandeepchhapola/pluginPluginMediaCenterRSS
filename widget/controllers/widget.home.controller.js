@@ -230,22 +230,26 @@
           return _retVal;
         };
 
-        /**
-         * WidgetHome.getTitle() method
-         * Will used to extract item title
-         * @param item
-         * @returns {item.title|*}
-         */
-        WidgetHome.getTitle = function (item) {
-          if (item) {
-            if (!item.title && (item.summary || item.description)) {
-              var html = item.summary ? item.summary : item.description;
-              item.title = $filter('truncate')(html, 20);
-            }
-            item.title = $filter('truncate')(item.title, 20);
-            return item.title;
-          }
-        };
+                /**
+                 * WidgetHome.getTitle() method
+                 * Will used to extract item title
+                 * @param item
+                 * @returns {item.title|*}
+                 */
+                WidgetHome.getTitle = function (item) {
+                    if (item) {
+                        var truncatedTitle = '';
+                        if (!item.title && (item.summary || item.description)) {
+                            var html = item.summary ? item.summary : item.description;
+                            item.title = html;
+                            truncatedTitle = $filter('truncate')(html, 50);
+                        }
+                        else {
+                            truncatedTitle = $filter('truncate')(item.title, 50);
+                        }
+                        return truncatedTitle;
+                    }
+                };
 
         /**
          * WidgetHome.getItemSummary() method

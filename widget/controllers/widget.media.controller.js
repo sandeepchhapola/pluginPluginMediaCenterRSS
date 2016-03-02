@@ -384,21 +384,28 @@
           WidgetMedia.API.stop();
         };
 
-        /**
-         * WidgetMedia.getTitle() method
-         * Will used to extract item title
-         * @param item
-         * @returns {item.title|*}
-         */
-        WidgetMedia.getTitle = function (item) {
-          if (!item.title && (item.summary || item.description)) {
-            var html = item.summary ? item.summary : item.description;
-            item.title = $filter('truncate')(html, 15);
-          } else {
-            item.title = $filter('truncate')(item.title, item.title.length);
-          }
-          return item.title;
-        };
+                /**
+                 * WidgetMedia.getTitle() method
+                 * Will used to extract item title
+                 * @param item
+                 * @returns {item.title|*}
+                 */
+                WidgetMedia.getTitle = function (item) {
+                    /* if (!item.title && (item.summary || item.description)) {
+                     var html = item.summary ? item.summary : item.description;
+                     item.title = $filter('truncate')(html, 45);
+                     } else {
+                     item.title = $filter('truncate')(item.title, item.title.length);
+                     }
+                     return item.title;*/
+                    var title = '';
+                    if (!item.title && (item.summary || item.description)) {
+                        title = item.summary ? item.summary : item.description;
+                    } else {
+                        title = item.title;
+                    }
+                    return title;
+                };
 
         /**
          * WidgetMedia.getItemPublishDate() method
