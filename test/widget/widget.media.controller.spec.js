@@ -431,7 +431,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.media.controller.js', functio
                     };
                     var result = WidgetMedia.getTitle(_item);
                     $rootScope.$digest();
-                    expect(result).toEqual("Nike white sports shoes");
+                    expect(result).toEqual('<strong>Nike white sports shoes</strong>');
                 });
                 it('it should remove html and return a substring from summary', function () {
                     var _item = {
@@ -439,7 +439,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.media.controller.js', functio
                     };
                     var result = WidgetMedia.getTitle(_item);
                     $rootScope.$digest();
-                    expect(result).toEqual('Nike white spo…');
+                    expect(result).toEqual('<strong>Nike white sports shoes</strong>');
                 });
                 it('it should remove html and return a substring from description', function () {
                     var _item = {
@@ -447,7 +447,7 @@ describe('Unit : pluginPluginMediaCenterRSS widget.media.controller.js', functio
                     };
                     var result = WidgetMedia.getTitle(_item);
                     $rootScope.$digest();
-                    expect(result).toEqual('Nike white spo…');
+                    expect(result).toEqual('<strong>Nike white sports shoes</strong>');
                 });
             });
 
