@@ -447,13 +447,15 @@
          * will be called when you click play button
          */
         WidgetMedia.playAudio = function () {
-          WidgetMedia.audio.playing = true;
+          Location.goTo('#/nowplaying');
+
+          /* WidgetMedia.audio.playing = true;
           if (WidgetMedia.audio.paused) {
             audioPlayer.play();
           }
           else if (WidgetMedia.audio.track) {
             audioPlayer.play({url: WidgetMedia.audio.track});
-          }
+          }*/
         };
 
 
