@@ -5,6 +5,13 @@
 .media-center-plugin.layout2 .people-banner .people-info{
 	color:#fff;
 }
+.layout2 .people-banner .people-media img{
+	max-width:140px;
+	max-height:140px;
+}
+.media-center-plugin.layout2 .people-banner .people-info h5 + h5{
+	line-height:18px;
+}
 .media-center-plugin.layout3 .list-layout .list-item-media .list-media-holder{
 	background:none;
 }
@@ -204,6 +211,18 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 }
 .layout3 .list-layout .list-item-copy{
 	padding:6px 10px 5px;
+}
+.layout4 .list-layout .list-item + .list-item{
+	padding-left:inherit;
+	padding-right:inherit;
+}
+.layout4 .list-layout .list-item:nth-child(even){
+	padding-left:8px !important;
+	padding-right:15px !important;
+}
+.layout4 .list-layout .list-item:nth-child(odd){
+	padding-left:15px !important;
+	padding-right:8px !important;
 }
 /* End Plugin CSS */
 
