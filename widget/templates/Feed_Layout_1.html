@@ -34,8 +34,7 @@
                  src="./assets/images/now-playing.png" height="100%"
                  width="100%">-->
               <img ng-if="WidgetMedia.item.imageSrcUrl" class="border-radius-four"
-                 ng-src="{{WidgetMedia.item.imageSrcUrl}}" height="100%"
-                 width="100%">
+                 ng-src="{{WidgetMedia.item.imageSrcUrl | cropImage :deviceWidth:193}}">
           </div>
          <!-- <div class="slider margin-top-twenty">
             <div class="playerMP">
@@ -60,12 +59,13 @@
       </div>
       <div ng-switch-when="IMAGE" class="plugin-slider text-center">
         <div class="plugin-slide" ng-if="WidgetMedia.imageUrl">
-          <img ng-src="{{WidgetMedia.imageUrl|resizeImage:340:190}}">
+          <img ng-src="{{WidgetMedia.imageUrl| cropImage: deviceWidth:193}}">
         </div>
       </div>
     </div>
     <div class="text-left padded padding-bottom-zero clearfix ">
-      <h4 class="margin-zero" ng-bind-html="WidgetMedia.getTitle(WidgetMedia.item)"></h4>
+      <h4 class="margin-zero" style="font-size: 16px;"
+          ng-bind-html="WidgetMedia.getTitle(WidgetMedia.item)"></h4>
 
       <p>{{WidgetMedia.item.summary|truncate:100}}</p>
     </div>
