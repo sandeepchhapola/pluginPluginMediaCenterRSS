@@ -399,10 +399,10 @@
                      }
                      return item.title;*/
                     var title = '';
-                    if (!item.title && (item.summary || item.description)) {
+                    if (item && !item.title && (item.summary || item.description)) {
                         title = item.summary ? item.summary : item.description;
                     } else {
-                        title = item.title;
+                        title = item && item.title;
                     }
                     return title;
                 };
