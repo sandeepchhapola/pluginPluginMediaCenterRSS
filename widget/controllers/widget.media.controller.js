@@ -6,6 +6,7 @@
     .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES', '$rootScope',
       function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES, $rootScope) {
 
+       console.log('Widget.media.controller loaded successfully------------------------------------------->>>>>>>>>>>>>>>>>>>.');
         $rootScope.deviceHeight = window.innerHeight;
         $rootScope.deviceWidth = window.innerWidth;
 
@@ -524,7 +525,7 @@
             Location.goToHome();
           });
           WidgetMedia.pause();
-          ItemDetailsService.setData(null);
+          //ItemDetailsService.setData(null);
           if (WidgetMedia.data && WidgetMedia.data.design)
             $rootScope.$broadcast('ROUTE_CHANGED', WidgetMedia.data.design.itemListLayout);
         });
