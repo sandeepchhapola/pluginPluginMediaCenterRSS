@@ -1,8 +1,8 @@
 (function (angular) {
     angular
         .module('mediaCenterRSSPluginWidget')
-        .controller('NowPlayingCtrl', ['$scope', 'Buildfire', '$rootScope', '$timeout', 'Location', 'ItemDetailsService',
-            function ($scope, Buildfire, $rootScope, $timeout, Location, ItemDetailsService) {
+        .controller('NowPlayingCtrl', ['$scope', 'Buildfire', '$rootScope', '$timeout', 'Location', 'ItemDetailsService', 'Modals',
+            function ($scope, Buildfire, $rootScope, $timeout, Location, ItemDetailsService, Modals) {
                 console.log('----------------------------Now Playing controller loaded-------------------');
                 //$rootScope.blackBackground = true;
                 $rootScope.showFeed = false;
@@ -12,18 +12,18 @@
                  * WidgetMedia.item used to hold item details object
                  * @type {object}
                  */
-                NowPlaying.item=ItemDetailsService.getData();
-                if(NowPlaying.item)
-                NowPlaying.currentTrack = new Track(NowPlaying.item);
+                NowPlaying.item = ItemDetailsService.getData();
+                if (NowPlaying.item)
+                    NowPlaying.currentTrack = new Track(NowPlaying.item);
 
-                console.log('NowPlaying.Item--------------------------------------------',NowPlaying.item);
+                console.log('NowPlaying.Item--------------------------------------------', NowPlaying.item);
 
                 /**
                  * audioPlayer is Buildfire.services.media.audioPlayer.
                  */
                 var audioPlayer = Buildfire.services.media.audioPlayer;
                 audioPlayer.settings.get(function (err, setting) {
-                    NowPlaying.settings=setting;
+                    NowPlaying.settings = setting;
                     NowPlaying.volume = setting.volume;
                 });
 
@@ -189,7 +189,7 @@
                  */
 
                 function Track(track) {
-                    console.log('Track-----------------------------------------------------',track);
+                    console.log('Track-----------------------------------------------------', track);
                     this.title = track && track.title;
                     this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
                     this.image = track && track.imageSrcUrl;
@@ -218,10 +218,10 @@
                 /**
                  * auto play the song
                  */
-                $timeout(function(){
+                $timeout(function () {
                     console.log('Auto play called-------------------------');
                     NowPlaying.playTrack();
-                },100);
+                }, 100);
 
                 /**
                  * Implementation of pull down to refresh
