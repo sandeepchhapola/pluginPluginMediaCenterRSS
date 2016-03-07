@@ -73,20 +73,17 @@
                         audioPlayer.play({url: track.url});
                         track.playing = true;
                     }
-                    $scope.$digest();
                 };
                 NowPlaying.pauseTrack = function () {
                     NowPlaying.playing = false;
                     NowPlaying.paused = true;
                     audioPlayer.pause();
-                    $scope.$digest();
                 };
                 NowPlaying.playlistPause = function (track) {
                     track.playing = false;
                     NowPlaying.playing = false;
                     NowPlaying.paused = true;
                     audioPlayer.pause();
-                    $scope.$digest();
                 };
                 NowPlaying.forward = function () {
                     if (NowPlaying.currentTime + 5 >= NowPlaying.currentTrack.duration)
@@ -192,8 +189,9 @@
                  */
 
                 function Track(track) {
+                    console.log('Track-----------------------------------------------------',track);
                     this.title = track && track.title;
-                    this.url = track && track['media:group'] && track['media:group']['media:content'] && track['media:group']['media:content']['media:thumbnail']  && track['media:group']['media:content']['media:thumbnail']['@'] && track['media:group']['media:content']['media:thumbnail']['@'].url;
+                    this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
                     this.image = track && track.imageSrcUrl;
                     this.album = '';
                     this.artist = track && track.author;
@@ -216,6 +214,15 @@
                     this.shufflePlaylist = settings.shufflePlaylist;// shuffle the playlist
                 }
 
+
+                /**
+                 * auto play the song
+                 */
+                $timeout(function(){
+                    console.log('Auto play called-------------------------');
+                    NowPlaying.playTrack();
+                },100);
+
                 /**
                  * Implementation of pull down to refresh
                  */
@@ -229,7 +236,6 @@
                     $rootScope.blackBackground = false;
                     onRefresh.clear();
                     Buildfire.datastore.onRefresh(function () {
-                        Location.goToHome();
                     });
                 });
             }

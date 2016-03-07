@@ -53,7 +53,7 @@
                     $rootScope.showFeed = true;
                     Location.goTo('#/');
                 }
-                if (reg1.test($location.path())) {
+                else if (reg1.test($location.path())) {
                     $rootScope.showFeed = false;
                     Location.goTo('#/item');
                 }

@@ -35,7 +35,7 @@
             <p class="margin-zero whiteTheme ellipsis">{{NowPlaying.currentTrack.user.username}}{{NowPlaying.currentTrack.artist}}</p>
         </div>
         <div class="slider">
-            <div class="playerMP" ng-show="NowPlaying.showTrackSlider">
+            <div class="playerMP">
                 <div ng-if="NowPlaying.currentTime">{{NowPlaying.currentTime | secondsToDateTime |date: 'mm:ss'}}</div>
                 <div class="audio-plyer" ng-if="NowPlaying.currentTime && NowPlaying.duration"><input type="range"
                                                                                                       min="0.0"
