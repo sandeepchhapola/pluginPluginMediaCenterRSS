@@ -12,7 +12,8 @@
         "com.2fdevs.videogular.plugins.overlayplay",
         "videosharing-embed",
         "ngAnimate",
-        "media_RSSModals"
+        "media_RSSModals",
+        "ngTouch"
     ])
 
         .config(['$routeProvider', '$compileProvider', function ($routeProvider, $compileProvider) {
