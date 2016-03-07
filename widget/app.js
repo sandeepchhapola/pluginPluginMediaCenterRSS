@@ -11,7 +11,9 @@
         "com.2fdevs.videogular.plugins.controls",
         "com.2fdevs.videogular.plugins.overlayplay",
         "videosharing-embed",
-        'ngAnimate'
+        "ngAnimate",
+        "media_RSSModals",
+        "ngTouch"
     ])
 
         .config(['$routeProvider', '$compileProvider', function ($routeProvider, $compileProvider) {
@@ -37,7 +39,7 @@
                     controller: 'WidgetMediaCtrl'
                 })
                 .when('/nowplaying', {
-                    templateUrl: 'templates/now-playing.html',
+                    templateUrl: 'templates/now-playing1.html',
                     controllerAs: 'NowPlaying',
                     controller: 'NowPlayingCtrl'
                 })
@@ -48,12 +50,17 @@
         .run(['Location', '$location', '$rootScope', function (Location, $location, $rootScope) {
             buildfire.navigation.onBackButtonClick = function () {
                 var reg = /^\/item/;
+                var reg1 = /^\/nowplaying/;
                 if (reg.test($location.path())) {
                     $rootScope.showFeed = true;
                     Location.goTo('#/');
                 }
+                else if (reg1.test($location.path())) {
+                    $rootScope.showFeed = false;
+                    Location.goTo('#/item');
+                }
                 else {
-                    buildfire.navigation.navigateHome();
+                    buildfire.navigation._goBackOne();
                 }
             }
         }])

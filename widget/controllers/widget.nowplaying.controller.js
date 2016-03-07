@@ -1,29 +1,28 @@
 (function (angular) {
     angular
         .module('mediaCenterRSSPluginWidget')
-        .controller('NowPlayingCtrl', ['$scope', 'Buildfire', '$rootScope', '$timeout', 'Location', 'ItemDetailsService',
-            function ($scope, Buildfire, $rootScope, $timeout, Location, ItemDetailsService) {
+        .controller('NowPlayingCtrl', ['$scope', 'Buildfire', '$rootScope', '$timeout', 'Location', 'ItemDetailsService', 'Modals',
+            function ($scope, Buildfire, $rootScope, $timeout, Location, ItemDetailsService, Modals) {
                 console.log('----------------------------Now Playing controller loaded-------------------');
                 //$rootScope.blackBackground = true;
                 $rootScope.showFeed = false;
                 var NowPlaying = this;
-
                 /**
                  * WidgetMedia.item used to hold item details object
                  * @type {object}
                  */
-                NowPlaying.item=ItemDetailsService.getData();
-                if(NowPlaying.item)
-                NowPlaying.currentTrack = new Track(NowPlaying.item);
+                NowPlaying.item = ItemDetailsService.getData();
+                if (NowPlaying.item)
+                    NowPlaying.currentTrack = new Track(NowPlaying.item);
 
-                console.log('NowPlaying.Item--------------------------------------------',NowPlaying.item);
+                console.log('NowPlaying.Item--------------------------------------------', NowPlaying.item);
 
                 /**
                  * audioPlayer is Buildfire.services.media.audioPlayer.
                  */
                 var audioPlayer = Buildfire.services.media.audioPlayer;
                 audioPlayer.settings.get(function (err, setting) {
-                    NowPlaying.settings=setting;
+                    NowPlaying.settings = setting;
                     NowPlaying.volume = setting.volume;
                 });
 
@@ -73,20 +72,17 @@
                         audioPlayer.play({url: track.url});
                         track.playing = true;
                     }
-                    $scope.$digest();
                 };
                 NowPlaying.pauseTrack = function () {
                     NowPlaying.playing = false;
                     NowPlaying.paused = true;
                     audioPlayer.pause();
-                    $scope.$digest();
                 };
                 NowPlaying.playlistPause = function (track) {
                     track.playing = false;
                     NowPlaying.playing = false;
                     NowPlaying.paused = true;
                     audioPlayer.pause();
-                    $scope.$digest();
                 };
                 NowPlaying.forward = function () {
                     if (NowPlaying.currentTime + 5 >= NowPlaying.currentTrack.duration)
@@ -176,8 +172,8 @@
                     NowPlaying.openMoreInfo = false;
                 };
 
-                NowPlaying.addEvents = function (e, i, toggle) {
-                    toggle ? NowPlaying.swiped[i] = true : NowPlaying.swiped[i] = false;
+                NowPlaying.addEvents = function (e, i, toggle,track) {
+                    toggle ? track.swiped = true : track.swiped = false;
                 };
 
 
@@ -192,8 +188,9 @@
                  */
 
                 function Track(track) {
+                    console.log('Track-----------------------------------------------------', track);
                     this.title = track && track.title;
-                    this.url = track && track['media:group'] && track['media:group']['media:content'] && track['media:group']['media:content']['media:thumbnail']  && track['media:group']['media:content']['media:thumbnail']['@'] && track['media:group']['media:content']['media:thumbnail']['@'].url;
+                    this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
                     this.image = track && track.imageSrcUrl;
                     this.album = '';
                     this.artist = track && track.author;
@@ -216,6 +213,15 @@
                     this.shufflePlaylist = settings.shufflePlaylist;// shuffle the playlist
                 }
 
+
+                /**
+                 * auto play the song
+                 */
+                $timeout(function () {
+                    console.log('Auto play called-------------------------');
+                    NowPlaying.playTrack();
+                }, 100);
+
                 /**
                  * Implementation of pull down to refresh
                  */
@@ -229,7 +235,6 @@
                     $rootScope.blackBackground = false;
                     onRefresh.clear();
                     Buildfire.datastore.onRefresh(function () {
-                        Location.goToHome();
                     });
                 });
             }
