@@ -22,11 +22,9 @@
             <div class="media-inner text-center">
                 <img ng-if="NowPlaying.currentTrack.image" class="border-radius-two"
                      ng-src="{{NowPlaying.currentTrack.image | cropImage : 260:260}}">
-                <img ng-if="(!NowPlaying.currentTrack.image) && (!NowPlaying.currentTrack.image)"
+                <img ng-if="!NowPlaying.currentTrack.image"
                      class="border-radius-two"
                      src="assets/images/now-playing.png">
-                <img ng-if="NowPlaying.currentTrack.image" class="border-radius-two"
-                     ng-src="{{NowPlaying.currentTrack.image | cropImage : 260:260}}">
             </div>
         </div>
         <div class="media-player-info margin-top-twenty padding-left-ten padding-right-ten">
