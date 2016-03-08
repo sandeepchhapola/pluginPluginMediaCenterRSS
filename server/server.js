@@ -50,7 +50,7 @@ app.post('/validatefeedurl', function (req, res) {
       message: 'Error: Undefined rss feed url'
     }));
   } else {
-    request(req.body.feedUrl, function (error, response, body) {
+    request({url:req.body.feedUrl,method:'GET', headers: { 'user-Agent': 'request'}}, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         isValidFeedUrl = (body.match('<?xml') && (body.match('<rss') || body.match('<feed'))) ? true : false;
         res.status(200).send({
@@ -84,7 +84,7 @@ app.post('/parsefeedurl', function (req, res) {
     return;
   }
 
-  var feedReq = request(req.body.feedUrl)
+  var feedReq = request({url:req.body.feedUrl,method:'GET', headers: { 'user-Agent': 'request'}})
     , feedparser = new FeedParser()
     , meta = null
     , items = [];
