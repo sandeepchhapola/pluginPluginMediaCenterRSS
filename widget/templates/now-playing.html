@@ -1,6 +1,6 @@
 <div class="holder now-playing text-center audio-player">
     <!--// need to refactor this.-->
-    <div ng-style="{'background':'url(' + (NowPlaying.currentTrack.image? NowPlaying.currentTrack.image : 'http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/d575ea0d-ba73-4edd-9c3d-37e49e44ac4f/widget/assets/.images/now-playing.png') + ') no-repeat center center' ,
+    <div ng-style="{'background':'url(' + (NowPlaying.currentTrack.image? NowPlaying.currentTrack.image : 'http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/d575ea0d-ba73-4edd-9c3d-37e49e44ac4f/widget/assets/images/now-playing.png') + ') no-repeat center center' ,
           '-o-filter': 'blur(10px) brightness(0.2)',
     '-moz-filter': 'blur(10px) brightness(0.2)',
     '-webkit-filter': 'blur(10px) brightness(0.2)',
@@ -118,7 +118,7 @@
                 <div class="media-holder margin-top-thirty">
                     <div class="media-inner text-center">
                         <img ng-if="!NowPlaying.currentTrack.image" class="border-radius-two"
-                             src="http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/d575ea0d-ba73-4edd-9c3d-37e49e44ac4f/widget/assets/.images/now-playing.png">
+                             src="http://s3-us-west-2.amazonaws.com/pluginserver.prod/plugins/d575ea0d-ba73-4edd-9c3d-37e49e44ac4f/widget/assets/images/now-playing.png">
                         <img ng-if="NowPlaying.currentTrack.image" class="border-radius-two"
                              ng-src="{{NowPlaying.currentTrack.image | cropImage :140:140}}">
                     </div>
