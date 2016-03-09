@@ -6,6 +6,7 @@
     .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES', '$rootScope',
       function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES, $rootScope) {
 
+       console.log('Widget.media.controller loaded successfully------------------------------------------->>>>>>>>>>>>>>>>>>>.');
         $rootScope.deviceHeight = window.innerHeight;
         $rootScope.deviceWidth = window.innerWidth;
 
@@ -399,10 +400,10 @@
                      }
                      return item.title;*/
                     var title = '';
-                    if (!item.title && (item.summary || item.description)) {
+                    if (item && !item.title && (item.summary || item.description)) {
                         title = item.summary ? item.summary : item.description;
                     } else {
-                        title = item.title;
+                        title = item && item.title;
                     }
                     return title;
                 };
@@ -447,13 +448,15 @@
          * will be called when you click play button
          */
         WidgetMedia.playAudio = function () {
-          WidgetMedia.audio.playing = true;
+          Location.goTo('#/nowplaying');
+
+          /* WidgetMedia.audio.playing = true;
           if (WidgetMedia.audio.paused) {
             audioPlayer.play();
           }
           else if (WidgetMedia.audio.track) {
             audioPlayer.play({url: WidgetMedia.audio.track});
-          }
+          }*/
         };
 
 
@@ -522,7 +525,7 @@
             Location.goToHome();
           });
           WidgetMedia.pause();
-          ItemDetailsService.setData(null);
+          //ItemDetailsService.setData(null);
           if (WidgetMedia.data && WidgetMedia.data.design)
             $rootScope.$broadcast('ROUTE_CHANGED', WidgetMedia.data.design.itemListLayout);
         });
