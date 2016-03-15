@@ -20,8 +20,8 @@
           , _data = {
             "content": {
               "carouselImages": [],
-              "description": "<p>&nbsp;<br></p>",
-              "rssUrl": ""
+              "description": "",
+              "rssUrl": "https://twitrss.me/twitter_user_to_rss/?user=microsoft"
             },
             "design": {
               "itemListLayout": LAYOUTS.itemListLayouts[0].name,

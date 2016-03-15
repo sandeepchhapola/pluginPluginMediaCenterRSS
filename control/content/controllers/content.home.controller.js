@@ -21,7 +21,7 @@
             "content": {
               "carouselImages": [],
               "description": "",
-              "rssUrl": ""
+              "rssUrl": "https://twitrss.me/twitter_user_to_rss/?user=microsoft"
             },
             "design": {
               "itemListLayout": LAYOUTS.itemListLayouts[0].name,
@@ -155,6 +155,7 @@
                 ContentHome.data = result.data;
               }
               if (!ContentHome.data) {
+                updateMasterItem(_data);
                 ContentHome.data = angular.copy(_data);
               } else {
                 if (ContentHome.data.content && !ContentHome.data.content.carouselImages) {
