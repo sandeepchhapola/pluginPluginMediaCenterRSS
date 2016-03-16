@@ -48,11 +48,11 @@
          */
         ContentHome.isInValidUrl = false;
 
-        /*
+      /*  /!*
          * ContentHome.isSaved is used to show/hide Success alert message when data saved successfully. Its default value is false.
          * @type {boolean}
-         */
-        ContentHome.isSaved = false;
+         *!/
+        ContentHome.isSaved = false;*/
 
         /*
          * ContentHome.isNotSaved is used to show/hide Error alert message when data not saved. Its default value is false.
@@ -107,10 +107,10 @@
           }
           var success = function (result) {
               console.info('Saved data result: ', result);
-              ContentHome.isSaved = true;
+             /* ContentHome.isSaved = true;
               $timeout(function () {
                 ContentHome.isSaved = false;
-              }, 1000);
+              }, 1000);*/
               updateMasterItem(newObj);
             }
             , error = function (err) {
