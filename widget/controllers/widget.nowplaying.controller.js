@@ -15,6 +15,8 @@
                 if (NowPlaying.item)
                     NowPlaying.currentTrack = new Track(NowPlaying.item);
 
+                console.log('NowPlaying.currentTrack--------------------------------------',NowPlaying.currentTrack);
+
                 console.log('NowPlaying.Item--------------------------------------------', NowPlaying.item);
 
                 /**
@@ -190,7 +192,12 @@
                 function Track(track) {
                     console.log('Track-----------------------------------------------------', track);
                     this.title = track && track.title;
-                    this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
+                    if(track.link){
+                        this.url=track && track.link;
+                    }
+                    else{
+                        this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
+                    }
                     this.image = track && track.imageSrcUrl;
                     this.album = '';
                     this.artist = track && track.author;
