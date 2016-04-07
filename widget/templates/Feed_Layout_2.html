@@ -44,7 +44,8 @@
             			</div>
 		  			</div>
           			<div class="people-media text-center padding-top-fifteen" ng-switch-when="IMAGE" ng-if="WidgetMedia.imageUrl">
-	      				<img ng-src="{{WidgetMedia.imageUrl|resizeImage:250:400}}">
+	      				<img load-image="16x9"
+                    data-final-src="{{WidgetMedia.imageUrl|resizeImage:250:400}}">
 	      			</div>
 	      			<div class="people-info text-center col-xs-12">
 	      				<h5 class="ellipsis margin-top-fifteen whiteTheme" ng-bind-html="WidgetMedia.getTitle(WidgetMedia.item)" style="font-size: 16px;"></h5>
