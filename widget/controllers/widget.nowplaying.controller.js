@@ -192,11 +192,11 @@
                 function Track(track) {
                     console.log('Track-----------------------------------------------------', track);
                     this.title = track && track.title;
-                    if(track.link){
-                        this.url=track && track.link;
+                    if(track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url){
+                        this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
                     }
                     else{
-                        this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
+                        this.url=track && track.link;
                     }
                     this.image = track && track.imageSrcUrl;
                     this.album = '';
