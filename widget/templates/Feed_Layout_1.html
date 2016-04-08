@@ -59,7 +59,7 @@
       </div>
       <div ng-switch-when="IMAGE" class="plugin-slider text-center">
         <div class="plugin-slide" ng-if="WidgetMedia.imageUrl">
-          <img ng-src="{{WidgetMedia.imageUrl| cropImage: deviceWidth:193}}">
+          <img load-image="16x9" data-final-src="{{WidgetMedia.imageUrl| cropImage: deviceWidth:193}}">
         </div>
       </div>
     </div>
