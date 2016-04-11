@@ -39,7 +39,7 @@
                     controller: 'WidgetMediaCtrl'
                 })
                 .when('/nowplaying', {
-                    templateUrl: 'templates/now-playing1.html',
+                    templateUrl: 'templates/now-playing.html',
                     controllerAs: 'NowPlaying',
                     controller: 'NowPlayingCtrl'
                 })
