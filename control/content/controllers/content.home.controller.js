@@ -21,7 +21,7 @@
                         "content": {
                             "carouselImages": [],
                             "description": "",
-                            "rssUrl": "http://feeds.feedburner.com/Mashable?format=xml"
+                            "rssUrl": "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
                         },
                         "design": {
                             "itemListLayout": LAYOUTS.itemListLayouts[0].name,
