@@ -21,7 +21,7 @@
                         "content": {
                             "carouselImages": [],
                             "description": "",
-                            "rssUrl": "https://twitrss.me/twitter_user_to_rss/?user=microsoft"
+                            "rssUrl": "http://feeds.feedburner.com/Mashable?format=xml"
                         },
                         "design": {
                             "itemListLayout": LAYOUTS.itemListLayouts[0].name,
