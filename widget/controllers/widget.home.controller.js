@@ -290,6 +290,7 @@
          */
         WidgetHome.goToItem = function (index) {
           ItemDetailsService.setData(WidgetHome.items[index]);
+          $rootScope.showFeed=false;
           Location.goTo('#/item');
         };
 
