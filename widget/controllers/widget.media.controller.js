@@ -24,6 +24,7 @@
         var WidgetMedia = this
           , currentRssUrl = null
           , audioPlayer = Buildfire.services.media.audioPlayer;
+        WidgetMedia.loadingVideo = false;
 
         /**
          * WidgetMedia.slider used to show the slider on now-playing page
@@ -278,6 +279,7 @@
                   WidgetMedia.videoUrl = _item.link ? _item.link : null;
                 } else {
                   changeVideoSrc(mediaData.src, mediaData.type);
+                  WidgetMedia.loadingVideo = true;
                 }
                 break;
               case MEDIUM_TYPES.AUDIO:
@@ -505,6 +507,10 @@
 
         WidgetMedia.openLink = function (link) {
           Buildfire.navigation.openWindow(link,'_system');
+        };
+
+        WidgetMedia.videoLoaded = function () {
+          WidgetMedia.loadingVideo = false;
         };
 
 

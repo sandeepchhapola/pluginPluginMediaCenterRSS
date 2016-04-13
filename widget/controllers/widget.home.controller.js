@@ -55,7 +55,7 @@
                     "content": {
                         "carouselImages": [],
                         "description": "",
-                        "rssUrl": "https://twitrss.me/twitter_user_to_rss/?user=microsoft"
+                        "rssUrl": "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
                     },
                     "design": {
                         "itemListLayout": 'List_Layout_1',
@@ -302,15 +302,16 @@
                     }
                 };
 
-                /**
-                 * WidgetHome.goToItem() method
-                 * will used to redirect on details page
-                 * @param index
-                 */
-                WidgetHome.goToItem = function (index) {
-                    ItemDetailsService.setData(WidgetHome.items[index]);
-                    Location.goTo('#/item');
-                };
+        /**
+         * WidgetHome.goToItem() method
+         * will used to redirect on details page
+         * @param index
+         */
+        WidgetHome.goToItem = function (index) {
+          ItemDetailsService.setData(WidgetHome.items[index]);
+          $rootScope.showFeed=false;
+          Location.goTo('#/item');
+        };
 
                 /**
                  * WidgetHome.loadMore() function

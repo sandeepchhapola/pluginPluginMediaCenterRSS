@@ -21,7 +21,7 @@
             "content": {
               "carouselImages": [],
               "description": "",
-              "rssUrl": "https://twitrss.me/twitter_user_to_rss/?user=microsoft"
+              "rssUrl": "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
             },
             "design": {
               "itemListLayout": LAYOUTS.itemListLayouts[0].name,
