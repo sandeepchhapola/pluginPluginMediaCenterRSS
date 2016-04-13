@@ -20,8 +20,8 @@
           , _data = {
             "content": {
               "carouselImages": [],
-              "description": "<p>&nbsp;<br></p>",
-              "rssUrl": ""
+              "description": "",
+              "rssUrl": "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
             },
             "design": {
               "itemListLayout": LAYOUTS.itemListLayouts[0].name,

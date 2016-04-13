@@ -15,6 +15,8 @@
                 if (NowPlaying.item)
                     NowPlaying.currentTrack = new Track(NowPlaying.item);
 
+                console.log('NowPlaying.currentTrack--------------------------------------',NowPlaying.currentTrack);
+
                 console.log('NowPlaying.Item--------------------------------------------', NowPlaying.item);
 
                 /**
@@ -59,6 +61,17 @@
                  * Player related method and variables
                  */
                 NowPlaying.playTrack = function () {
+                    if(NowPlaying.settings){
+                        NowPlaying.settings.isPlayingCurrentTrack=true;
+                        audioPlayer.settings.set(NowPlaying.settings);
+                    }
+                    else{
+                        audioPlayer.settings.get(function (err, setting) {
+                            NowPlaying.settings=setting;
+                            NowPlaying.settings.isPlayingCurrentTrack=true;
+                            audioPlayer.settings.set(NowPlaying.settings);
+                        });
+                    }
                     NowPlaying.playing = true;
                     if (NowPlaying.paused) {
                         audioPlayer.play();
@@ -67,6 +80,10 @@
                     }
                 };
                 NowPlaying.playlistPlay = function (track) {
+                    if(NowPlaying.settings){
+                        NowPlaying.settings.isPlayingCurrentTrack=true;
+                        audioPlayer.settings.set(NowPlaying.settings);
+                    }
                     NowPlaying.playing = true;
                     if (track) {
                         audioPlayer.play({url: track.url});
@@ -74,11 +91,19 @@
                     }
                 };
                 NowPlaying.pauseTrack = function () {
+                    if(NowPlaying.settings){
+                        NowPlaying.settings.isPlayingCurrentTrack=false;
+                        audioPlayer.settings.set(NowPlaying.settings);
+                    }
                     NowPlaying.playing = false;
                     NowPlaying.paused = true;
                     audioPlayer.pause();
                 };
                 NowPlaying.playlistPause = function (track) {
+                    if(NowPlaying.settings){
+                        NowPlaying.settings.isPlayingCurrentTrack=false;
+                        audioPlayer.settings.set(NowPlaying.settings);
+                    }
                     track.playing = false;
                     NowPlaying.playing = false;
                     NowPlaying.paused = true;
@@ -190,7 +215,12 @@
                 function Track(track) {
                     console.log('Track-----------------------------------------------------', track);
                     this.title = track && track.title;
-                    this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
+                    if(track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url){
+                        this.url = track && track['media:content'] && track['media:content'] && track['media:content']['@'] && track['media:content']['@'].url;
+                    }
+                    else{
+                        this.url=track && track.link;
+                    }
                     this.image = track && track.imageSrcUrl;
                     this.album = '';
                     this.artist = track && track.author;
@@ -211,6 +241,7 @@
                     this.loopPlaylist = settings.loopPlaylist; // once the end of the playlist has been reached start over again
                     this.autoJumpToLastPosition = settings.autoJumpToLastPosition; //If a track has [lastPosition] use it to start playing the audio from there
                     this.shufflePlaylist = settings.shufflePlaylist;// shuffle the playlist
+                    this.isPlayingCurrentTrack = settings.isPlayingCurrentTrack;// tells whether current track is playing or not
                 }
 
 
