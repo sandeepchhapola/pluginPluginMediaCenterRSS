@@ -58,8 +58,13 @@
                     Location.goTo('#/');
                 }
                 else if (reg1.test($location.path())) {
-                    $rootScope.showFeed = false;
-                    Location.goTo('#/item');
+                    if($rootScope.playlist){
+                        $rootScope.playlist=false;
+                    }
+                    else{
+                        $rootScope.showFeed = false;
+                        Location.goTo('#/item');
+                    }
                 }
                 else {
                     buildfire.navigation._goBackOne();
