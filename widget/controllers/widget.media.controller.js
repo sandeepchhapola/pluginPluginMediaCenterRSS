@@ -307,8 +307,10 @@
         var onUpdateCallback = function (event) {
           if (event && event.tag === TAG_NAMES.RSS_FEED_INFO) {
             WidgetMedia.data = event.data;
-            $rootScope.backgroundImage = WidgetMedia.data.design.itemListBgImage;
-            $rootScope.backgroundImageItem = WidgetMedia.data.design.itemDetailsBgImage;
+            if(WidgetMedia.data.design){
+              $rootScope.backgroundImage = WidgetMedia.data.design.itemListBgImage;
+              $rootScope.backgroundImageItem = WidgetMedia.data.design.itemDetailsBgImage;
+            }
             console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
             console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
             if (WidgetMedia.data.content && (!WidgetMedia.data.content.rssUrl || WidgetMedia.data.content.rssUrl !== currentRssUrl)) {
@@ -328,10 +330,12 @@
           var success = function (result) {
               $rootScope.showFeed = false;
                 WidgetMedia.data = result.data;
+              if(WidgetMedia.data.design){
                 $rootScope.backgroundImage = WidgetMedia.data.design.itemListBgImage;
                 $rootScope.backgroundImageItem = WidgetMedia.data.design.itemDetailsBgImage;
                 console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
                 console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
+              }
               currentRssUrl = WidgetMedia.data.content.rssUrl;
             }
             , error = function (err) {

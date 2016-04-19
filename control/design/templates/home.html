@@ -12,7 +12,7 @@
         </a>
       </div>
       <div class="screen layoutgrid pull-right margin-left-zero border-grey border-radius-three">
-        <a ng-repeat="listLayout in DesignHome.layouts.itemListLayouts"
+        <a ng-repeat="listLayout in DesignHome.layouts.itemListLayouts" data-number="{{$index + 1}}"
            class="layouticon border-grey border-radius-three default-background-hover text-center"
            ng-click="DesignHome.changeListLayout(this.listLayout.name)">
           <img ng-src="../../resources/{{listLayout.name}}.png">
@@ -34,7 +34,8 @@
         </a>
       </div>
       <div class="screen layoutgrid pull-right margin-left-zero border-grey border-radius-three">
-        <a ng-repeat="itemDetailsLayout in DesignHome.layouts.itemDetailsLayouts"
+        <a
+            ng-repeat="itemDetailsLayout in DesignHome.layouts.itemDetailsLayouts" data-number="{{$index + 1}}"
            class="layouticon border-grey border-radius-three default-background-hover text-center"
            ng-click="DesignHome.changeItemDetailsLayout(this.itemDetailsLayout.name)">
           <img ng-src="../../resources/{{itemDetailsLayout.name}}.png">
