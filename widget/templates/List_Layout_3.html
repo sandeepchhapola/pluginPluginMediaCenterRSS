@@ -17,12 +17,12 @@
             <div ng-show="WidgetHome.isItems" ng-repeat="item in  WidgetHome.items"
                  trigger-ng-repeat-render="" ng-click="WidgetHome.goToItem($index)" style="cursor: pointer">
                 <div class="plugin-banner clearfix border-bottom-grey">
-                    <div class="plugin-slide text-center" ng-if="item.imageSrcUrl">
-                        <img load-image="16x9"
-                             data-final-src="{{item.imageSrcUrl| getImageUrl:340:192}}">
-                    </div>
+                  <div class="plugin-slide text-center" ng-if="item.imageSrcUrl">
+                    <img load-image="16x9"
+                         data-final-src="{{item.imageSrcUrl| getImageUrl:340:192}}">
+                  </div>
                   <div class="plugin-slide text-center" ng-if="!item.imageSrcUrl">
-                        <img src='../../../styles/media/holder-16x9.png'>
+                    <img src='../../../styles/media/holder-16x9.png'>
                     </div>
                 </div>
                 <div class="padded text-left ellipsis">
