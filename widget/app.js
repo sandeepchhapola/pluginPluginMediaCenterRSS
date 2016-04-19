@@ -47,17 +47,24 @@
                 // If the url is invalid then redirect to '/'
                 .otherwise('/');
         }])
-        .run(['Location', '$location', '$rootScope', function (Location, $location, $rootScope) {
+        .run(['Location', '$location', '$rootScope', '$timeout', function (Location, $location, $rootScope, $timeout) {
             buildfire.navigation.onBackButtonClick = function () {
                 var reg = /^\/item/;
                 var reg1 = /^\/nowplaying/;
                 if (reg.test($location.path())) {
-                    $rootScope.showFeed = true;
+                    $timeout(function(){
+                        $rootScope.showFeed = true;
+                    },200);
                     Location.goTo('#/');
                 }
                 else if (reg1.test($location.path())) {
-                    $rootScope.showFeed = false;
-                    Location.goTo('#/item');
+                    if($rootScope.playlist){
+                        $rootScope.playlist=false;
+                    }
+                    else{
+                        $rootScope.showFeed = false;
+                        Location.goTo('#/item');
+                    }
                 }
                 else {
                     buildfire.navigation._goBackOne();
