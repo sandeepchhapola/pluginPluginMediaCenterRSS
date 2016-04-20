@@ -21,7 +21,7 @@
             "content": {
               "carouselImages": [],
               "description": "",
-              "rssUrl": "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
+              "rssUrl": "http://rss.cnn.com/rss/cnn_topstories.rss"
             },
             "design": {
               "itemListLayout": LAYOUTS.itemListLayouts[0].name,
