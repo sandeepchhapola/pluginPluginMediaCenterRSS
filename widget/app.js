@@ -82,7 +82,9 @@
                 }
                 else if (reg1.test($location.path())) {
                     if($rootScope.playlist){
-                        $rootScope.playlist=false;
+                        $timeout(function(){
+                            $rootScope.playlist=false;
+                        },200);
                     }
                     else{
                         $rootScope.showFeed = false;
