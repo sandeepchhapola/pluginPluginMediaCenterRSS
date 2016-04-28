@@ -7,6 +7,7 @@
                 //$rootScope.blackBackground = true;
                 $rootScope.showFeed = false;
                 var NowPlaying = this;
+                Buildfire.history.push('NowPlaying', { elementToShow: 'NowPlaying'});
                 /**
                  * WidgetMedia.item used to hold item details object
                  * @type {object}
@@ -161,6 +162,7 @@
                         }
                     });
                     NowPlaying.openMoreInfo = false;
+                    Buildfire.history.push('Playlist', { elementToShow: 'Playlist'});
                     $rootScope.playlist=true;
                 };
                 NowPlaying.changeTime = function (time) {
@@ -191,7 +193,8 @@
                     NowPlaying.openSettings = false;
                 };
                 NowPlaying.closePlayListOverlay = function () {
-                    $rootScope.playlist = false;
+                    Buildfire.history.pop();
+                    //$rootScope.playlist = false;
                 };
                 NowPlaying.closeMoreInfoOverlay = function () {
                     NowPlaying.openMoreInfo = false;

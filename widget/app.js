@@ -48,7 +48,7 @@
                 .otherwise('/');
         }])
         .run(['Location', '$location', '$rootScope', '$timeout', function (Location, $location, $rootScope, $timeout) {
-            buildfire.navigation.onBackButtonClick = function () {
+           /* buildfire.navigation.onBackButtonClick = function () {
                 var reg = /^\/item/;
                 var reg1 = /^\/nowplaying/;
                 if (reg.test($location.path())) {
@@ -69,7 +69,27 @@
                 else {
                     buildfire.navigation._goBackOne();
                 }
-            }
+            };*/
+            buildfire.history.onPop(function(data, err){
+                console.log('buildfire.history.onPop----------------------------',data,'Error------------------',err);
+                var reg = /^\/item/;
+                var reg1 = /^\/nowplaying/;
+                if (reg.test($location.path())) {
+                    $timeout(function(){
+                        $rootScope.showFeed = true;
+                    },200);
+                    Location.goTo('#/');
+                }
+                else if (reg1.test($location.path())) {
+                    if($rootScope.playlist){
+                        $rootScope.playlist=false;
+                    }
+                    else{
+                        $rootScope.showFeed = false;
+                        Location.goTo('#/item');
+                    }
+                }
+            })
         }])
         .filter('getImageUrl', ['Buildfire', function (Buildfire) {
             return function (url, width, height, type) {

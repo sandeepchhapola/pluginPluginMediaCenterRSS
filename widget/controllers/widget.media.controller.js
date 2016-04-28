@@ -6,6 +6,20 @@
     .controller('WidgetMediaCtrl', ['$scope', '$sce', 'DataStore', 'Buildfire', 'TAG_NAMES', 'ItemDetailsService', '$filter', 'Location', 'MEDIUM_TYPES', '$rootScope',
       function ($scope, $sce, DataStore, Buildfire, TAG_NAMES, ItemDetailsService, $filter, Location, MEDIUM_TYPES, $rootScope) {
 
+          Buildfire.history.get({'pluginBreadcrumbsOnly':false},
+              function(err,data){
+                  console.log('Data--************************************ Bui1ldfire.history.get get************----------------',data,'Error-----------------',err);
+                  if(data && data.length){
+                      var currentLabel=data[data.length-1];
+                      if(currentLabel && currentLabel.options && (currentLabel.options.elementToShow!='Media')){
+                          Buildfire.history.push('Media', { elementToShow: 'Media'});
+                      }
+                  }
+                  else{
+                      Buildfire.history.push('Media', { elementToShow: 'Media'});
+                  }
+              });
+
        console.log('Widget.media.controller loaded successfully------------------------------------------->>>>>>>>>>>>>>>>>>>.');
         $rootScope.deviceHeight = window.innerHeight;
         $rootScope.deviceWidth = window.innerWidth;
@@ -336,7 +350,7 @@
                 console.log('$rootScope.backgroundImage',$rootScope.backgroundImage);
                 console.log('$rootScope.backgroundImageItem',$rootScope.backgroundImageItem);
               }
-              currentRssUrl = WidgetMedia.data.content.rssUrl;
+              currentRssUrl = WidgetMedia.data && WidgetMedia.data.content && WidgetMedia.data.content.rssUrl;
             }
             , error = function (err) {
               $rootScope.showFeed = false;
