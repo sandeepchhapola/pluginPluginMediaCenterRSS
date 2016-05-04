@@ -24,9 +24,9 @@
                         <img load-image="16x9"
                              data-final-src="{{item.imageSrcUrl| getImageUrl:220:120}}">
                       </div>
-                      <div ng-if="!item.imageSrcUrl" class="list-media-holder pull-left">
+                     <!-- <div ng-if="!item.imageSrcUrl" class="list-media-holder pull-left">
                         <img src='../../../styles/media/holder-16x9.png'>
-                      </div>
+                      </div> commented on Nathans change request-->
                         <div class="list-item-copy text-left padding-left-ten padding-right-ten">
                             <p class="ellipsis margin-zero text-primary"><a ng-click="WidgetHome.goToItem($index)"
                                                                             class="text-primary">{{WidgetHome.getTitle(item)}}</a>
