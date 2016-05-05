@@ -7,7 +7,7 @@
             function ($scope, DataStore, Buildfire, FeedParseService, TAG_NAMES, ItemDetailsService, Location, $filter, Underscore, $rootScope) {
 
                 $rootScope.deviceHeight = window.innerHeight;
-                $rootScope.deviceWidth = window.innerWidth;
+                $rootScope.deviceWidth = window.innerWidth || 320;
 
                 /*
                  * Private variables
