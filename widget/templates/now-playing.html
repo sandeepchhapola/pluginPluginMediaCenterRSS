@@ -1,5 +1,5 @@
 <div class="holder now-playing text-center">
-    <div ng-style="{'background':'url(' + (NowPlaying.currentTrack.image ? NowPlaying.currentTrack.image : 'assets/.images/now-playing.png') + ') no-repeat center center',
+    <div ng-style="{'background':'url(' + (NowPlaying.currentTrack.image ? NowPlaying.currentTrack.image : 'http://app.buildfire.com/app/media/now-playing.png') + ') no-repeat center center',
          '-o-filter': 'blur(10px) brightness(0.2)',
     '-moz-filter': 'blur(10px) brightness(0.2)',
     '-webkit-filter': 'blur(10px) brightness(0.2)',
@@ -24,7 +24,7 @@
                      ng-src="{{NowPlaying.currentTrack.image | cropImage : 260:260}}">
                 <img ng-if="!NowPlaying.currentTrack.image"
                      class="border-radius-two"
-                     src="assets/.images/now-playing.png">
+                     src="http://app.buildfire.com/app/media/now-playing.png">
             </div>
         </div>
         <div class="media-player-info margin-top-twenty padding-left-ten padding-right-ten">
