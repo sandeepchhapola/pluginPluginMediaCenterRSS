@@ -69,7 +69,10 @@
                 else {
                     buildfire.navigation._goBackOne();
                 }
-            }
+            };
+            buildfire.device.onAppBackgrounded(function () {
+                $rootScope.$emit('deviceLocked', {});
+            });
         }])
         .filter('getImageUrl', ['Buildfire', function (Buildfire) {
             return function (url, width, height, type) {
