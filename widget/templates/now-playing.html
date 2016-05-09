@@ -16,7 +16,7 @@
     'z-index': '0'}"></div>
     <div class="media-center-plugin">
         <div class="media-header-link">
-            <a class="whiteTheme" ng-click="NowPlaying.getFromPlaylist()">Go to your playlist</a>
+            <a class="whiteTheme" ng-click="NowPlaying.getFromPlaylist()">Open Playlist</a>
         </div>
         <div class="media-holder margin-top-fifteen">
             <div class="media-inner text-center">
@@ -75,9 +75,9 @@
     </div>
 
     <!-- Playlist Overlay -->
-    <div ng-if="playlist" class="overlay"
-         style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8);">
-        <div class="overlay-content" style="postiion:absolute; top:0; left:0; height:100%; width: 100%; overflow:auto;">
+    <div ng-if="playlist" class="overlay backgroundColorTheme slide"
+         style="position:fixed; top:0; left:0; width:100%; height:100%;">
+        <div class="overlay-content" style="position:absolute; top:0; left:0; height:100%; width: 100%; overflow:auto;">
             <div class="media-player-list-layout layout3">
                 <div class="list-layout has-btns">
                     <div class="list-item overflow-hidden"
@@ -89,22 +89,25 @@
                                 <img ng-if="track.image" ng-src="{{track.image | cropImage : 55 :22}}">
                             </div>
                             <div class="list-item-copy text-left padding-left-ten padding-right-ten">
-                                <p class="margin-bottom-zero ellipsis margin-top-twenty whiteTheme">{{track.title}}</p>
+                                <p class="margin-bottom-zero ellipsis margin-top-twenty bodyTextTheme">{{track.title}}</p>
                             </div>
                             <div class="btns text-center">
                                 <!--<a ng-if="!track.playing" class="icon icon-play-circle" ng-click="NowPlaying.playlistPlay(track)"></a>
                                 <a ng-if="track.playing" class="icon icon-pause-circle primaryTheme" ng-click="NowPlaying.playlistPause(track)"></a>-->
-                                <a ng-class="track.playing ? 'icon-pause-circle primaryTheme' : 'icon-play-circle'" class="icon " ng-click="NowPlaying.playlistPlayPause(track)"></a>
+                                <a ng-class="track.playing ? 'icon-pause-circle' : 'icon-play-circle'" class="icon primaryTheme" ng-click="NowPlaying.playlistPlayPause(track)"></a>
                             </div>
                             <div class="remove-btn text-center dangerBackgroundTheme" style="background:red;" ng-click="NowPlaying.removeTrackFromPlayList($index)">
                                 <span class="whiteTheme">Remove</span>
                             </div>
                         </div>
                     </div>
+                    <div ng-if="!NowPlaying.playList.length">
+                        <h3 class="titleBarTheme">Playlist is empty.</h3>
+                    </div>
                 </div>
             </div>
             <div class="margin-top-ten margin-bottom-ten">
-                <a ng-click="NowPlaying.closePlayListOverlay()" class="whiteTheme">Done</a>
+                <a ng-click="NowPlaying.closePlayListOverlay()" class="primaryTheme">Done</a>
             </div>
         </div>
     </div>
