@@ -30,18 +30,31 @@
         <div class="media-player-info margin-top-twenty padding-left-ten padding-right-ten">
             <h4 class="margin-zero ellipsis whiteTheme">{{NowPlaying.currentTrack.title}}</h4>
 
-            <p class="margin-zero whiteTheme ellipsis">{{NowPlaying.currentTrack.user.username}}{{NowPlaying.currentTrack.artist}}</p>
+            <p class="margin-zero whiteTheme ellipsis">
+                {{NowPlaying.currentTrack.user.username}}{{NowPlaying.currentTrack.artist}}</p>
         </div>
         <div class="slider">
-            <div class="playerMP">
-                <div ng-if="NowPlaying.currentTime">{{NowPlaying.currentTime | secondsToDateTime |date: 'mm:ss'}}</div>
-                <div class="audio-plyer" ng-if="NowPlaying.currentTime && NowPlaying.duration"><input type="range"
-                                                                                                      min="0.0"
-                                                                                                      max="{{NowPlaying.duration}}"
-                                                                                                      ng-model="NowPlaying.currentTime"
-                                                                                                      ng-change="NowPlaying.changeTime(NowPlaying.currentTime)"/>
+            <div>
+                <!--<div ng-if="NowPlaying.currentTime">{{NowPlaying.currentTime | secondsToDateTime |date: 'mm:ss'}}</div>-->
+                <div class="audio-plyer"><input type="range"
+                                                 min="0.0"
+                                                 max="{{NowPlaying.duration}}"
+                                                 ng-model="NowPlaying.currentTime"
+                                                 ng-change="NowPlaying.changeTime(NowPlaying.currentTime)"/>
                 </div>
-                <div ng-if="NowPlaying.duration">{{NowPlaying.duration | secondsToDateTime | date: 'mm:ss'}}</div>
+                <div ng-if="NowPlaying.currentTime!=0" class="time-indicator" style="float:left">
+                    {{NowPlaying.currentTime | secondsToDateTime |date: 'mm:ss'}}
+                </div>
+                <div ng-if="NowPlaying.currentTime==0" class="time-indicator" style="float: left;">
+                    {{"--:--"}}
+                </div>
+                <div ng-if="NowPlaying.duration" class="time-indicator" style="float: right;">
+                    {{(NowPlaying.duration | secondsToDateTime | date: 'mm:ss')}}
+                </div>
+                <div ng-if="!NowPlaying.duration" class="time-indicator" style="float: right;">
+                    {{"--:--"}}
+                </div>
+                <!--<div ng-if="NowPlaying.duration">{{NowPlaying.duration | secondsToDateTime | date: 'mm:ss'}}</div>-->
             </div>
             <div class="volume">
                 &nbsp;<input class="volume-button rotate-270"
@@ -61,14 +74,16 @@
             <span class="icon icon-cog icon-sm whiteTheme" ng-click="NowPlaying.getSettings()"></span>
         </div>
         <div class="media-player-btns margin-top-ten">
-            <span ng-class="(NowPlaying.settings && NowPlaying.settings.shufflePlaylist) ? 'primaryTheme bold' : 'whiteTheme'" class="icon icon-shuffle icon-sm " ng-click="NowPlaying.shufflePlaylist()"></span>
+            <span ng-class="(NowPlaying.settings && NowPlaying.settings.shufflePlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
+                  class="icon icon-shuffle icon-sm " ng-click="NowPlaying.shufflePlaylist()"></span>
             <span class="icon icon-backward-circle whiteTheme" ng-click="NowPlaying.backward()"></span>
             <span ng-if="!NowPlaying.playing" class="icon icon-play-circle icon-main whiteTheme"
                   ng-click="NowPlaying.playTrack()"></span>
             <span ng-if="NowPlaying.playing" class="icon icon-pause-circle icon-main whiteTheme"
                   ng-click="NowPlaying.pauseTrack()"></span>
             <span class="icon icon-forward-circle whiteTheme" ng-click="NowPlaying.forward()"></span>
-            <span ng-class="(NowPlaying.settings && NowPlaying.settings.loopPlaylist) ? 'primaryTheme bold' : 'whiteTheme'"  class="icon icon-repeat icon-sm" ng-click="NowPlaying.loopPlaylist()"></span>
+            <span ng-class="(NowPlaying.settings && NowPlaying.settings.loopPlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
+                  class="icon icon-repeat icon-sm" ng-click="NowPlaying.loopPlaylist()"></span>
             <span class="icon icon-repeat-one icon-sm primaryTheme hidden whiteTheme"></span>
             <span class="icon icon-repeat icon-sm primaryTheme hidden whiteTheme"></span>
         </div>
@@ -89,14 +104,17 @@
                                 <img ng-if="track.image" ng-src="{{track.image | cropImage : 55 :22}}">
                             </div>
                             <div class="list-item-copy text-left padding-left-ten padding-right-ten">
-                                <p class="margin-bottom-zero ellipsis margin-top-twenty bodyTextTheme">{{track.title}}</p>
+                                <p class="margin-bottom-zero ellipsis margin-top-twenty bodyTextTheme">
+                                    {{track.title}}</p>
                             </div>
                             <div class="btns text-center">
                                 <!--<a ng-if="!track.playing" class="icon icon-play-circle" ng-click="NowPlaying.playlistPlay(track)"></a>
                                 <a ng-if="track.playing" class="icon icon-pause-circle primaryTheme" ng-click="NowPlaying.playlistPause(track)"></a>-->
-                                <a ng-class="track.playing ? 'icon-pause-circle' : 'icon-play-circle'" class="icon primaryTheme" ng-click="NowPlaying.playlistPlayPause(track)"></a>
+                                <a ng-class="track.playing ? 'icon-pause-circle' : 'icon-play-circle'"
+                                   class="icon primaryTheme" ng-click="NowPlaying.playlistPlayPause(track)"></a>
                             </div>
-                            <div class="remove-btn text-center dangerBackgroundTheme" style="background:red;" ng-click="NowPlaying.removeTrackFromPlayList($index)">
+                            <div class="remove-btn text-center dangerBackgroundTheme" style="background:red;"
+                                 ng-click="NowPlaying.removeTrackFromPlayList($index)">
                                 <span class="whiteTheme">Remove</span>
                             </div>
                         </div>
@@ -126,6 +144,7 @@
                 <hr class="none">
                 <div class="media-player-info margin-top-twenty padding-left-ten padding-right-ten">
                     <h4 class="margin-zero ellipsis whiteTheme">{{NowPlaying.currentTrack.title}}</h4>
+
                     <p class="margin-zero ellipsis whiteTheme">{{NowPlaying.currentTrack.artist}}</p>
                 </div>
                 <hr class="none">
@@ -134,10 +153,12 @@
                         <a ng-click="NowPlaying.getFromPlaylist()" class="whiteTheme">Go to Playlist</a>
                     </div>
                     <div class="text-center item">
-                        <a ng-click="NowPlaying.addToPlaylist(NowPlaying.currentTrack)" class="whiteTheme">Add to Playlist</a>
+                        <a ng-click="NowPlaying.addToPlaylist(NowPlaying.currentTrack)" class="whiteTheme">Add to
+                            Playlist</a>
                     </div>
                     <div class="text-center item">
-                        <a ng-click="NowPlaying.removeFromPlaylist(NowPlaying.currentTrack)" class="whiteTheme">Remove from Playlist</a>
+                        <a ng-click="NowPlaying.removeFromPlaylist(NowPlaying.currentTrack)" class="whiteTheme">Remove
+                            from Playlist</a>
                     </div>
                     <!--<div class="text-center item">
                         <a>Purchase</a>
