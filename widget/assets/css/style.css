@@ -233,6 +233,14 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
     overflow: hidden;
 }
 
+/*Style to fix the audio player ui*/
+.audio-player{
+	overflow: hidden !important;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+
 /*
 * Set height of body to auto for enabling scroll
 */
