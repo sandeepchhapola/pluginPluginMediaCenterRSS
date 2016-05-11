@@ -233,6 +233,14 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
     overflow: hidden;
 }
 
+/*Style to fix the audio player ui*/
+.audio-player{
+	overflow: hidden !important;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+
 /*
 * Set height of body to auto for enabling scroll
 */
@@ -254,97 +262,97 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
     padding: 0 !important;
 }
 
-.audio-player input[type=range] {
-    -webkit-appearance: none;
-    margin: 5px;
-    width: 96%;
+.audio-plyer input[type=range] {
+	-webkit-appearance: none;
+	margin: 13px 0;
+	width: 100%;
 }
 
-.audio-player input[type=range]:focus {
-    outline: none;
+.audio-plyer input[type=range]:focus {
+	outline: none;
 }
 
-.audio-player input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 10px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: #ffffff;
+.audio-plyer input[type=range]::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 3px;
+	cursor: pointer;
+	animate: 0.2s;
+	background: #ffffff;
 }
 
-.audio-player input[type=range]::-webkit-slider-thumb {
-    height: 20px;
-    width: 20px;
-    background: #ffffff;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -5px;
-    border-radius: 10px;
+.audio-plyer input[type=range]::-webkit-slider-thumb {
+	height: 9px;
+	width: 9px;
+	background: #ffffff;
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -2.7px;
+	border-radius: 4.5px;
 }
 
-.audio-player input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #367ebd;
+.audio-plyer input[type=range]:focus::-webkit-slider-runnable-track {
+	/*background: #367ebd;*/
 }
 
-.audio-player input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 10px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: #ffffff;
+.audio-plyer input[type=range]::-moz-range-track {
+	width: 100%;
+	height: 10px;
+	cursor: pointer;
+	animate: 0.2s;
+	background: #ffffff;
 }
 
-.audio-player input[type=range]::-moz-range-thumb {
-    height: 20px;
-    width: 20px;
-    background: #ffffff;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -5px;
-    border-radius: 10px;
+.audio-plyer input[type=range]::-moz-range-thumb {
+	height: 20px;
+	width: 20px;
+	background: #ffffff;
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -5px;
+	border-radius: 10px;
 }
 
-.audio-player input[type=range]::-ms-track {
-    width: 100%;
-    height: 8.4px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: transparent;
-    border-color: transparent;
-    border-width: 16px 0;
-    color: transparent;
+.audio-plyer input[type=range]::-ms-track {
+	width: 100%;
+	height: 8.4px;
+	cursor: pointer;
+	animate: 0.2s;
+	background: transparent;
+	border-color: transparent;
+	border-width: 16px 0;
+	color: transparent;
 }
 
-.audio-player input[type=range]::-ms-fill-lower {
-    background: #2a6495;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+.audio-plyer input[type=range]::-ms-fill-lower {
+	background: #2a6495;
+	border: 0.2px solid #010101;
+	border-radius: 2.6px;
+	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
-.audio-player input[type=range]::-ms-fill-upper {
-    background: #3071a9;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+.audio-plyer input[type=range]::-ms-fill-upper {
+	background: #3071a9;
+	border: 0.2px solid #010101;
+	border-radius: 2.6px;
+	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 
-.audio-player input[type=range]::-ms-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border: 1px solid #000000;
-    height: 36px;
-    width: 16px;
-    border-radius: 3px;
-    background: #ffffff;
-    cursor: pointer;
+.audio-plyer input[type=range]::-ms-thumb {
+	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+	border: 1px solid #000000;
+	height: 36px;
+	width: 16px;
+	border-radius: 3px;
+	background: #ffffff;
+	cursor: pointer;
 }
 
-.audio-player input[type=range]:focus::-ms-fill-lower {
-    background: #3071a9;
+.audio-plyer input[type=range]:focus::-ms-fill-lower {
+	background: #3071a9;
 }
 
 .audio-player input[type=range]:focus::-ms-fill-upper {
-    background: #367ebd;
+	background: #367ebd;
 }
 /* End of audio player style*/
 
@@ -883,24 +891,24 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 
 .audio-plyer input[type=range]::-webkit-slider-runnable-track {
 	width: 100%;
-	height: 10px;
+	height: 3px;
 	cursor: pointer;
 	animate: 0.2s;
 	background: #ffffff;
 }
 
 .audio-plyer input[type=range]::-webkit-slider-thumb {
-	height: 20px;
-	width: 20px;
+	height: 9px;
+	width: 9px;
 	background: #ffffff;
 	cursor: pointer;
 	-webkit-appearance: none;
-	margin-top: -5px;
-	border-radius: 10px;
+	margin-top: -2.7px;
+	border-radius: 4.5px;
 }
 
 .audio-plyer input[type=range]:focus::-webkit-slider-runnable-track {
-	background: #367ebd;
+	/*background: #367ebd;*/
 }
 
 .audio-plyer input[type=range]::-moz-range-track {
