@@ -6,7 +6,9 @@
                 console.log('----------------------------Now Playing controller loaded-------------------');
                 //$rootScope.blackBackground = true;
                 $rootScope.showFeed = false;
+
                 var NowPlaying = this;
+                NowPlaying.currentTime=0;
                 /**
                  * WidgetMedia.item used to hold item details object
                  * @type {object}
