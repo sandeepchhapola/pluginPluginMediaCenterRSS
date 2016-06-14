@@ -77,14 +77,18 @@
         .filter('getImageUrl', ['Buildfire', function (Buildfire) {
             return function (url, width, height, type) {
                 if (type == 'resize')
-                    return Buildfire.imageLib.resizeImage(url, {
+                    Buildfire.imageLib.local.resizeImage(url, {
                         width: width,
                         height: height
+                    }, function (err, imgUrl) {
+                        return imgUrl;
                     });
                 else
-                    return Buildfire.imageLib.cropImage(url, {
+                    return Buildfire.imageLib.local.cropImage(url, {
                         width: width,
                         height: height
+                    }, function (err, imgUrl) {
+                        return imgUrl;
                     });
             }
         }])

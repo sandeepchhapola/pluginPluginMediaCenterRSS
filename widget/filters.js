@@ -18,9 +18,11 @@
         if (!url) {
           return '';
         } else {
-          return buildfire.imageLib.resizeImage(url, {
+          return buildfire.imageLib.local.resizeImage(url, {
             width: width,
             height: height
+          }, function (err, imgUrl) {
+              return imgUrl;
           });
         }
       };
@@ -37,9 +39,11 @@
         if (!url) {
           return '';
         } else {
-          return buildfire.imageLib.cropImage(url, {
+          buildfire.imageLib.local.cropImage(url, {
             width: width,
             height: height
+          }, function (err, imgUrl) {
+              return imgUrl;
           });
         }
       };
