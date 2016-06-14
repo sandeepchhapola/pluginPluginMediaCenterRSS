@@ -30,8 +30,13 @@
                           width: $rootScope.deviceWidth,
                           height: $rootScope.deviceHeight
                       }, function (err, imgUrl) {
-                          img = imgUrl;
-                          element.attr("style", 'background:url(' + img + ') !important');
+                          if(imgUrl) {
+                              img = imgUrl;
+                              element.attr("style", 'background:url(' + img + ') !important');
+                          } else {
+                              img = '';
+                              element.attr("style", 'background-color:white');
+                          }
                           element.css({
                               'background-size': 'cover'
                           });
