@@ -75,22 +75,29 @@
             });
         }])
         .filter('getImageUrl', ['Buildfire', function (Buildfire) {
-            return function (url, width, height, type) {
-                if (type == 'resize')
-                    Buildfire.imageLib.local.resizeImage(url, {
-                        width: width,
-                        height: height
-                    }, function (err, imgUrl) {
-                        return imgUrl;
-                    });
-                else
-                    Buildfire.imageLib.local.cropImage(url, {
-                        width: width,
-                        height: height
-                    }, function (err, imgUrl) {
-                        return imgUrl;
-                    });
+            var _imgUrl;
+            filter.$stateful = true;
+            function filter(url, width, height, type) {
+                if(!_imgUrl) {
+                    if (type == 'resize') {
+                        Buildfire.imageLib.local.resizeImage(url, {
+                            width: width,
+                            height: height
+                        }, function (err, imgUrl) {
+                            _imgUrl = imgUrl;
+                        });
+                    } else {
+                        Buildfire.imageLib.local.cropImage(url, {
+                            width: width,
+                            height: height
+                        }, function (err, imgUrl) {
+                            _imgUrl = imgUrl;
+                        });
+                    }
+                }
+                return _imgUrl;
             }
+            return filter;
         }])
       .directive("loadImage", [function () {
         return {
