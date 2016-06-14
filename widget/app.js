@@ -84,7 +84,7 @@
                         return imgUrl;
                     });
                 else
-                    return Buildfire.imageLib.local.cropImage(url, {
+                    Buildfire.imageLib.local.cropImage(url, {
                         width: width,
                         height: height
                     }, function (err, imgUrl) {

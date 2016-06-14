@@ -18,7 +18,7 @@
         if (!url) {
           return '';
         } else {
-          return buildfire.imageLib.local.resizeImage(url, {
+          buildfire.imageLib.local.resizeImage(url, {
             width: width,
             height: height
           }, function (err, imgUrl) {
