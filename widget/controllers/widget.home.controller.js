@@ -212,6 +212,7 @@
                             if (WidgetHome.data.design) {
                                 $rootScope.backgroundImage = WidgetHome.data.design.itemListBgImage;
                                 $rootScope.backgroundImageItem = WidgetHome.data.design.itemDetailsBgImage;
+                                if(!$rootScope.$$phase)$rootScope.$digest();
                             }
                             if (WidgetHome.data.content && WidgetHome.data.content.rssUrl) {
                                 currentRssUrl = WidgetHome.data.content.rssUrl;

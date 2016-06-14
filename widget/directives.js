@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, buildfire) {
   angular
     .module('mediaCenterRSSPluginWidget')
 
@@ -18,11 +18,41 @@
         link: linker
       };
     }])
+  /**
+   * A directive which is used handle background image for layouts.
+   */
+      .directive('backImg', ["$filter", "$rootScope", function ($filter, $rootScope) {
+          return function (scope, element, attrs) {
+              attrs.$observe('backImg', function (value) {
+                  var img = '';
+                  if (value) {
+                      buildfire.imageLib.local.cropImage(value, {
+                          width: $rootScope.deviceWidth,
+                          height: $rootScope.deviceHeight
+                      }, function (err, imgUrl) {
+                          img = imgUrl;
+                          element.attr("style", 'background:url(' + img + ') !important');
+                          element.css({
+                              'background-size': 'cover'
+                          });
+                      });
+//                      img = $filter("cropImage")(value, $rootScope.deviceWidth, $rootScope.deviceHeight, true);
+                  }
+                  else {
+                      img = "";
+                      element.attr("style", 'background-color:white');
+                      element.css({
+                          'background-size': 'cover'
+                      });
+                  }
+              });
+          };
+      }])
 
   /**
    * A directive which is used handle background image for layouts.
    */
-    .directive("backgroundImage", ['$filter', function ($filter) {
+    /*.directive("backgroundImage", ['$filter', function ($filter) {
       var linker = function (scope, element, attrs) {
         element.css('min-height', '580px');
         var getImageUrlFilter = $filter("resizeImage");
@@ -44,7 +74,7 @@
         restrict: 'A',
         link: linker
       };
-    }])
+    }])*/
 
   /**
    * A directive which is used to initiate carousel when image items received.
@@ -80,4 +110,4 @@
         }
       }
     });
-})(window.angular, undefined);
+})(window.angular, window.buildfire);
