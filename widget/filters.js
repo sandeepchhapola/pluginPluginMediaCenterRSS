@@ -14,9 +14,9 @@
    * @param height
    */
       .filter('resizeImage', [function () {
-          var _imgUrl;
           filter.$stateful = true;
           function filter(url, width, height) {
+              var _imgUrl;
               if (!_imgUrl) {
                   buildfire.imageLib.local.resizeImage(url, {
                       width: width,
@@ -37,9 +37,9 @@
    * @param height
    */
       .filter('cropImage', [function () {
-          var _imgUrl;
           filter.$stateful = true;
           function filter(url, width, height) {
+              var _imgUrl;
               if (!_imgUrl) {
                   buildfire.imageLib.local.cropImage(url, {
                       width: width,

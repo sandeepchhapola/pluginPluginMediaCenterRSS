@@ -68,14 +68,14 @@
 </head>
 <body class="body-scroll">
 <div class="main_view">
-  <div ng-show="showFeed" data-ng-attr-style="background:url({{ backgroundImage | cropImage:deviceWidth:deviceHeight}}) !important; background-size:cover;" class="slide content infinite-scroll-parent">
+  <div ng-show="showFeed" data-ng-attr-style="background:url({{ backgroundImage ? (backgroundImage | cropImage:deviceWidth:deviceHeight) : ''}}) !important; background-size:cover;" class="slide content infinite-scroll-parent">
     <div ng-controller="WidgetHomeCtrl as WidgetHome">
       <div ng-if="WidgetHome.data.design.itemListLayout"
            ng-include="'templates/' + WidgetHome.data.design.itemListLayout+ '.html'">
       </div>
     </div>
   </div>
-  <div data-ng-attr-style="background:url({{ backgroundImageItem | cropImage:deviceWidth:deviceHeight}}) !important; background-size:cover;" ng-view="" class="slide content" ng-hide="showFeed"></div>
+  <div data-ng-attr-style="background:url({{ backgroundImageItem ? (backgroundImageItem  | cropImage:deviceWidth:deviceHeight) : ''}}) !important; background-size:cover;" ng-view="" class="slide content" ng-hide="showFeed"></div>
 </div>
 </body>
 <script>
