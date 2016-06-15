@@ -21,7 +21,7 @@
   /**
    * A directive which is used handle background image for layouts.
    */
-      .directive('backImg', ["$filter", "$rootScope", function ($filter, $rootScope) {
+      .directive('backImg', ["$rootScope", function ($rootScope) {
           return function (scope, element, attrs) {
               attrs.$observe('backImg', function (value) {
                   var img = '';
