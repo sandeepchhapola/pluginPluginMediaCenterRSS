@@ -363,8 +363,8 @@
                         WidgetHome.view = new Buildfire.components.carousel.view("#carousel", [], "WideScreen");
                     }
                     if (WidgetHome.data && WidgetHome.data.content.carouselImages) {
-                        WidgetHome.view = new Buildfire.components.carousel.view("#carousel", WidgetHome.data.content.carouselImages);
-                        WidgetHome.view.loadItems(WidgetHome.data.content.carouselImages, null, "WideScreen");
+//                        WidgetHome.view = new Buildfire.components.carousel.view("#carousel", WidgetHome.data.content.carouselImages);
+                        WidgetHome.view.loadItems(WidgetHome.data.content.carouselImages, null, 'WideScreen');
                     } else {
                         WidgetHome.view.loadItems([]);
                     }
