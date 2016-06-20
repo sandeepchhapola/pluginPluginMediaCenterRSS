@@ -20,7 +20,8 @@
                     <div class="list-item-media text-left overflow-hidden">
                       <div ng-if="item.imageSrcUrl" class="list-media-holder pull-left">
                         <img load-image="16x9"
-                             data-final-src="{{item.imageSrcUrl| getImageUrl:220:120}}">
+                             crop-width="220" crop-height="120" crop-type="crop"
+                             data-final-src="{{item.imageSrcUrl}}">
                       </div>
                      <!-- <div ng-if="!item.imageSrcUrl" class="list-media-holder pull-left">
                         <img src='../../../styles/media/holder-16x9.png'>

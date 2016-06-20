@@ -17,7 +17,8 @@
                 <div class="plugin-banner clearfix border-bottom-grey">
                   <div class="plugin-slide text-center" ng-if="item.imageSrcUrl">
                     <img load-image="16x9"
-                         data-final-src="{{item.imageSrcUrl| getImageUrl:340:192}}">
+                         crop-width="340" crop-height="192" crop-type="crop"
+                         data-final-src="{{item.imageSrcUrl}}">
                   </div>
                   <div class="plugin-slide text-center" ng-if="!item.imageSrcUrl">
                     <img src='../../../styles/media/holder-16x9.png'>

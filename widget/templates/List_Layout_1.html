@@ -26,7 +26,8 @@
               <div class="list-media-holder" style="cursor: pointer">
                 <img
                     ng-if="WidgetHome.items[$index].imageSrcUrl" load-image="16x9"
-                    data-final-src="{{WidgetHome.items[$index].imageSrcUrl| getImageUrl:240:135}}">
+                    crop-width="240" crop-height="135" crop-type="crop"
+                    data-final-src="{{WidgetHome.items[$index].imageSrcUrl}}">
                 <img ng-if="!WidgetHome.items[$index].imageSrcUrl"
                      src='../../../styles/media/holder-16x9.png'>
               </div>
@@ -49,7 +50,8 @@
               <div class="list-media-holder" style="cursor: pointer">
                 <img
                     ng-if="WidgetHome.items[$index+1].imageSrcUrl" load-image="16x9"
-                    data-final-src="{{WidgetHome.items[$index+1].imageSrcUrl| getImageUrl:240:135}}">
+                    crop-width="240" crop-height="135" crop-type="crop"
+                    data-final-src="{{WidgetHome.items[$index+1].imageSrcUrl}}">
                 <img ng-if="!WidgetHome.items[$index+1].imageSrcUrl"
                      src='../../../styles/media/holder-16x9.png'>
               </div>
